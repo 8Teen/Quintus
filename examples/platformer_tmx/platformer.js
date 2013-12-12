@@ -30,8 +30,8 @@ window.addEventListener("load", function () {
             // You can call the parent's constructor with this._super(..)
             this._super(p, {
                 sheet: "player",  // Setting a sprite sheet sets sprite width and height
-                x    : 410,           // You can also set additional properties that can
-                y    : 90             // be overridden on object creation
+                x: 410,           // You can also set additional properties that can
+                y: 90             // be overridden on object creation
             });
 
             // Add in pre-made components to get up and running quickly
@@ -107,7 +107,7 @@ window.addEventListener("load", function () {
         // Add in a tile layer, and make it the collision layer
         stage.collisionLayer(new Q.TileLayer({
             dataAsset: 'level.tmx', //level.json
-            sheet    : 'tiles' })); //png image
+            sheet: 'tiles' })); //png image
 
 
         // Create the player and add them to the stage
@@ -134,9 +134,9 @@ window.addEventListener("load", function () {
         }));
 
         var button = container.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#CCCCCC",
-            label                                        : "Play Again" }))
+            label: "Play Again" }))
         var label = container.insert(new Q.UI.Text({x: 10, y: -10 - button.p.h,
-            label                                    : stage.options.label }));
+            label: stage.options.label }));
         // When the button is clicked, clear all the stages
         // and restart the game.
         button.on("click", function () {
