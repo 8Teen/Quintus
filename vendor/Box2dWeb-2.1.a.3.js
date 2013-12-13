@@ -1294,16 +1294,16 @@ Box2D.postDefs = [];
         return id;
     }
     Object.defineProperty(b2ContactID.prototype, 'key', {
-        enumerable  : false,
+        enumerable: false,
         configurable: true,
-        get         : function () {
+        get: function () {
             return this._key;
         }
     });
     Object.defineProperty(b2ContactID.prototype, 'key', {
-        enumerable  : false,
+        enumerable: false,
         configurable: true,
-        set         : function (value) {
+        set: function (value) {
             if (value === undefined) value = 0;
             this._key = value;
             this.features._referenceEdge = this._key & 0x000000ff;
@@ -2668,64 +2668,64 @@ Box2D.postDefs = [];
     Features.Features = function () {
     };
     Object.defineProperty(Features.prototype, 'referenceEdge', {
-        enumerable  : false,
+        enumerable: false,
         configurable: true,
-        get         : function () {
+        get: function () {
             return this._referenceEdge;
         }
     });
     Object.defineProperty(Features.prototype, 'referenceEdge', {
-        enumerable  : false,
+        enumerable: false,
         configurable: true,
-        set         : function (value) {
+        set: function (value) {
             if (value === undefined) value = 0;
             this._referenceEdge = value;
             this._m_id._key = (this._m_id._key & 0xffffff00) | (this._referenceEdge & 0x000000ff);
         }
     });
     Object.defineProperty(Features.prototype, 'incidentEdge', {
-        enumerable  : false,
+        enumerable: false,
         configurable: true,
-        get         : function () {
+        get: function () {
             return this._incidentEdge;
         }
     });
     Object.defineProperty(Features.prototype, 'incidentEdge', {
-        enumerable  : false,
+        enumerable: false,
         configurable: true,
-        set         : function (value) {
+        set: function (value) {
             if (value === undefined) value = 0;
             this._incidentEdge = value;
             this._m_id._key = (this._m_id._key & 0xffff00ff) | ((this._incidentEdge << 8) & 0x0000ff00);
         }
     });
     Object.defineProperty(Features.prototype, 'incidentVertex', {
-        enumerable  : false,
+        enumerable: false,
         configurable: true,
-        get         : function () {
+        get: function () {
             return this._incidentVertex;
         }
     });
     Object.defineProperty(Features.prototype, 'incidentVertex', {
-        enumerable  : false,
+        enumerable: false,
         configurable: true,
-        set         : function (value) {
+        set: function (value) {
             if (value === undefined) value = 0;
             this._incidentVertex = value;
             this._m_id._key = (this._m_id._key & 0xff00ffff) | ((this._incidentVertex << 16) & 0x00ff0000);
         }
     });
     Object.defineProperty(Features.prototype, 'flip', {
-        enumerable  : false,
+        enumerable: false,
         configurable: true,
-        get         : function () {
+        get: function () {
             return this._flip;
         }
     });
     Object.defineProperty(Features.prototype, 'flip', {
-        enumerable  : false,
+        enumerable: false,
         configurable: true,
-        set         : function (value) {
+        set: function (value) {
             if (value === undefined) value = 0;
             this._flip = value;
             this._m_id._key = (this._m_id._key & 0x00ffffff) | ((this._flip << 24) & 0xff000000);
@@ -3674,33 +3674,33 @@ Box2D.postDefs = [];
         this._b = Box2D.parseUInt(255 * b2Math.Clamp(bb, 0.0, 1.0));
     }
     Object.defineProperty(b2Color.prototype, 'r', {
-        enumerable  : false,
+        enumerable: false,
         configurable: true,
-        set         : function (rr) {
+        set: function (rr) {
             if (rr === undefined) rr = 0;
             this._r = Box2D.parseUInt(255 * b2Math.Clamp(rr, 0.0, 1.0));
         }
     });
     Object.defineProperty(b2Color.prototype, 'g', {
-        enumerable  : false,
+        enumerable: false,
         configurable: true,
-        set         : function (gg) {
+        set: function (gg) {
             if (gg === undefined) gg = 0;
             this._g = Box2D.parseUInt(255 * b2Math.Clamp(gg, 0.0, 1.0));
         }
     });
     Object.defineProperty(b2Color.prototype, 'b', {
-        enumerable  : false,
+        enumerable: false,
         configurable: true,
-        set         : function (bb) {
+        set: function (bb) {
             if (bb === undefined) bb = 0;
             this._b = Box2D.parseUInt(255 * b2Math.Clamp(bb, 0.0, 1.0));
         }
     });
     Object.defineProperty(b2Color.prototype, 'color', {
-        enumerable  : false,
+        enumerable: false,
         configurable: true,
-        get         : function () {
+        get: function () {
             return (this._r << 16) | (this._g << 8) | (this._b);
         }
     });

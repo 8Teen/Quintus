@@ -9,7 +9,7 @@ window.addEventListener("load", function () {
     // Set up a standard Quintus instance with only the
     // Sprites and Scene module (for the stage support) loaded.
     var Q = Quintus().include("Sprites, Scenes, Anim").setup({
-        width : 320,
+        width: 320,
         height: 320
     });
 

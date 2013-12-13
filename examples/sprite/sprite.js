@@ -34,7 +34,7 @@ window.addEventListener('load', function (e) {
 
         // A basic sprite shape a asset as the image
         var sprite1 = new Q.Sprite({ x: 500, y: 100, asset: 'enemy.png',
-            angle                     : 0, collisionMask: 1, scale: 1});
+            angle: 0, collisionMask: 1, scale: 1});
         sprite1.p.points = [
             [ -150, -120 ],
             [  150, -120 ],

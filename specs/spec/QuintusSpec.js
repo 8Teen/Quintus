@@ -517,7 +517,7 @@ describe("Quintus Core Engine", function () {
                 },
                 methodTwo: function () {
                 },
-                extend   : {
+                extend: {
                     entityMethod: function () {
                     }
                 }
@@ -535,7 +535,7 @@ describe("Quintus Core Engine", function () {
         it("should allow binding of events to the the object", function () {
             var wasTriggered = false;
             var ComponentClass = Q.component("tester", {
-                added     : function () {
+                added: function () {
                     this.entity.on("someEvent", this, "mrListener");
                 },
                 mrListener: function () {
@@ -553,7 +553,7 @@ describe("Quintus Core Engine", function () {
         it("should allow the removal of components and debinding", function () {
             var wasTriggered = false;
             var ComponentClass = Q.component("tester", {
-                added     : function () {
+                added: function () {
                     this.entity.on("someEvent", this, "mrListener");
                 },
                 mrListener: function () {

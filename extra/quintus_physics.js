@@ -4,21 +4,21 @@
 
 Quintus.Physics = function (Q) {
     var B2d = Q.B2d = {
-        World       : Box2D.Dynamics.b2World,
-        Vec         : Box2D.Common.Math.b2Vec2,
-        BodyDef     : Box2D.Dynamics.b2BodyDef,
-        Body        : Box2D.Dynamics.b2Body,
-        FixtureDef  : Box2D.Dynamics.b2FixtureDef,
-        Fixture     : Box2D.Dynamics.b2Fixture,
+        World: Box2D.Dynamics.b2World,
+        Vec: Box2D.Common.Math.b2Vec2,
+        BodyDef: Box2D.Dynamics.b2BodyDef,
+        Body: Box2D.Dynamics.b2Body,
+        FixtureDef: Box2D.Dynamics.b2FixtureDef,
+        Fixture: Box2D.Dynamics.b2Fixture,
         PolygonShape: Box2D.Collision.Shapes.b2PolygonShape,
-        CircleShape : Box2D.Collision.Shapes.b2CircleShape,
-        Listener    : Box2D.Dynamics.b2ContactListener
+        CircleShape: Box2D.Collision.Shapes.b2CircleShape,
+        Listener: Box2D.Dynamics.b2ContactListener
     };
 
     var defOpts = Q.PhysicsDefaults = {
-        gravityX          : 0,
-        gravityY          : 9.8,
-        scale             : 30,
+        gravityX: 0,
+        gravityY: 9.8,
+        scale: 30,
         velocityIterations: 8,
         positionIterations: 3
     };
@@ -104,8 +104,8 @@ Quintus.Physics = function (Q) {
     });
 
     var entityDefaults = Q.PhysicsEntityDefaults = {
-        density    : 1,
-        friction   : 1,
+        density: 1,
+        friction: 1,
         restitution: 0.1
     };
 

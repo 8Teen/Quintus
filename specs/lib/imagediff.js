@@ -286,7 +286,7 @@
         for (i = 0; i < arguments.length; i++) {
             if (!isImageType(arguments[i])) {
                 throw {
-                    name   : 'ImageTypeError',
+                    name: 'ImageTypeError',
                     message: 'Submitted object was not an image.'
                 };
             }
@@ -392,12 +392,12 @@
     // Definition
     imagediff = {
 
-        createCanvas   : getCanvas,
+        createCanvas: getCanvas,
         createImageData: getImageData,
 
-        isImage    : isImage,
-        isCanvas   : isCanvas,
-        isContext  : isContext,
+        isImage: isImage,
+        isCanvas: isCanvas,
+        isContext: isContext,
         isImageData: isImageData,
         isImageType: isImageType,
 
@@ -418,14 +418,14 @@
             a = toImageData(a);
             return b && equal(a, b, tolerance);
         },
-        diff : function (a, b) {
+        diff: function (a, b) {
             checkType(a, b);
             a = toImageData(a);
             b = toImageData(b);
             return diff(a, b);
         },
 
-        jasmine   : jasmine,
+        jasmine: jasmine,
 
         // Compatibility
         noConflict: function () {

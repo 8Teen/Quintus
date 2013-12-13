@@ -8,14 +8,14 @@ window.addEventListener('load', function (e) {
     Q.Sprite.extend('CannonBall', {
         init: function (props) {
             this._super({
-                shape      : 'circle',
-                color      : 'red',
-                r          : 8,
+                shape: 'circle',
+                color: 'red',
+                r: 8,
                 restitution: 0.5,
-                density    : 4,
-                x          : props.dx * 50 + 10,
-                y          : props.dy * 50 + 210,
-                seconds    : 5
+                density: 4,
+                x: props.dx * 50 + 10,
+                y: props.dy * 50 + 210,
+                seconds: 5
             });
             this.add('physics');
             this.on('step', this, 'countdown');
@@ -34,8 +34,8 @@ window.addEventListener('load', function (e) {
     Q.Sprite.extend('Cannon', {
         init: function (props) {
             this._super({
-                shape : 'polygon',
-                color : 'black',
+                shape: 'polygon',
+                color: 'black',
                 points: [
                     [ 0, 0 ],
                     [0, -5],
@@ -47,8 +47,8 @@ window.addEventListener('load', function (e) {
                     [5, 10],
                     [0, 5]
                 ],
-                x     : 10,
-                y     : 210
+                x: 10,
+                y: 210
             });
         },
 
@@ -67,7 +67,7 @@ window.addEventListener('load', function (e) {
             this._super(Q._extend(props, {
                 shape: 'circle',
                 color: 'pink',
-                r    : 8
+                r: 8
             }));
             targetCount++;
             this.add('physics');
@@ -107,10 +107,10 @@ window.addEventListener('load', function (e) {
                 [150, -50],
                 [200, 0]
             ],
-            x     : 200,
-            y     : 225,
-            type  : 'static',
-            shape : 'polygon'
+            x: 200,
+            y: 225,
+            type: 'static',
+            shape: 'polygon'
         }));
 
         stage.insert(new Q.Sprite({ w: 50, h: 50, x: 300, y: 150 }));
@@ -123,7 +123,7 @@ window.addEventListener('load', function (e) {
         stage.insert(new Q.Target({ x: 525, y: 90 }));
         stage.insert(new Q.Target({ x: 300, y: 90 }));
         stage.insert(new Q.Sprite({ w: 30, h: 30, x: 10, y: 210,
-            color                    : 'blue' }));
+            color: 'blue' }));
 
         stage.cannon = stage.insert(new Q.Cannon());
         stage.viewport(600, 400);

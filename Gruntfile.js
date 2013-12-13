@@ -4,24 +4,24 @@ module.exports = function (grunt) {
 
     // Project configuration.
     grunt.initConfig({
-        pkg    : grunt.file.readJSON('package.json'),
+        pkg: grunt.file.readJSON('package.json'),
         jasmine: {
             all: {
-                src           : 'lib/*.js',
-                options       : {
-                    specs  : 'specs/spec/*.js',
+                src: 'lib/*.js',
+                options: {
+                    specs: 'specs/spec/*.js',
                     helpers: ['specs/lib/imagediff.js', 'specs/fixtures/*.js']
                 },
                 errorReporting: true
             }
         },
-        concat : {
+        concat: {
             dist: {
-                src : ["lib/quintus.js", "lib/*.js"],
+                src: ["lib/quintus.js", "lib/*.js"],
                 dest: 'dist/quintus-all.js'
             }
         },
-        uglify : {
+        uglify: {
             options: {
                 banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
                     '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
@@ -29,17 +29,17 @@ module.exports = function (grunt) {
                     ' *  Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
                     ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n'
             },
-            dist   : {
+            dist: {
                 files: {
                     'dist/quintus-all.min.js': ['dist/quintus-all.js']
                 }
             }
         },
-        watch  : {
+        watch: {
             files: '<config:lint.files>',
             tasks: 'lint qunit'
         },
-        exec   : {
+        exec: {
             gzip: {
                 cmd: [
                     "gzip dist/quintus-all.js",
@@ -52,31 +52,31 @@ module.exports = function (grunt) {
 
         jshint: {
             options: {
-                curly  : true,
-                eqeqeq : true,
-                immed  : true,
+                curly: true,
+                eqeqeq: true,
+                immed: true,
                 latedef: true,
-                newcap : true,
-                noarg  : true,
-                sub    : true,
-                undef  : true,
-                boss   : true,
-                eqnull : true,
+                newcap: true,
+                noarg: true,
+                sub: true,
+                undef: true,
+                boss: true,
+                eqnull: true,
                 browser: true
             },
             globals: {},
-            all    : ['lib/**/*.js']
+            all: ['lib/**/*.js']
         },
 
         yuidoc: {
             pkg: grunt.file.readJSON('package.json'),
             api: {
-                name       : '<%= pkg.name %>',
+                name: '<%= pkg.name %>',
                 description: '<%= pkg.description %>',
-                version    : '<%= pkg.version %>',
-                url        : '<%= pkg.homepage %>',
-                options    : {
-                    paths : './lib/',
+                version: '<%= pkg.version %>',
+                url: '<%= pkg.homepage %>',
+                options: {
+                    paths: './lib/',
                     outdir: './doc/'
                 }
             }
@@ -111,12 +111,12 @@ module.exports = function (grunt) {
 
         function s3Opts(key, data) {
             return  {
-                Bucket         : s3Config.bucket,
-                Key            : filePath + key,
-                Body           : data,
-                ACL            : "public-read",
+                Bucket: s3Config.bucket,
+                Key: filePath + key,
+                Body: data,
+                ACL: "public-read",
                 ContentEncoding: "gzip",
-                ContentType    : "application/x-javascript"
+                ContentType: "application/x-javascript"
             }
 
         }

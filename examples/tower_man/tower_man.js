@@ -27,7 +27,7 @@ window.addEventListener("load", function () {
 
         // called when the component is added to
         // an entity
-        added   : function () {
+        added: function () {
             var p = this.entity.p;
 
             // add in our default properties
@@ -85,8 +85,8 @@ window.addEventListener("load", function () {
         init: function (p) {
 
             this._super(p, {
-                sheet        : "player",
-                type         : SPRITE_PLAYER,
+                sheet: "player",
+                type: SPRITE_PLAYER,
                 collisionMask: SPRITE_TILES | SPRITE_ENEMY | SPRITE_DOT
             });
 
@@ -97,10 +97,10 @@ window.addEventListener("load", function () {
 
     // Create the Dot sprite
     Q.Sprite.extend("Dot", {
-        init    : function (p) {
+        init: function (p) {
             this._super(p, {
-                sheet : 'dot',
-                type  : SPRITE_DOT,
+                sheet: 'dot',
+                type: SPRITE_DOT,
                 // Set sensor to true so that it gets notified when it's
                 // hit, but doesn't trigger collisions itself that cause
                 // the player to stop or change direction
@@ -112,7 +112,7 @@ window.addEventListener("load", function () {
         },
 
         // When a dot is hit..
-        sensor  : function () {
+        sensor: function () {
             // Destroy it and keep track of how many dots are left
             this.destroy();
             this.stage.dotCount--;
@@ -150,9 +150,9 @@ window.addEventListener("load", function () {
     Q.TileLayer.extend("TowerManMap", {
         init: function () {
             this._super({
-                type     : SPRITE_TILES,
+                type: SPRITE_TILES,
                 dataAsset: 'level.json',
-                sheet    : 'tiles',
+                sheet: 'tiles',
             });
 
         },
@@ -239,8 +239,8 @@ window.addEventListener("load", function () {
         init: function (p) {
 
             this._super(p, {
-                sheet        : "enemy",
-                type         : SPRITE_ENEMY,
+                sheet: "enemy",
+                type: SPRITE_ENEMY,
                 collisionMask: SPRITE_PLAYER | SPRITE_TILES
             });
 

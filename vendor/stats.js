@@ -51,7 +51,7 @@ var Stats = function () {
     };
     return{domElement: f, setMode: t, begin: function () {
         l = Date.now()
-    }, end           : function () {
+    }, end: function () {
         var b = Date.now();
         g = b - l;
         n = Math.min(n, g);
@@ -63,7 +63,7 @@ var Stats = function () {
         b > m + 1E3 && (h = Math.round(1E3 * r / (b - m)), p = Math.min(p, h), q = Math.max(q, h), i.textContent = h + " FPS (" + p + "-" + q + ")", a = Math.min(30, 30 - 30 * (h / 100)), c.appendChild(c.firstChild).style.height =
             a + "px", m = b, r = 0);
         return b
-    }, update        : function () {
+    }, update: function () {
         l = this.end()
     }}
 };

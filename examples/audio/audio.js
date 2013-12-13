@@ -32,9 +32,9 @@ window.addEventListener('load', function (e) {
 
         if (Q.hasWebAudio) {
             var web = stage.insert(new Q.UI.Button({
-                label    : "Web Audio",
-                align    : "center",
-                fill     : "#CCC",
+                label: "Web Audio",
+                align: "center",
+                fill: "#CCC",
                 highlight: "#999"
             }, goWebAudio), container);
         } else {
@@ -45,11 +45,11 @@ window.addEventListener('load', function (e) {
         }
 
         var html5 = stage.insert(new Q.UI.Button({
-            label    : "HTML5 Audio",
-            align    : "center",
-            fill     : "#CCC",
+            label: "HTML5 Audio",
+            align: "center",
+            fill: "#CCC",
             highlight: "#999",
-            y        : 80,
+            y: 80,
         }, goHTML5Audio), container);
 
 
@@ -57,7 +57,7 @@ window.addEventListener('load', function (e) {
             stage.insert(new Q.UI.Text({
                 label: "HTML5 Audio\nnot well\nsupported\non Mobile",
                 align: "center",
-                y    : 200
+                y: 200
             }), container);
         }
 
@@ -67,8 +67,8 @@ window.addEventListener('load', function (e) {
     Q.scene("loading", function (stage) {
         stage.insert(new Q.UI.Text({
             label: "Loading...",
-            x    : Q.width / 2,
-            y    : Q.height / 2
+            x: Q.width / 2,
+            y: Q.height / 2
         }));
     });
 
@@ -77,14 +77,14 @@ window.addEventListener('load', function (e) {
 
         stage.insert(new Q.UI.Text({
             label: "No Loop",
-            x    : Q.width / 4,
-            y    : 20
+            x: Q.width / 4,
+            y: 20
         }));
 
         stage.insert(new Q.UI.Text({
             label: "Loop",
-            x    : 3 * Q.width / 4,
-            y    : 20
+            x: 3 * Q.width / 4,
+            y: 20
         }));
 
 
@@ -92,15 +92,15 @@ window.addEventListener('load', function (e) {
             for (var i = 0; i < sounds.length; i++) {
                 (function (sound, x) {
                     stage.insert(new Q.UI.Button({
-                        label    : sound,
-                        align    : "center",
-                        fill     : "#999",
+                        label: sound,
+                        align: "center",
+                        fill: "#999",
                         highlight: "#CCC",
-                        w        : 100,
-                        h        : 30,
-                        x        : x * Q.width / 2 + Q.width / 4,
-                        y        : i * 40 + 60,
-                        font     : "400 18px arial"
+                        w: 100,
+                        h: 30,
+                        x: x * Q.width / 2 + Q.width / 4,
+                        y: i * 40 + 60,
+                        font: "400 18px arial"
                     }, function () {
                         Q.audio.play(sound, { loop: x == 1  });
                     }));
@@ -110,13 +110,13 @@ window.addEventListener('load', function (e) {
 
 
         stage.insert(new Q.UI.Button({
-            label    : "Stop All",
-            align    : "center",
-            fill     : "#999",
+            label: "Stop All",
+            align: "center",
+            fill: "#999",
             highlight: "#CCC",
-            w        : 200,
-            x        : Q.width / 2,
-            y        : i * 60 + 20
+            w: 200,
+            x: Q.width / 2,
+            y: i * 60 + 20
         }, function () {
             Q.audio.stop();
         }));
@@ -135,9 +135,9 @@ window.addEventListener('load', function (e) {
             "Guitar 1": "14564__noisecollector__yamaha-a6.mp3",
             "Guitar 2": "14565__noisecollector__yamaha-a7.mp3",
             "Guitar 3": "14567__noisecollector__yamaha-am.mp3",
-            "Kick"    : "16287__ltibbits__kick-high-vol.mp3",
-            "Snare"   : "16292__ltibbits__rim1-snare.mp3",
-            "TomTom"  : "16295__ltibbits__rim4-tom-16.mp3"
+            "Kick": "16287__ltibbits__kick-high-vol.mp3",
+            "Snare": "16292__ltibbits__rim1-snare.mp3",
+            "TomTom": "16295__ltibbits__rim4-tom-16.mp3"
         }, function () {
             Q.stageScene("play");
         });

@@ -861,7 +861,7 @@ jasmine.Env.prototype.it = function (description, func) {
 
 jasmine.Env.prototype.xit = function (desc, func) {
     return {
-        id  : this.nextSpecId(),
+        id: this.nextSpecId(),
         runs: function () {
         }
     };
@@ -1054,9 +1054,9 @@ jasmine.JsApiReporter.prototype.suites = function () {
 jasmine.JsApiReporter.prototype.summarize_ = function (suiteOrSpec) {
     var isSuite = suiteOrSpec instanceof jasmine.Suite;
     var summary = {
-        id      : suiteOrSpec.id,
-        name    : suiteOrSpec.description,
-        type    : isSuite ? 'suite' : 'spec',
+        id: suiteOrSpec.id,
+        name: suiteOrSpec.description,
+        type: isSuite ? 'suite' : 'spec',
         children: []
     };
 
@@ -1090,7 +1090,7 @@ jasmine.JsApiReporter.prototype.reportSuiteResults = function (suite) {
 jasmine.JsApiReporter.prototype.reportSpecResults = function (spec) {
     this.results_[spec.id] = {
         messages: spec.results().getItems(),
-        result  : spec.results().failedCount > 0 ? "failed" : "passed"
+        result: spec.results().failedCount > 0 ? "failed" : "passed"
     };
 };
 
@@ -1113,18 +1113,18 @@ jasmine.JsApiReporter.prototype.summarizeResult_ = function (result) {
     for (var messageIndex = 0; messageIndex < messagesLength; messageIndex++) {
         var resultMessage = result.messages[messageIndex];
         summaryMessages.push({
-            text   : resultMessage.type == 'log' ? resultMessage.toString() : jasmine.undefined,
-            passed : resultMessage.passed ? resultMessage.passed() : true,
-            type   : resultMessage.type,
+            text: resultMessage.type == 'log' ? resultMessage.toString() : jasmine.undefined,
+            passed: resultMessage.passed ? resultMessage.passed() : true,
+            type: resultMessage.type,
             message: resultMessage.message,
-            trace  : {
+            trace: {
                 stack: resultMessage.passed && !resultMessage.passed() ? resultMessage.trace.stack : jasmine.undefined
             }
         });
     }
 
     return {
-        result  : result.result,
+        result: result.result,
         messages: summaryMessages
     };
 };
@@ -1195,10 +1195,10 @@ jasmine.Matchers.matcherFn_ = function (matcherName, matcherFunction) {
         }
         var expectationResult = new jasmine.ExpectationResult({
             matcherName: matcherName,
-            passed     : result,
-            expected   : matcherArgs.length > 1 ? matcherArgs : matcherArgs[0],
-            actual     : this.actual,
-            message    : message
+            passed: result,
+            expected: matcherArgs.length > 1 ? matcherArgs : matcherArgs[0],
+            actual: this.actual,
+            message: message
         });
         this.spec.addMatcherResult(expectationResult);
         return jasmine.undefined;
@@ -1609,10 +1609,10 @@ jasmine.FakeTimer.prototype.runFunctionsWithinRange = function (oldMillis, nowMi
 jasmine.FakeTimer.prototype.scheduleFunction = function (timeoutKey, funcToCall, millis, recurring) {
     this.scheduledFunctions[timeoutKey] = {
         runAtMillis: this.nowMillis + millis,
-        funcToCall : funcToCall,
-        recurring  : recurring,
-        timeoutKey : timeoutKey,
-        millis     : millis
+        funcToCall: funcToCall,
+        recurring: recurring,
+        timeoutKey: timeoutKey,
+        millis: millis
     };
 };
 
@@ -1659,9 +1659,9 @@ jasmine.Clock = {
     },
 
     real: {
-        setTimeout   : jasmine.getGlobal().setTimeout,
-        clearTimeout : jasmine.getGlobal().clearTimeout,
-        setInterval  : jasmine.getGlobal().setInterval,
+        setTimeout: jasmine.getGlobal().setTimeout,
+        clearTimeout: jasmine.getGlobal().clearTimeout,
+        setInterval: jasmine.getGlobal().setInterval,
         clearInterval: jasmine.getGlobal().clearInterval
     },
 
@@ -2247,9 +2247,9 @@ jasmine.Spec.prototype.waitsFor = function (latchFunction, optional_timeoutMessa
 
 jasmine.Spec.prototype.fail = function (e) {
     var expectationResult = new jasmine.ExpectationResult({
-        passed : false,
+        passed: false,
         message: e ? jasmine.util.formatException(e) : 'Exception',
-        trace  : { stack: e.stack }
+        trace: { stack: e.stack }
     });
     this.results_.addResult(expectationResult);
 };
@@ -2506,7 +2506,7 @@ jasmine.WaitsForBlock.prototype.execute = function (onComplete) {
     } else if (this.totalTimeSpentWaitingForLatch >= this.timeout) {
         var message = 'timed out after ' + this.timeout + ' msec waiting for ' + (this.message || 'something to happen');
         this.spec.fail({
-            name   : 'timeout',
+            name: 'timeout',
             message: message
         });
 
@@ -2522,8 +2522,8 @@ jasmine.WaitsForBlock.prototype.execute = function (onComplete) {
 };
 
 jasmine.version_ = {
-    "major"   : 1,
-    "minor"   : 2,
-    "build"   : 0,
+    "major": 1,
+    "minor": 2,
+    "build": 0,
     "revision": 1337005947
 };

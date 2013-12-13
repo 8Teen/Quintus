@@ -17,22 +17,22 @@ Quintus.BreakoutScenes = function (Q) {
         var verb = Q.touchDevice ? 'Tap' : 'Click';
 
         stage.insert(new Q.UI.Text({
-            label : verb + " to start",
-            align : 'center',
-            x     : Q.width / 2,
-            y     : 280,
+            label: verb + " to start",
+            align: 'center',
+            x: Q.width / 2,
+            y: 280,
             weight: "normal",
-            size  : 20
+            size: 20
         }));
 
 
         stage.insert(new Q.UI.Text({
-            label : "during the game: use L/R arrow\nkeys to skip levels",
-            align : 'center',
-            x     : Q.width / 2,
-            y     : 370,
+            label: "during the game: use L/R arrow\nkeys to skip levels",
+            align: 'center',
+            x: Q.width / 2,
+            y: 370,
             weight: "normal",
-            size  : 20
+            size: 20
         }));
     });
 
@@ -46,12 +46,12 @@ Quintus.BreakoutScenes = function (Q) {
         stage.insert(new Q.Title());
 
         stage.insert(new Q.UI.Text({
-            label : "Game Over!",
-            align : 'center',
-            x     : Q.width / 2,
-            y     : 350,
+            label: "Game Over!",
+            align: 'center',
+            x: Q.width / 2,
+            y: 350,
             weight: "normal",
-            size  : 20
+            size: 20
         }));
 
     });
@@ -66,12 +66,12 @@ Quintus.BreakoutScenes = function (Q) {
         stage.insert(new Q.Title());
 
         stage.insert(new Q.UI.Text({
-            label : "You Win!",
-            align : 'center',
-            x     : Q.width / 2,
-            y     : 350,
+            label: "You Win!",
+            align: 'center',
+            x: Q.width / 2,
+            y: 350,
             weight: "normal",
-            size  : 20
+            size: 20
         }));
 
     });

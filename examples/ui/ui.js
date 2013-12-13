@@ -17,12 +17,12 @@ window.addEventListener('load', function (e) {
         // (containers are transparent by default, but
         // seeting a fill and/or a border give them an appearance)
         var container = stage.insert(new Q.UI.Container({
-            fill       : "gray",
-            border     : 5,
-            shadow     : 10,
+            fill: "gray",
+            border: 5,
+            shadow: 10,
             shadowColor: "rgba(0,0,0,0.5)",
-            y          : 50,
-            x          : Q.width / 2
+            y: 50,
+            x: Q.width / 2
         }));
 
         // You can create text labels as well,
@@ -33,8 +33,8 @@ window.addEventListener('load', function (e) {
         stage.insert(new Q.UI.Text({
             label: "Here's a label\nin a container",
             color: "white",
-            x    : 0,
-            y    : 0
+            x: 0,
+            y: 0
         }), container);
 
         // Call container.fit to expand a container
@@ -46,8 +46,8 @@ window.addEventListener('load', function (e) {
         // which is a on click callback
         stage.insert(new Q.UI.Button({
             label: "A Button",
-            y    : 150,
-            x    : Q.width / 2
+            y: 150,
+            x: Q.width / 2
         }, function () {
             this.p.label = "Pressed";
         }));
@@ -55,12 +55,12 @@ window.addEventListener('load', function (e) {
         // Buttons inherit from containers and so can
         // have fills and borders as well
         stage.insert(new Q.UI.Button({
-            label      : "Another Button",
-            y          : 200,
-            x          : Q.width / 2,
-            fill       : "#990000",
-            border     : 5,
-            shadow     : 10,
+            label: "Another Button",
+            y: 200,
+            x: Q.width / 2,
+            fill: "#990000",
+            border: 5,
+            shadow: 10,
             shadowColor: "rgba(0,0,0,0.5)",
         }, function () {
             this.p.label = "Pressed";
@@ -70,17 +70,17 @@ window.addEventListener('load', function (e) {
             label: "Image below is a\n button using an asset",
             color: "black",
             align: 'center',
-            x    : Q.width / 2,
-            y    : 280
+            x: Q.width / 2,
+            y: 280
         }));
 
         // Buttons can also have assets or sheets
         // and will render themselves as images
         stage.insert(new Q.UI.Button({
             asset: 'enemy.png',
-            x    : Q.width / 2,
+            x: Q.width / 2,
             scale: 0.5,
-            y    : 370
+            y: 370
         }, function () {
             this.p.angle += 90;
         }));

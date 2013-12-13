@@ -29,8 +29,8 @@ window.addEventListener("load", function () {
             // You can call the parent's constructor with this._super(..)
             this._super(p, {
                 sheet: "player",  // Setting a sprite sheet sets sprite width and height
-                x    : 0,           // You can also set additional properties that can
-                y    : -100             // be overridden on object creation
+                x: 0,           // You can also set additional properties that can
+                y: -100             // be overridden on object creation
             });
 
             this.add('2d, platformerControls');
@@ -109,7 +109,7 @@ window.addEventListener("load", function () {
         stage.insert(new Q.Block({ x: 0, y: 0, h: 50, w: 150 }));
 
         stage.insert(new Q.Block({
-            x     : 140, y: 0, h: 50, w: 100,
+            x: 140, y: 0, h: 50, w: 100,
             points: [
                 [ 0, -15],
                 [ 50, 0 ],
@@ -119,7 +119,7 @@ window.addEventListener("load", function () {
         }));
 
         stage.insert(new Q.Block({
-            x     : 340, y: 0, h: 100, w: 100,
+            x: 340, y: 0, h: 100, w: 100,
             points: [
                 [ 0, -50],
                 [25, -40] ,
@@ -148,9 +148,9 @@ window.addEventListener("load", function () {
         }));
 
         var button = container.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#CCCCCC",
-            label                                        : "Play Again" }))
+            label: "Play Again" }))
         var label = container.insert(new Q.UI.Text({x: 10, y: -10 - button.p.h,
-            label                                    : stage.options.label }));
+            label: stage.options.label }));
         // When the button is clicked, clear all the stages
         // and restart the game.
         button.on("click", function () {

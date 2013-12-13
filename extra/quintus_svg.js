@@ -47,12 +47,12 @@ Quintus.SVG = function (Q) {
     Q.Sprite.extend("SVGSprite", {
         init: function (props) {
             this._super(Q._defaults(props, {
-                shape : 'block',
-                color : 'black',
-                angle : 0,
+                shape: 'block',
+                color: 'black',
+                angle: 0,
                 active: true,
-                cx    : 0,
-                cy    : 0
+                cx: 0,
+                cy: 0
             }));
             this.createShape();
             this.svg.sprite = this;
@@ -91,7 +91,7 @@ Quintus.SVG = function (Q) {
             this.set({ fill: p.color });
             if (p.outline) {
                 this.set({
-                    stroke        : p.outline,
+                    stroke: p.outline,
                     "stroke-width": p.outlineWidth || 1
                 });
             }
@@ -115,14 +115,14 @@ Quintus.SVG = function (Q) {
                 rp.y = p.y;
             }
         },
-        render      : function (ctx) {
+        render: function (ctx) {
 
             this.trigger('predraw', ctx);
             this.trigger('beforedraw', ctx);
             this.draw(ctx);
             this.trigger('beforedraw', ctx);
         },
-        draw        : function (ctx) {
+        draw: function (ctx) {
         },
 
         step: function (dt) {
@@ -133,7 +133,7 @@ Quintus.SVG = function (Q) {
 
 
     Q.Stage.extend("SVGStage", {
-        init  : function (scene) {
+        init: function (scene) {
             this.svg = document.createElementNS(SVG_NS, 'svg');
             this.svg.setAttribute('width', Q.width);
             this.svg.setAttribute('height', Q.height);

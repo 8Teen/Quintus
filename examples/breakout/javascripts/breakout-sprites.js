@@ -7,10 +7,10 @@ Quintus.BreakoutSprites = function (Q) {
     Q.TileLayer.extend("GameTiles", {
         init: function (p) {
             this._super({
-                dataAsset : "bg.tmx",
-                sheet     : 'tiles',
-                tileW     : 16,
-                tileH     : 16,
+                dataAsset: "bg.tmx",
+                sheet: 'tiles',
+                tileW: 16,
+                tileH: 16,
                 blockTileW: 21,
                 blockTileH: 27
             });
@@ -50,8 +50,8 @@ Quintus.BreakoutSprites = function (Q) {
     Q.Sprite.extend("BlockTracker", {
         init: function (p) {
             this._super(p, {
-                x    : Q.width / 2,
-                y    : 64,
+                x: Q.width / 2,
+                y: 64,
                 scale: 0.1
             });
 
@@ -70,8 +70,8 @@ Quintus.BreakoutSprites = function (Q) {
                         // container
                         this.stage.insert(new Q.Block({
                             num: block,
-                            x  : 32 * x - (row.length / 2 - 0.5) * 32,
-                            y  : 16 * y
+                            x: 32 * x - (row.length / 2 - 0.5) * 32,
+                            y: 16 * y
                         }), this);
                     }
 
@@ -90,14 +90,14 @@ Quintus.BreakoutSprites = function (Q) {
     Q.Sprite.extend("Ball", {
         init: function (p) {
             this._super({
-                sheet        : "ball",
-                sprite       : "ball",
-                speed        : 200,
+                sheet: "ball",
+                sprite: "ball",
+                speed: 200,
                 collisionMask: Q.SPRITE_DEFAULT,
-                vx           : 0,
-                vy           : 0,
-                x            : 50,
-                y            : 250
+                vx: 0,
+                vy: 0,
+                x: 50,
+                y: 250
             }, p);
 
             this.add("animation");
@@ -182,7 +182,7 @@ Quintus.BreakoutSprites = function (Q) {
     Q.Sprite.extend("Block", {
         init: function (p) {
             this._super({
-                sheet : "block" + p.num,
+                sheet: "block" + p.num,
                 sprite: "block"
             }, p);
 
@@ -198,11 +198,11 @@ Quintus.BreakoutSprites = function (Q) {
 
             if (rand == 1 && Q("Powerdown").length == 0) {
                 this.stage.insert(new Q.Powerdown({ x: this.c.x,
-                    y                                : this.c.y }));
+                    y: this.c.y }));
 
             } else if (rand == 2 && Q("Powerup").length == 0) {
                 this.stage.insert(new Q.Powerup({ x: this.c.x,
-                    y                              : this.c.y }));
+                    y: this.c.y }));
 
             }
         }
@@ -212,10 +212,10 @@ Quintus.BreakoutSprites = function (Q) {
     Q.Sprite.extend("Paddle", {
         init: function (p) {
             this._super({
-                sheet    : "paddlelg",
-                type     : Q.SPRITE_DEFAULT | Q.SPRITE_FRIENDLY,
-                y        : 376,
-                x        : 0,
+                sheet: "paddlelg",
+                type: Q.SPRITE_DEFAULT | Q.SPRITE_FRIENDLY,
+                y: 376,
+                x: 0,
                 powerdown: 0
             }, p);
 
@@ -261,10 +261,10 @@ Quintus.BreakoutSprites = function (Q) {
     Q.Sprite.extend("Powerdown", {
         init: function (p) {
             this._super({
-                sheet        : "powerdown",
-                type         : Q.SPRITE_POWERUP,
+                sheet: "powerdown",
+                type: Q.SPRITE_POWERUP,
                 collisionMask: Q.SPRITE_FRIENDLY,
-                vy           : 100
+                vy: 100
             }, p);
 
             this.add("2d")
@@ -285,10 +285,10 @@ Quintus.BreakoutSprites = function (Q) {
     Q.Sprite.extend("Powerup", {
         init: function (p) {
             this._super({
-                sheet        : "powerup",
-                type         : Q.SPRITE_POWERUP,
+                sheet: "powerup",
+                type: Q.SPRITE_POWERUP,
                 collisionMask: Q.SPRITE_FRIENDLY,
-                vy           : 100
+                vy: 100
             }, p);
 
             this.add("2d")
@@ -311,10 +311,10 @@ Quintus.BreakoutSprites = function (Q) {
         init: function (p) {
 
             this._super({
-                sheet : "count",
+                sheet: "count",
                 sprite: "countdown",
-                x     : Q.width / 2,
-                y     : 200
+                x: Q.width / 2,
+                y: 200
             }, p);
 
             this.add("animation").play("countdown");

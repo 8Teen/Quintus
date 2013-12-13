@@ -186,7 +186,7 @@ jasmine.HtmlReporter.ReporterView = function (dom) {
         this.totalSpecCount = specs.length;
 
         this.views = {
-            specs : {},
+            specs: {},
             suites: {}
         };
 
@@ -334,16 +334,16 @@ jasmine.HtmlReporter.SpecView = function (spec, dom, views) {
     this.summary = this.createDom('div', { className: 'specSummary' },
         this.createDom('a', {
             className: 'description',
-            href     : '?spec=' + encodeURIComponent(this.spec.getFullName()),
-            title    : this.spec.getFullName()
+            href: '?spec=' + encodeURIComponent(this.spec.getFullName()),
+            title: this.spec.getFullName()
         }, this.spec.description)
     );
 
     this.detail = this.createDom('div', { className: 'specDetail' },
         this.createDom('a', {
             className: 'description',
-            href     : '?spec=' + encodeURIComponent(this.spec.getFullName()),
-            title    : this.spec.getFullName()
+            href: '?spec=' + encodeURIComponent(this.spec.getFullName()),
+            title: this.spec.getFullName()
         }, this.spec.getFullName())
     );
 };
@@ -562,8 +562,8 @@ jasmine.TrivialReporter.prototype.reportSpecResults = function (spec) {
         this.createDom('a', { className: 'run_spec', href: '?spec=' + encodeURIComponent(spec.getFullName()) }, "run"),
         this.createDom('a', {
             className: 'description',
-            href     : '?spec=' + encodeURIComponent(spec.getFullName()),
-            title    : spec.getFullName()
+            href: '?spec=' + encodeURIComponent(spec.getFullName()),
+            title: spec.getFullName()
         }, spec.description));
 
 

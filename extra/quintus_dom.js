@@ -22,8 +22,8 @@ Quintus.DOM = function (Q) {
             .wrap("<div id='" + id + "_container'/>")
             .parent()
             .css({ width: Q.el.width(),
-                height  : Q.el.height(),
-                margin  : '0 auto' });
+                height: Q.el.height(),
+                margin: '0 auto' });
         Q.el.css({ position: 'relative', overflow: 'hidden' });
         Q.width = Q.el.width();
         Q.height = Q.el.height();
@@ -128,9 +128,9 @@ Quintus.DOM = function (Q) {
         init: function (props) {
             this._super(props);
             this.el = $("<div>").css({
-                width   : this.p.w,
-                height  : this.p.h,
-                zIndex  : this.p.z || 0,
+                width: this.p.w,
+                height: this.p.h,
+                zIndex: this.p.z || 0,
                 position: 'absolute'
             });
             this.dom = this.el[0];
@@ -202,14 +202,14 @@ Quintus.DOM = function (Q) {
         Q.DOMStage = Q.Stage.extend({
             init: function (scene) {
                 this.el = $("<div>").css({
-                    top     : 0,
+                    top: 0,
                     position: 'relative'
                 }).appendTo(Q.el);
                 this.dom = this.el[0];
                 this.wrapper = this.el.wrap('<div>').parent().css({
                     position: 'absolute',
-                    left    : 0,
-                    top     : 0
+                    left: 0,
+                    top: 0
                 });
                 this.scale = 1;
                 this.wrapper_dom = this.wrapper[0];
@@ -253,8 +253,8 @@ Quintus.DOM = function (Q) {
         init: function (props) {
             var sheet = Q.sheet(props.sheet);
             this._super(Q._extend(props, {
-                w    : props.cols * sheet.tilew,
-                h    : props.rows * sheet.tileh,
+                w: props.cols * sheet.tilew,
+                h: props.rows * sheet.tileh,
                 tilew: sheet.tilew,
                 tileh: sheet.tileh
             }));
@@ -312,7 +312,7 @@ Quintus.DOM = function (Q) {
             return this.validTile(x, y) ?
                 this.domTiles[y][x] : null;
         },
-        set   : function (x, y, frame) {
+        set: function (x, y, frame) {
             if (!this.validTile(x, y)) {
                 return;
             }

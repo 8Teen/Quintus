@@ -98,7 +98,7 @@ window.addEventListener('load', function (e) {
         // hit variable, scale this sucker up a bit.
         //
         // Also move to avoid collisions with any other sprites
-        step       : function (dt) {
+        step: function (dt) {
             if (this.p.over) {
                 this.p.scale = 1.2;
             } else {

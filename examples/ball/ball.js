@@ -45,9 +45,9 @@ window.addEventListener("load", function () {
     // passing in the size, position, velocity, and
     // acceleration
     var ball = window.ball = new Q.Ball({ w: 20, h: 20,
-        x                                  : 30, y: 300,
-        vx                                 : 30, vy: -100,
-        ax                                 : 0, ay: 30 });
+        x: 30, y: 300,
+        vx: 30, vy: -100,
+        ax: 0, ay: 30 });
 
     // You can start the game loop directly by
     // calling `gameLoop` with a callback and Quintus

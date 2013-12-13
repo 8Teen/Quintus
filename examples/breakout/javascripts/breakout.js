@@ -33,7 +33,7 @@ window.addEventListener('load', function () {
 
         Q.animations("block", {
             appear: { frames: [ 4, 3, 2, 1, 0], rate: 1 / 3, loop: false },
-            hit   : { frames: [ 1, 2, 3, 4], rate: 1 / 4, loop: false, trigger: "destroy" }
+            hit: { frames: [ 1, 2, 3, 4], rate: 1 / 4, loop: false, trigger: "destroy" }
         });
 
         // Go Time
