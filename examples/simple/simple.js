@@ -5,10 +5,9 @@
 window.addEventListener('load', function () {
     // Set up a Quintus Instance
     var Q = window.Q = Quintus()
-        .include("Sprites, Anim, Scenes, Touch, UI")
+        .include("Sprites, Anim, Scenes, Touch, UI , Input")
         .setup()
         .touch();
-
 
     //Turtle.
     Q.Sprite.extend("Turtle", {
@@ -23,32 +22,56 @@ window.addEventListener('load', function () {
         }
     });
 
+    //kid.
+    Q.Sprite.extend("Kid", {
+        init: function (p) {
+            this._super(p, {
+                sprite: "kid",
+                sheet: 'kid',
+                scale: 0.6,
+                angle: -5
+            });
+
+
+            this.on("drag");
+            this.add("animation");
+        },
+        drag: function(touch) {
+            this.p.x = touch.origX + touch.dx;
+            this.p.y = touch.origY + touch.dy;
+        }
+    });
+
+    Q.input.on('left',function(e){
+        alert(e);
+    });
+
+    //Q.input.joypadControls();
 
     Q.scene("animate_tc", function (stage) {
 
         //animation
-        var turtle = new Q.Turtle({ x: 100, y: 150 });
+        var kid = new Q.Kid({ x: 100, y: 150 });
 
-        stage.insert(turtle);
-        turtle.play("expand");
-
+        stage.insert(kid);
+        kid.play("walk");
 
     });
 
 
     //key 图片名称
-    Q.animations('animado', {
-        expand: { frames: [0, 1, 2, 3, 4, 5 , 6 , 7], rate: 1/3},
-        standAlone: { frames: [0], rate: 2, next: 'expand'}
+    Q.animations('kid', {
+        walk: { frames: [0,1,2,3,4,5,6,7,8,9,10,11,12], rate: 1/12},
+        standAlone: { frames: [12], rate: 1/12, next: 'walk'}
     });
 
 
     Q.load([
-        'animado.gif', 'sprites.json'
+        'kid_walk.png', 'sprites.json'
     ], function () {
         // this will create the sprite sheets sprite1name and sprite2name
 
-        Q.compileSheets("animado.gif", "sprites.json");
+        Q.compileSheets("kid_walk.png", "sprites.json");
 
         Q.stageScene("animate_tc");
     });
