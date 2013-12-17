@@ -88,8 +88,6 @@ window.addEventListener('load', function () {
                 _self.animate({ x: X, y: Y }, cos, Q.Easing.Linear ,{callback : function(){
                     _self.play("standAlone");
 
-                    _self.matrix.scale(0.3,0.7);
-
                     _self.options.moving = false;
                 }});
             }
