@@ -5,9 +5,9 @@
 window.addEventListener('load', function () {
     // Set up a Quintus Instance
     var Q = window.Q = Quintus()
-        .include("Sprites, Anim, Scenes, Touch, UI , Input");
+        .include("Sprites, Anim, Scenes, 2D, Touch, UI , Input");
 
-    Q.setup({ maximize: true }).touch(Q.SPRITE_ALL);
+    Q.setup({ maximize:true }).touch(Q.SPRITE_ALL);
 
     //background.
     Q.Sprite.extend("Background", {
@@ -17,8 +17,9 @@ window.addEventListener('load', function () {
                 y: Q.height/2,
                 w: Q.width,
                 h: Q.height,
+                asset:'floor.png',
                 scale: 1,
-                type: Q.SPRITE_DEFAULT
+                type: Q.SPRITE_ALL
             });
         }
     });
@@ -27,8 +28,9 @@ window.addEventListener('load', function () {
     Q.Sprite.extend("Kid", {
         init: function (p) {
             this._super(p, {
+                z: 1,
                 sprite: "kid",
-                sheet: 'kidDown',
+                sheet: 'ManSouth',
                 scale: 1
             });
 
@@ -54,29 +56,44 @@ window.addEventListener('load', function () {
 
                 var cta = Math.round((Math.atan2(Y-_self.p.y,X-_self.p.x)/Math.PI)*180);
 
-                if(cta >= -60 && cta <= 60){
-                    _self.p.sheet = 'kidRight';
+                if(cta > -20 && cta <= 25){
+                    _self.p.sheet = 'ManEast';
                     _self.p.angle = cta;
                 }
 
-                if(cta > 60 && cta < 120){
-                    _self.p.sheet = 'kidDown';
+                if(cta > 25 && cta <= 70){
+                    _self.p.sheet = 'ManEastSouth';
+                    _self.p.angle = cta - 45;
+                }
+
+                if(cta > 70 && cta <= 115){
+                    _self.p.sheet = 'ManSouth';
                     _self.p.angle = cta - 90;
                 }
 
-                if(cta <= -120 && cta >= -180){
-                    _self.p.sheet = 'kidLeft';
-                    _self.p.angle = cta + 180;
+                if(cta > 115 && cta <= 160){
+                    _self.p.sheet = 'ManWestSouth';
+                    _self.p.angle = cta - 135;
                 }
 
-                if(cta <= 180 && cta >= 120){
-                    _self.p.sheet = 'kidLeft';
+                if((cta > 160 && cta <= 180) || (cta >= -180 && cta <= -155)){
+                    _self.p.sheet = 'ManWest';
                     _self.p.angle = cta - 180;
                 }
 
-                if(cta > -120 && cta < -60){
-                    _self.p.sheet = 'kidUp';
+                if(cta > -155 && cta <= -110){
+                    _self.p.sheet = 'ManWestNorth';
+                    _self.p.angle = cta + 135;
+                }
+
+                if(cta > -110 && cta <= -55){
+                    _self.p.sheet = 'ManNorth';
                     _self.p.angle = cta + 90;
+                }
+
+                if(cta > -55 && cta <= -10){
+                    _self.p.sheet = 'ManEastNorth';
+                    _self.p.angle = cta + 45;
                 }
 
                 var a = _self.p.x;
@@ -120,22 +137,25 @@ window.addEventListener('load', function () {
             kid.move(e.x, e.y);
         });
 
+        //stage.add("viewport").follow(kid);
+
     });
 
 
     //key 图片名称
     Q.animations('kid', {
-        walk: { frames: [0,1,2,3,4,5,6,7,8,9,10,11,12], rate: 1/13},
-        standAlone: { frames: [12], rate: 1/12}
+        walk: { frames: [0,1,2,3,4,5,6,7], rate: 1/8},
+        standAlone: { frames: [0], rate: 1/8}
     });
 
 
     Q.load([
-        'kid_walk_mini.png', 'sprites.json'
+        'man_walk.png', 'sprites.json',
+        'floor.png'
     ], function () {
         // this will create the sprite sheets sprite1name and sprite2name
 
-        Q.compileSheets("kid_walk_mini.png", "sprites.json");
+        Q.compileSheets("man_walk.png", "sprites.json");
 
         Q.stageScene("animate_tc");
     });
