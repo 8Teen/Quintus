@@ -17,7 +17,7 @@ window.addEventListener('load', function () {
                 y: Q.height/2,
                 w: Q.width,
                 h: Q.height,
-                asset:'floor.png',
+                //asset:'floor.png',
                 scale: 1,
                 type: Q.SPRITE_ALL
             });
@@ -98,7 +98,7 @@ window.addEventListener('load', function () {
 
                 var a = _self.p.x;
                 var b = _self.p.y;
-                var cos = (Math.sqrt(Math.pow((X-a),2) + Math.pow((Y-b),2))/Math.sqrt(Math.pow(_self.p.w,2) + Math.pow(_self.p.h,2))) * 2;
+                var cos = (Math.sqrt(Math.pow((X-a),2) + Math.pow((Y-b),2))/Math.sqrt(Math.pow(_self.p.w,2) + Math.pow(_self.p.h,2))) * 1;
 
 
                 _self.animate({ x: X, y: Y }, cos, Q.Easing.Linear ,{callback : function(){
