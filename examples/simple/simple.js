@@ -13,11 +13,11 @@ window.addEventListener('load', function () {
     Q.Sprite.extend("Background", {
         init: function (p) {
             this._super(p, {
-                x: 0,
-                y: 0,
+                x: Q.width/2,
+                y: Q.height/2,
                 w: Q.width,
                 h: Q.height,
-                scale: 4,
+                scale: 1,
                 type: Q.SPRITE_DEFAULT
             });
         }
@@ -29,8 +29,7 @@ window.addEventListener('load', function () {
             this._super(p, {
                 sprite: "kid",
                 sheet: 'kidDown',
-                scale: 0.6,
-                angle: -5
+                scale: 1
             });
 
             this.add("animation");
@@ -55,27 +54,27 @@ window.addEventListener('load', function () {
 
                 var cta = Math.round((Math.atan2(Y-_self.p.y,X-_self.p.x)/Math.PI)*180);
 
-                if(cta >= -45 && cta <= 45){
+                if(cta >= -60 && cta <= 60){
                     _self.p.sheet = 'kidRight';
                     _self.p.angle = cta;
                 }
 
-                if(cta > 45 && cta < 135){
+                if(cta > 60 && cta < 120){
                     _self.p.sheet = 'kidDown';
                     _self.p.angle = cta - 90;
                 }
 
-                if(cta <= -135 && cta >= -180){
+                if(cta <= -120 && cta >= -180){
                     _self.p.sheet = 'kidLeft';
                     _self.p.angle = cta + 180;
                 }
 
-                if(cta <= 180 && cta >= 135){
+                if(cta <= 180 && cta >= 120){
                     _self.p.sheet = 'kidLeft';
                     _self.p.angle = cta - 180;
                 }
 
-                if(cta > -135 && cta < -45){
+                if(cta > -120 && cta < -60){
                     _self.p.sheet = 'kidUp';
                     _self.p.angle = cta + 90;
                 }
@@ -132,11 +131,11 @@ window.addEventListener('load', function () {
 
 
     Q.load([
-        'kid_walk.png', 'sprites.json'
+        'kid_walk_mini.png', 'sprites.json'
     ], function () {
         // this will create the sprite sheets sprite1name and sprite2name
 
-        Q.compileSheets("kid_walk.png", "sprites.json");
+        Q.compileSheets("kid_walk_mini.png", "sprites.json");
 
         Q.stageScene("animate_tc");
     });
