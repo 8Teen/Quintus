@@ -4,8 +4,9 @@
 
 window.addEventListener('load', function () {
     // Set up a Quintus Instance
-    var Q = window.Q = Quintus()
-        .include("Sprites, Anim, Scenes, 2D, Touch, UI , Input");
+    var Q = window.Q = Quintus({
+        imagePath: "http://gtms01.alicdn.com/tps/i1/"
+    }).include("Sprites, Anim, Scenes, 2D, Touch, UI , Input");
 
     Q.setup({ maximize:true }).touch(Q.SPRITE_ALL);
 
@@ -84,17 +85,17 @@ window.addEventListener('load', function () {
 
 
     Q.load([
-        'boss_0.png',
-        'vision_0.png',
+        'T1lFQXFoXeXXbA6tP6-18088-616.png',
+        'T1b9UgFoVeXXbiGiA9-3666-265.png',
         'boss.json',
         'vision.json'
     ], function () {
 
 
         try{
-            Q.compileSheets("boss_0.png", "boss.json");
+            Q.compileSheets("T1b9UgFoVeXXbiGiA9-3666-265.png", "boss.json");
 
-            Q.compileSheets("vision_0.png", "vision.json");
+            Q.compileSheets("T1lFQXFoXeXXbA6tP6-18088-616.png", "vision.json");
 
             Q.stageScene("animate_tc");
         }
