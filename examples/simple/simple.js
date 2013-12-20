@@ -19,7 +19,6 @@ window.addEventListener('load', function () {
                 h: Q.height,
                 repeatX: true,
                 repeatY: true,
-                asset:'floor.png',
                 scale: 1,
                 type: Q.SPRITE_ALL
             });
@@ -129,9 +128,7 @@ window.addEventListener('load', function () {
 
     Q.scene("animate_tc", function (stage) {
         //background.
-        var bg = stage.insert(new Q.Repeater({
-            asset:'floor.png'
-        }));
+        var bg = stage.insert(new Q.Background());
         bg.on("touch", function (e) {
             kid.move(e.x, e.y);
         });
@@ -142,7 +139,7 @@ window.addEventListener('load', function () {
         stage.insert(kid);
 
 
-        stage.add("viewport").follow(kid);
+        //stage.add("viewport").follow(kid);
 
     });
 
