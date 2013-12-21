@@ -4,9 +4,13 @@
 
 window.addEventListener('load', function () {
     // Set up a Quintus Instance
-    var Q = window.Q = Quintus().include("Sprites, Anim, Scenes, 2D, Touch, UI , Input");
+    var Q = window.Q = Quintus().include("Sprites, Anim, Scenes, 2D, Touch, UI , Input")
+            .include("frontEndSprites,bossSprites,cdSprites,ioSprites");
 
-    Q.setup({ maximize:true }).touch(Q.SPRITE_ALL);
+    var ww = window.innerWidth;
+    var wh = window.innerHeight;
+
+    Q.setup({width:800,height:400}).touch(Q.SPRITE_ALL);
 
     //background.
     Q.Sprite.extend("Background", {
@@ -14,75 +18,69 @@ window.addEventListener('load', function () {
             this._super(p, {
                 x: Q.width/2,
                 y: Q.height/2,
-                w: Q.width,
-                h: Q.height,
+                height: 400,
                 scale: 1,
-                type: Q.SPRITE_ALL
+                asset:'bg/bg.jpg'
             });
-        }
-    });
-
-    //Vision.
-    Q.Sprite.extend("Vision", {
-        init: function (p) {
-            this._super(p, {
-                sprite: "vision_0",
-                sheet: 'vision_0',
-                scale: 1
-            });
-
-            this.add("animation");
-        }
-    });
-
-    //sir.
-    Q.Sprite.extend("Boss", {
-        init: function (p) {
-            this._super(p, {
-                sprite: "boss_0",
-                sheet: 'boss_0',
-                scale: 0.3
-            });
-
-            this.add("animation");
         }
     });
 
 
     Q.scene("animate_tc", function (stage) {
 
+        var bg = new Q.Background();
+        stage.insert(bg);
 
-
-
-        var boss = new Q.Boss({ x: 200, y: 100 });
+        var boss = new Q.Boss();
         stage.insert(boss);
 
+
+
+        var front = new Q.Front();
+        stage.insert(front);
+
+        var cd = new Q.CD();
+        stage.insert(cd);
+
+
+        cd.play('show');
         boss.play('show');
+        front.play('show');
 
-        var vision = new Q.Vision({ x: 30, y: 200 });
-        stage.insert(vision);
+        var a = new Q.A({x: Q.width - 100, y: Q.height - 100});
+        stage.insert(a);
+        a.on('touch',function(){
+            alert('a');
+        });
 
-        vision.play('show');
+//        var b = new Q.B({x: Q.width - 100, y: Q.height - 50});
+//        stage.insert(b);
+//
+//        var c = new Q.C({x: Q.width - 50, y: Q.height - 100});
+//        stage.insert(c);
+//
+//        var d = new Q.D({x: Q.width - 50, y: Q.height - 50});
+//        stage.insert(d);
+
     });
 
 
-    Q.animations('vision_0', {
-        show: { frames: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37], rate: 1/3}
-    });
+    Q.load([
+            "front/front_0.png","front/front.json",
+            "boss/boss_0.png","boss/boss.json",
+            "cd/cd.png","cd/cd.json",
+            "io/io.png","io/io.json",
+            "bg/bg.jpg"
+        ],
+        function () {
 
+            Q.compileSheets("boss/boss_0.png", "boss/boss.json");
 
-    Q.animations('boss_0', {
-        show: { frames: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25], rate: 1/3}
-    });
+            Q.compileSheets("front/front_0.png", "front/front.json");
 
+            Q.compileSheets("cd/cd.png", "cd/cd.json");
 
-    Q.load(
-        "vision_0.png,boss_0.png,boss.json,vision.json"
-        , function () {
-
-            Q.compileSheets("boss_0.png", "boss.json");
-
-            Q.compileSheets("vision_0.png", "vision.json");
+            Q.compileSheets("io/io.png", "io/io.json");
 
             Q.stageScene("animate_tc");
 
