@@ -4,8 +4,11 @@
 
 window.addEventListener('load', function () {
     // Set up a Quintus Instance
-    var Q = window.Q = Quintus().include("Sprites, Anim, Scenes, 2D, Touch, UI , Input")
-            .include("frontEndSprites,bossSprites,cdSprites,ioSprites");
+    var Q = window.Q = Quintus({
+        development: true
+    })
+    .include("Sprites, Anim, Scenes, 2D, Touch, UI , Input")
+    .include("frontEndSprites,bossSprites,cdSprites,ioSprites");
 
     var ww = window.innerWidth;
     var wh = window.innerHeight;
