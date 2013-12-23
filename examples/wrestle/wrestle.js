@@ -10,9 +10,6 @@ window.addEventListener('load', function () {
     .include("Sprites, Anim, Scenes, 2D, Touch, UI , Input")
     .include("frontEndSprites,bossSprites,cdSprites,ioSprites");
 
-    var ww = window.innerWidth;
-    var wh = window.innerHeight;
-
     Q.setup({width:800,height:400}).touch(Q.SPRITE_ALL);
 
     //background.
@@ -21,23 +18,93 @@ window.addEventListener('load', function () {
             this._super(p, {
                 x: Q.width/2,
                 y: Q.height/2,
-                height: 400,
-                scale: 1,
-                asset:'bg/bg.jpg'
+                h: 200,
+                scale: 0.7,
+                asset:'bg/bg.jpg',
+                type: Q.SPRITE_NONE
             });
         }
     });
 
 
-    Q.scene("animate_tc", function (stage) {
+    var Keys = [];
+    var answer = [];
+    var cursor = 0;
+    function generateKeys(stage){
 
+        cursor = 0;
+        answer = [];
+
+        for(var i = 0,len = Keys.length; i < len;i++){
+            Keys[i].destroy();
+        }
+
+        var pad = stage.insert(new Q.UI.Container({
+            fill:"transparent",
+            border: 1,
+            color: "red",
+            x: Q.width/2,
+            y: Q.height - 80,
+            w: 200,
+            h: 40
+        }));
+
+        Keys.push(pad);
+
+
+        Keys.push(stage.insert(new Q.A({x: -pad.p.w * 2/4, y: 0, scale:0.3}),pad));
+        answer.push(1);
+        Keys.push(stage.insert(new Q.B({x: -pad.p.w * 1/4, y: 0, scale:0.3}),pad));
+        answer.push(2);
+        Keys.push(stage.insert(new Q.C({x: 0, y: 0, scale:0.3}),pad));
+        answer.push(3);
+        Keys.push(stage.insert(new Q.D({x: pad.p.w * 1/4, y: 0, scale:0.3}),pad));
+        answer.push(4);
+        Keys.push(stage.insert(new Q.A({x: pad.p.w * 2/4, y: 0, scale:0.3}),pad));
+        answer.push(1);
+    };
+
+
+    var HitType = {
+        A:1,
+        B:2,
+        C:3,
+        D:4
+    };
+
+    function check(type,stage){
+        if(type == HitType.A && HitType.A == answer[cursor]){
+            Keys[cursor].play('shake');
+            cursor++;
+        }
+
+
+        if(type == HitType.B && HitType.B == answer[cursor]){
+            Keys[cursor].p.anim = 'shake';
+            cursor++;
+        }
+
+        if(type == HitType.C && HitType.C == answer[cursor]){
+            Keys[cursor].p.anim = 'shake';
+            cursor++;
+        }
+
+        if(type == HitType.D && HitType.D == answer[cursor]){
+            Keys[cursor].p.anim = 'shake';
+            cursor++;
+        }
+
+        if(cursor == answer.length){
+            generateKeys(stage);
+        }
+    };
+
+    Q.scene("mainRoot", function (stage) {
         var bg = new Q.Background();
         stage.insert(bg);
 
         var boss = new Q.Boss();
         stage.insert(boss);
-
-
 
         var front = new Q.Front();
         stage.insert(front);
@@ -50,28 +117,52 @@ window.addEventListener('load', function () {
         boss.play('show');
         front.play('show');
 
-        var a = new Q.A({x: Q.width - 100, y: Q.height - 100});
-        stage.insert(a);
-        a.on('touch',function(){
-            alert('a');
+        var rightPad = stage.insert(new Q.UI.Container({
+            fill:"transparent",
+            border: 1,
+            color: "red",
+            x: Q.width - 90,
+            y: Q.height - 80,
+            w: 100,
+            h: 100
+        }));
+
+        var a = new Q.A({x: -rightPad.p.w/4, y: -rightPad.p.h/4});
+        stage.insert(a,rightPad);
+        a.on('A.CLICK',a,function(){
+            check(HitType.A,stage);
         });
 
-//        var b = new Q.B({x: Q.width - 100, y: Q.height - 50});
-//        stage.insert(b);
-//
-//        var c = new Q.C({x: Q.width - 50, y: Q.height - 100});
-//        stage.insert(c);
-//
-//        var d = new Q.D({x: Q.width - 50, y: Q.height - 50});
-//        stage.insert(d);
+        var b = new Q.B({x: -rightPad.p.w/4, y: rightPad.p.h/4});
+        stage.insert(b,rightPad);
+        b.on('B.CLICK',b,function(){
+            check(HitType.B,stage);
+        });
 
+        var c = new Q.C({x: rightPad.p.w /4, y: -rightPad.p.h/4});
+        stage.insert(c,rightPad);
+        c.on('C.CLICK',c,function(){
+            check(HitType.C,stage);
+        });
+
+        var d = new Q.D({x: rightPad.p.w/4, y: rightPad.p.h/4});
+        stage.insert(d,rightPad);
+        d.on('D.CLICK',d,function(){
+            check(HitType.D,stage);
+        });
+
+
+        generateKeys(stage);
     });
+
+
 
 
     Q.load([
             "front/front_0.png","front/front.json",
             "boss/boss_0.png","boss/boss.json",
             "cd/cd.png","cd/cd.json",
+            "io/io_hit.png",
             "io/io.png","io/io.json",
             "bg/bg.jpg"
         ],
@@ -85,7 +176,9 @@ window.addEventListener('load', function () {
 
             Q.compileSheets("io/io.png", "io/io.json");
 
-            Q.stageScene("animate_tc");
+//            Q.compileSheets("io/io_hit.png", "io/io.json");
+
+            Q.stageScene("mainRoot");
 
     });
 
