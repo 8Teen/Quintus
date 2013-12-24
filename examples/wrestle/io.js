@@ -14,7 +14,6 @@ Quintus.ioSprites = function (Q) {
                 scale: 0.4
             });
 
-
             this.on(Eve,this,'click');
 
         },
@@ -22,6 +21,7 @@ Quintus.ioSprites = function (Q) {
             this.trigger('A.CLICK');
         }
     });
+
 
     Q.Sprite.extend("B", {
         init: function (p) {

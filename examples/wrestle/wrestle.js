@@ -8,9 +8,10 @@ window.addEventListener('load', function () {
         development: true
     })
     .include("Sprites, Anim, Scenes, 2D, Touch, UI , Input")
-    .include("frontEndSprites,bossSprites,cdSprites,ioSprites");
+    .include("frontEndSprites,bossSprites,cdSprites,ioSprites")
+    .include("Sheets");
 
-    Q.setup({width:800,height:400}).touch(Q.SPRITE_ALL);
+    Q.setup({width:1200,height:504}).touch(Q.SPRITE_ALL);
 
     //background.
     Q.Sprite.extend("Background", {
@@ -19,7 +20,7 @@ window.addEventListener('load', function () {
                 x: Q.width/2,
                 y: Q.height/2,
                 h: 200,
-                scale: 0.7,
+                scale: 1,
                 asset:'bg/bg.jpg',
                 type: Q.SPRITE_NONE
             });
@@ -27,41 +28,61 @@ window.addEventListener('load', function () {
     });
 
 
-    var Keys = [];
+    var AArr = [];
     var answer = [];
+    var pad;
     var cursor = 0;
     function generateKeys(stage){
 
         cursor = 0;
         answer = [];
 
-        for(var i = 0,len = Keys.length; i < len;i++){
-            Keys[i].destroy();
+        for(var i = 0,len = AArr.length; i < len;i++){
+            AArr[i].destroy();
+        }
+        AArr = [];
+
+        if(pad == void 0){
+            pad = stage.insert(new Q.UI.Container({
+                fill:"transparent",
+                color: "red",
+                x: Q.width/2,
+                y: Q.height - 40,
+                w: 200,
+                h: 40
+            }));
         }
 
-        var pad = stage.insert(new Q.UI.Container({
-            fill:"transparent",
-            border: 1,
-            color: "red",
-            x: Q.width/2,
-            y: Q.height - 80,
-            w: 200,
-            h: 40
-        }));
-
-        Keys.push(pad);
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
 
 
-        Keys.push(stage.insert(new Q.A({x: -pad.p.w * 2/4, y: 0, scale:0.3}),pad));
-        answer.push(1);
-        Keys.push(stage.insert(new Q.B({x: -pad.p.w * 1/4, y: 0, scale:0.3}),pad));
-        answer.push(2);
-        Keys.push(stage.insert(new Q.C({x: 0, y: 0, scale:0.3}),pad));
-        answer.push(3);
-        Keys.push(stage.insert(new Q.D({x: pad.p.w * 1/4, y: 0, scale:0.3}),pad));
-        answer.push(4);
-        Keys.push(stage.insert(new Q.A({x: pad.p.w * 2/4, y: 0, scale:0.3}),pad));
-        answer.push(1);
+        var rand;
+        for(var i = 0; i < 5; i++){
+            rand = getRandomInt(1,4);
+
+            if(rand == HitType.A){
+                AArr.push(stage.insert(new Q.A({x: pad.p.w * (i-2)/4, y: 0, scale:0.3}),pad));
+                answer.push(1);
+            }
+
+            if(rand == HitType.B){
+                AArr.push(stage.insert(new Q.B({x: pad.p.w * (i-2)/4, y: 0, scale:0.3}),pad));
+                answer.push(2);
+            }
+
+            if(rand == HitType.C){
+                AArr.push(stage.insert(new Q.C({x: pad.p.w * (i-2)/4, y: 0, scale:0.3}),pad));
+                answer.push(3);
+            }
+
+            if(rand == HitType.D){
+                AArr.push(stage.insert(new Q.D({x: pad.p.w * (i-2)/4, y: 0, scale:0.3}),pad));
+                answer.push(4);
+            }
+
+        }
     };
 
 
@@ -73,37 +94,43 @@ window.addEventListener('load', function () {
     };
 
     function check(type,stage){
+
+//        if(cursor >= answer.length){
+//            generateKeys(stage);
+//        }
+
         if(type == HitType.A && HitType.A == answer[cursor]){
-            Keys[cursor].play('shake');
+            AArr[cursor].p.sheet = 'io_hit';
             cursor++;
         }
-
-
-        if(type == HitType.B && HitType.B == answer[cursor]){
-            Keys[cursor].p.anim = 'shake';
+        else if(type == HitType.B && HitType.B == answer[cursor]){
+            AArr[cursor].p.sheet = 'io_hit';
             cursor++;
         }
-
-        if(type == HitType.C && HitType.C == answer[cursor]){
-            Keys[cursor].p.anim = 'shake';
+        else if(type == HitType.C && HitType.C == answer[cursor]){
+            AArr[cursor].p.sheet = 'io_hit';
             cursor++;
         }
-
-        if(type == HitType.D && HitType.D == answer[cursor]){
-            Keys[cursor].p.anim = 'shake';
+        else if(type == HitType.D && HitType.D == answer[cursor]){
+            AArr[cursor].p.sheet = 'io_hit';
             cursor++;
         }
+        else{
+//            for(var i = 0,len = AArr.length; i < len; i++){
+//                AArr[i].p.sheet = 'io';
+//            };
 
-        if(cursor == answer.length){
-            generateKeys(stage);
+            boss.move();
+            //generateKeys(stage);
         }
     };
 
+    var boss;
     Q.scene("mainRoot", function (stage) {
         var bg = new Q.Background();
         stage.insert(bg);
 
-        var boss = new Q.Boss();
+        boss = new Q.Boss();
         stage.insert(boss);
 
         var front = new Q.Front();
@@ -119,8 +146,6 @@ window.addEventListener('load', function () {
 
         var rightPad = stage.insert(new Q.UI.Container({
             fill:"transparent",
-            border: 1,
-            color: "red",
             x: Q.width - 90,
             y: Q.height - 80,
             w: 100,
@@ -159,27 +184,100 @@ window.addEventListener('load', function () {
 
 
     Q.load([
-            "front/front_0.png","front/front.json",
-            "boss/boss_0.png","boss/boss.json",
-            "cd/cd.png","cd/cd.json",
-            "io/io_hit.png",
-            "io/io.png","io/io.json",
-            "bg/bg.jpg"
-        ],
+        "front/front_hi.png",
+        "boss/boss_hi.png",
+        "boss/boss_move.png",
+        "boss/boss_attack_weak.png",
+        "cd/cd.png",
+        "io/io_hit.png",
+        "io/io.png",
+        "bg/bg.jpg"
+    ],
         function () {
 
-            Q.compileSheets("boss/boss_0.png", "boss/boss.json");
+            //倒計時.
+            Q.sheet("cd", "cd/cd.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "w": 1025,
+                    "h": 198,
+                    "cols": 5,
+                    "tilew": 205,
+                    "tileh": 198
+                });
 
-            Q.compileSheets("front/front_0.png", "front/front.json");
+            //IO
+            Q.sheet("io", "io/io.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "w": 476,
+                    "h": 119,
+                    "cols": 4,
+                    "tilew": 119,
+                    "tileh": 119
+                });
 
-            Q.compileSheets("cd/cd.png", "cd/cd.json");
+            Q.sheet("io_hit", "io/io_hit.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "w": 476,
+                    "h": 119,
+                    "cols": 4,
+                    "tilew": 119,
+                    "tileh": 119
+                });
 
-            Q.compileSheets("io/io.png", "io/io.json");
 
-//            Q.compileSheets("io/io_hit.png", "io/io.json");
+            //boss
+            Q.sheet("boss_hi", "boss/boss_hi.png",
+                {
+                    sx: 0,
+                    sy: 0,
+                    w: 3666,
+                    h: 265,
+                    tilew: 141,
+                    tileh: 265
+                });
+
+            Q.sheet("boss_move", "boss/boss_move.png",
+                {
+                    sx: 0,
+                    sy: 0,
+                    cols: 7,
+                    tilew: 191,
+                    tileh: 274
+                });
+
+            Q.sheet("boss_attack_weak", "boss/boss_attack_weak.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "w": 3912,
+                    "h": 325,
+                    "cols": 12,
+                    "tilew": 326,
+                    "tileh": 325
+                });
+
+
+            //前端.
+            Q.sheet("front_hi", "front/front_hi.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "w": 7600,
+                    "h": 259,
+                    "cols": 38,
+                    "tilew": 200,
+                    "tileh": 259
+                });
 
             Q.stageScene("mainRoot");
 
-    });
+        });
+
 
 });
