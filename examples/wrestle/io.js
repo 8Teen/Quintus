@@ -22,7 +22,6 @@ Quintus.ioSprites = function (Q) {
         }
     });
 
-
     Q.Sprite.extend("B", {
         init: function (p) {
             this._super(p, {
@@ -63,13 +62,69 @@ Quintus.ioSprites = function (Q) {
 
             this.on(Eve,this,'click');
         },
-        click: function(e){
+        click: function(){
             this.trigger('D.CLICK');
         }
     });
 
-    Q.animation("shake",{
-        frames: [0,1,2,3,4,0], rate: 1/3
+    Q.Sprite.extend("UP", {
+        init: function (p) {
+            this._super(p, {
+                sheet: 'io',
+                frame: 0,
+                scale: 0.4
+            });
+
+            this.on(Eve,this,'click');
+        },
+        click: function(){
+            this.trigger('UP.CLICK');
+        }
+    });
+
+    Q.Sprite.extend("DOWN", {
+        init: function (p) {
+            this._super(p, {
+                sheet: 'io',
+                frame: 1,
+                scale: 0.4
+            });
+
+            this.on(Eve,this,'click');
+        },
+        click: function(){
+            this.trigger('DOWN.CLICK');
+        }
+    });
+
+    Q.Sprite.extend("LEFT", {
+        init: function (p) {
+            this._super(p, {
+                sheet: 'io',
+                frame: 2,
+                scale: 0.4
+            });
+
+            this.on(Eve,this,'click');
+        },
+        click: function(){
+            this.trigger('LEFT.CLICK');
+        }
+    });
+
+    Q.Sprite.extend("RIGHT", {
+        init: function (p) {
+            this._super(p, {
+                sheet: 'io',
+                frame: 3,
+                scale: 0.4
+            });
+
+            this.on(Eve,this,'click');
+        },
+        click: function(){
+            this.trigger('RIGHT.CLICK');
+        }
     });
 
 };
