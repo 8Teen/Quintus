@@ -5,22 +5,27 @@
 window.addEventListener('load', function () {
     // Set up a Quintus Instance
     var Q = window.Q = Quintus({
-        development: true,
-        scale:0.5
+        development: true
     })
     .include("Sprites, Anim, Scenes, 2D, Touch, UI , Input")
-    .include("frontEndSprites,bossSprites,cdSprites,ioSprites")
+    .include("frontEndSprites,bossSprites,scaffoldSprites,cdSprites,ioSprites")
+    .include("CONS")
     .include("Sheets");
 
+    //var h = window.innerHeight;
 
     Q.setup({
-        width:500,
-        height:320,
-        upsampleHeight: 640,
-        upsampleWidth: 1000
+//        width:500,
+//        height:320,
+        width:1000,
+        height:640
+//        upsampleHeight: 640,
+//        upsampleWidth: 1000
     })
     .touch(Q.SPRITE_ALL);
 
+    Q.debug = false;
+//    Q.debugFill = true;
 
     Q.setImageSmoothing = function(enabled) {
         Q.ctx.mozImageSmoothingEnabled && (Q.ctx.mozImageSmoothingEnabled = enabled);
@@ -61,17 +66,21 @@ window.addEventListener('load', function () {
         AArr = [];
 
         if(pad == void 0){
-            pad = stage.insert(new Q.UI.Container({
-                fill:"transparent",
-                color: "red",
+            pad = stage.insert(new Q.UI.ImgContainer({
                 x: Q.width/2,
                 y: Q.height - 100,
+                z: 1,
                 w: 200,
                 h: 40
             }));
         }
 
-        pad.show();
+        if(pad.p.hidden){
+            pad.show();
+        }
+
+        Q.wrestle.rightBottom.show();
+        Q.wrestle.leftBottom.show();
 
         function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1) + min);
@@ -169,31 +178,143 @@ window.addEventListener('load', function () {
         }
         else{
             Q.wrestle.roundRunning = true;
-            Q.wrestle.boss.attack_fierce();
+            Q.wrestle.boss.attack(Q.wrestle.player.p.level);
             pad.hide();
+
+            Q.wrestle.rightBottom.hide();
+            Q.wrestle.leftBottom.hide();
         }
 
         if(cursor >= answer.length){
             Q.wrestle.roundRunning = true;
-            Q.wrestle.front.attack_fierce();
+            Q.wrestle.player.attack();
+
+            Q.wrestle.rightBottom.hide();
+            Q.wrestle.leftBottom.hide();
         }
     };
 
-    Q.Evented.extend('Wrestle');
-    Q.wrestle = new Q.Wrestle();
 
-    Q.wrestle.boss = {};
-    Q.wrestle.front = {};
-    Q.wrestle.stage = {};
-    Q.wrestle.cd = {};
-
-    Q.wrestle.roundRunning = false;
 
     //回合结束.
     Q.wrestle.on('round.over',function(){
         Q.wrestle.roundRunning = false;
         generateKeys(Q.wrestle.stage);
     });
+
+
+    function leftBottom(stage){
+
+        var leftBottom;
+        //左侧控制区.
+        leftBottom = Q.wrestle.leftBottom = stage.insert(new Q.UI.ImgContainer({
+            //fill:"transparent",
+            x: 200,
+            y: Q.height - 200,
+            z: 2,
+            w: 280,
+            h: 280,
+            sheet:'Shank',
+            sprite:'scaffold/Shank.png'
+        }));
+
+        var up = new Q.UP({x: 0, y: -leftBottom.p.h/3});
+        stage.insert(up,leftBottom);
+        up.on('UP.Touch',up,function(){
+            this.p.frame = 4;
+        });
+        up.on('UP.TouchEnd',up,function(){
+            this.p.frame = 0;
+            check(HitType.UP,stage);
+        });
+
+        var down = new Q.DOWN({x: 0, y: leftBottom.p.h/3});
+        stage.insert(down,leftBottom);
+        down.on('DOWN.Touch',down,function(){
+            this.p.frame = 5;
+        });
+        down.on('DOWN.TouchEnd',down,function(){
+            this.p.frame = 1;
+            check(HitType.DOWN,stage);
+        });
+
+        var left = new Q.LEFT({x: -leftBottom.p.w /3, y: 0});
+        stage.insert(left,leftBottom);
+        left.on('LEFT.Touch',left,function(){
+            this.p.frame = 7;
+        });
+        left.on('LEFT.TouchEnd',left,function(){
+            this.p.frame = 3;
+            check(HitType.LEFT,stage);
+        });
+
+        var right = new Q.RIGHT({x: leftBottom.p.w/3, y: 0});
+        stage.insert(right,leftBottom);
+        right.on('RIGHT.Touch',right,function(){
+            this.p.frame = 6;
+        });
+        right.on('RIGHT.TouchEnd',right,function(){
+            this.p.frame = 2;
+            check(HitType.RIGHT,stage);
+        });
+
+    };
+
+    function rightBottom(stage){
+        var rightBottom;
+
+        //右侧控制区.
+        rightBottom = Q.wrestle.rightBottom = stage.insert(new Q.UI.Container({
+            fill:"transparent",
+            x: Q.width - 150,
+            y: Q.height - 200,
+            z: 2,
+            w: 280,
+            h: 280
+        }));
+
+        var a = new Q.A({x: -rightBottom.p.w/4, y: -rightBottom.p.h/4});
+        stage.insert(a,rightBottom);
+        a.on('A.TouchEnd',rightBottom,function(){
+            check(HitType.A,stage);
+        });
+
+        var b = new Q.B({x: -rightBottom.p.w/4, y: rightBottom.p.h/4});
+        stage.insert(b,rightBottom);
+        b.on('B.TouchEnd',rightBottom,function(){
+            check(HitType.B,stage);
+        });
+
+        var c = new Q.C({x: rightBottom.p.w /4, y: -rightBottom.p.h/4});
+        stage.insert(c,rightBottom);
+        c.on('C.TouchEnd',rightBottom,function(){
+            check(HitType.C,stage);
+        });
+
+        var d = new Q.D({x: rightBottom.p.w/4, y: rightBottom.p.h/4});
+        stage.insert(d,rightBottom);
+        d.on('D.TouchEnd',rightBottom,function(){
+            check(HitType.D,stage);
+        });
+    };
+
+    function leftTop(stage){
+//        var leftTop = stage.insert(new Q.UI.Container({
+//            fill:"transparent",
+//            x: 90,
+//            border: 2,
+//            y: 90,
+//            w: 100,
+//            h: 100
+//        }));
+
+        var blood = new Q.Blood({x: 10, y: 100});
+        stage.insert(blood);
+    };
+
+    function rightTop(stage){
+
+    };
 
     Q.scene("mainRoot", function (stage) {
         //stage.viewport(600, 320);
@@ -203,88 +324,32 @@ window.addEventListener('load', function () {
         var bg = new Q.Background();
         stage.insert(bg);
 
+
+        leftTop(stage);
+
+        rightTop(stage);
+
+        rightBottom(stage);
+
+        leftBottom(stage);
+
+
         Q.wrestle.boss = new Q.Boss();
-        stage.insert(Q.wrestle.boss);
-
-        Q.wrestle.front = new Q.Front();
-        stage.insert(Q.wrestle.front);
-
+        Q.wrestle.player = new Q.Front({
+            level: Q.wrestle.pLevel.excellent
+        });
         Q.wrestle.cd = new Q.CD();
+        stage.insert(Q.wrestle.boss);
+        stage.insert(Q.wrestle.player);
         stage.insert(Q.wrestle.cd);
 
 
-        Q.wrestle.cd.play('show');
-        Q.wrestle.boss.play('show');
-        Q.wrestle.front.play('show');
-
-        //右侧控制区.
-        var rightPad = stage.insert(new Q.UI.Container({
-            fill:"transparent",
-            x: Q.width - 90,
-            y: Q.height - 120,
-            w: 100,
-            h: 100
-        }));
-
-        var a = new Q.A({x: -rightPad.p.w/4, y: -rightPad.p.h/4});
-        stage.insert(a,rightPad);
-        a.on('A.CLICK',a,function(){
-            check(HitType.A,stage);
-        });
-
-        var b = new Q.B({x: -rightPad.p.w/4, y: rightPad.p.h/4});
-        stage.insert(b,rightPad);
-        b.on('B.CLICK',b,function(){
-            check(HitType.B,stage);
-        });
-
-        var c = new Q.C({x: rightPad.p.w /4, y: -rightPad.p.h/4});
-        stage.insert(c,rightPad);
-        c.on('C.CLICK',c,function(){
-            check(HitType.C,stage);
-        });
-
-        var d = new Q.D({x: rightPad.p.w/4, y: rightPad.p.h/4});
-        stage.insert(d,rightPad);
-        d.on('D.CLICK',d,function(){
-            check(HitType.D,stage);
-        });
-
-
-        //左侧控制区.
-        var leftPad = stage.insert(new Q.UI.Container({
-            fill:"transparent",
-            x: 90,
-            y: Q.height - 120,
-            w: 100,
-            h: 100
-        }));
-
-        var up = new Q.UP({x: -leftPad.p.w/4, y: -leftPad.p.h/4});
-        stage.insert(up,leftPad);
-        up.on('UP.CLICK',up,function(){
-            check(HitType.UP,stage);
-        });
-
-        var down = new Q.DOWN({x: -leftPad.p.w/4, y: leftPad.p.h/4});
-        stage.insert(down,leftPad);
-        down.on('DOWN.CLICK',down,function(){
-            check(HitType.DOWN,stage);
-        });
-
-        var left = new Q.LEFT({x: leftPad.p.w /4, y: -leftPad.p.h/4});
-        stage.insert(left,leftPad);
-        left.on('LEFT.CLICK',left,function(){
-            check(HitType.LEFT,stage);
-        });
-
-        var right = new Q.RIGHT({x: leftPad.p.w/4, y: leftPad.p.h/4});
-        stage.insert(right,leftPad);
-        right.on('RIGHT.CLICK',right,function(){
-            check(HitType.RIGHT,stage);
-        });
 
         generateKeys(stage);
+
+
+    }, {
+        sort: true
     });
 
 });

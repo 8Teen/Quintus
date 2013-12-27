@@ -8,28 +8,92 @@ Quintus.frontEndSprites = function (Q) {
             this._super(p, {
                 x: Q.width/2 - 200,
                 y: Q.height/2 - 10,
+                z: 1,
                 sprite: "front_show",
                 sheet: 'front_show',
-                scale: 1
+                level: Q.wrestle.pLevel.lower,
+                scale: 1,
+                life: 100
             });
 
             this.add("animation");
 
-            this.on('_show_stand',this._show_stand);
-            this.on('_attack_end',this._attack_end);
+            this.on('front_show_stand',this._show_stand);
+            this.on('front_attack_end',this._attack_end);
+
+            this.show();
+        },
+        attack: function(){
+            var rand = Math.random();
+
+            if(this.p.level == Q.wrestle.pLevel.lower){
+
+                //20%概率中级技能
+                if(rand > 0.8){
+                    this._attack_medium();
+                }
+                else{
+                    this._attack_weak();
+                }
+
+            }
+            else if(this.p.level == Q.wrestle.pLevel.bad){
+                //30%概率中级技能
+                if(rand > 0.7){
+                    this._attack_medium();
+                }
+                else{
+                    this._attack_weak();
+                }
+            }
+            else if(this.p.level == Q.wrestle.pLevel.medium){
+                //40%概率中级技能
+                if(rand > 0.6){
+                    this._attack_medium();
+                }
+                else{
+                    this._attack_weak();
+                }
+            }
+            else if(this.p.level == Q.wrestle.pLevel.good){
+                //40%概率中级技能
+                if(rand > 0.5){
+                    this._attack_medium();
+                }
+                //10%大招
+                else if(rand > 0.4 && rand <= 0.5){
+                    this._attack_fierce();
+                }
+                else{
+                    this._attack_weak();
+                }
+            }
+            else if(this.p.level == Q.wrestle.pLevel.excellent){
+                //40%概率中级技能
+                if(rand > 0.5){
+                    this._attack_medium();
+                }
+                //30%大招
+                else if(rand > 0.2 && rand <= 0.5){
+                    this._attack_fierce();
+                }
+                else{
+                    this._attack_weak();
+                }
+            }
         },
         _show_stand: function(){
             var _self = this;
             _self.p.sheet = "front_stand";
             _self.p.x = Q.width/2  - 180;
             _self.p.y = Q.height/2 + 140;
-            _self.play('show_stand');
+            _self.play('front_show_stand');
         },
-        attack_weak: function(){
+        _attack_weak: function(){
             var _self = this;
             _self.p.sheet = "front_move";
             _self.p.y = Q.height/2 + 150;
-            _self.play('move');
+            _self.play('front_move');
 
             _self.add("tween");
 
@@ -37,16 +101,16 @@ Quintus.frontEndSprites = function (Q) {
                 _self.p.sheet = "front_attack_weak";
                 _self.p.x = Q.width/2;
                 _self.p.y = Q.height/2 + 150;
-                _self.play('attack_weak');
+                _self.play('front_attack_weak');
 
-                Q.wrestle.boss.suffer_weak();
+                Q.wrestle.boss.suffer_weak(this.p.level);
             }});
         },
-        attack_medium: function(){
+        _attack_medium: function(){
             var _self = this;
             _self.p.sheet = "front_move";
             _self.p.y = Q.height/2 + 150;
-            _self.play('move');
+            _self.play('front_move');
 
             _self.add("tween");
 
@@ -54,95 +118,139 @@ Quintus.frontEndSprites = function (Q) {
                 _self.p.sheet = "front_attack_medium";
                 _self.p.x = Q.width/2;
                 _self.p.y = Q.height/2 + 150;
-                _self.play('attack_medium');
+                _self.play('front_attack_medium');
 
-                Q.wrestle.boss.suffer_weak();
+                Q.wrestle.boss.suffer_weak(this.p.level + 10);
             }});
         },
-        attack_fierce: function(){
+        _attack_fierce: function(){
             var _self = this;
 
             _self.p.sheet = "front_attack_fierce";
             _self.p.x = Q.width/2 - 100;
             _self.p.y = Q.height/2 + 70;
-            _self.play('attack_fierce');
+            _self.play('front_attack_fierce');
 
-            Q.wrestle.boss.suffer_weak();
+            Q.wrestle.boss.suffer_weak(this.p.level + 15);
         },
         _attack_end: function(){
             this._show_stand();
 
             Q.wrestle.trigger('round.over');
         },
-        suffer_weak: function(){
+        suffer_weak: function(loss){
             var _self = this;
-            _self.p.sheet = "front_suffer_weak";
+
+            _self.p.life -= loss;
+
+            if(_self.p.life < 0){
+                _self.lose();
+                Q.wrestle.boss.win();
+            }
+            else{
+                _self.p.sheet = "front_suffer_weak";
+                _self.p.x = Q.width/2  - 200;
+                _self.p.y = Q.height/2 + 150;
+                _self.play('front_suffer_weak');
+            }
+        },
+        suffer_medium: function(loss){
+            var _self = this;
+
+            _self.p.life -= loss;
+
+            if(_self.p.life < 0){
+                _self.lose();
+                Q.wrestle.boss.win();
+            }
+            else{
+                _self.p.sheet = "front_suffer_medium";
+                _self.p.x = Q.width/2  - 300;
+                _self.p.y = Q.height/2 + 150;
+                _self.play('front_suffer_medium');
+            }
+        },
+        lose: function(){
+            var _self = this;
+            _self.p.sheet = "front_lose";
             _self.p.x = Q.width/2  - 200;
             _self.p.y = Q.height/2 + 150;
-            _self.play('suffer_weak');
+            _self.play('front_lose');
         },
-        suffer_medium: function(){
+        win: function(){
             var _self = this;
-            _self.p.sheet = "front_suffer_medium";
-            _self.p.x = Q.width/2  - 300;
-            _self.p.y = Q.height/2 + 150;
-            _self.play('suffer_medium');
+            _self.p.sheet = "front_win";
+            _self.p.x = Q.width/2  - 360;
+            _self.p.y = Q.height/2 + 80;
+            _self.play('front_win');
         },
         show: function(){
             var _self = this;
             _self.p.sheet = "front_show";
             _self.p.x = Q.width/2  - 200;
             _self.p.y = Q.height/2 + 30;
-            _self.play('show');
+            _self.play('front_show');
         }
     });
 
     Q.animations('front_show', {
-        show: {
+        front_show: {
             frames: [0,1,2,3,4,5,6,7,8,9,10,11,12],
             loop: false,
             rate: 1/6,
-            trigger: '_show_stand'
+            trigger: 'front_show_stand'
         },
-        show_stand: {
+        front_show_stand: {
             frames: [0,1,2,3,4],
             loop: true,
             rate: 1/2
         },
-        move:{
+        front_move:{
             frames: [0,1,2,3,4,5,6,7,8,9],
             loop: true,
             rate: 1/3
         },
-        suffer_weak: {
+        front_suffer_weak: {
             frames: [0,1,2,3,4,5,6,7,8,9,6],
             loop: false,
             rate: 1/2,
-            trigger: '_show_stand'
+            trigger: 'front_show_stand'
         },
-        suffer_medium:{
+        front_suffer_medium:{
             frames: [0,1,2,3,4,5,6,7,8,9,10],
             loop: false,
             rate: 1/2,
-            trigger: '_show_stand'
+            trigger: 'front_show_stand'
         },
-        attack_weak: {
+        front_attack_weak: {
             frames: [0,1,2,3,4,5,6,7,8,9,10,11],
             loop: false,
             rate: 1/3,
-            trigger: '_attack_end'
+            trigger: 'front_attack_end'
         },
-        attack_medium:{
+        front_attack_medium:{
             frames: [0,1,2,3,4,5,6,7,8,9,10,11,12],
             loop: false,
             rate: 1/5,
-            trigger: '_attack_end'
+            trigger: 'front_attack_end'
         },
-        attack_fierce:{
+        front_attack_fierce:{
             frames: [0,1,2,3,4,5,6,7,8,9],
             loop: false,
             rate: 1/3,
-            trigger: '_attack_end'
+            trigger: 'front_attack_end'
+        },
+        front_lose: {
+            frames: [0,1,2,3,4,5,6,7],
+            loop: false,
+            rate: 1/3,
+            trigger: 'front_lose'
+        },
+        front_win: {
+            frames: [0,1,2,3,4,5,6,7,8,9,10],
+            loop: false,
+            rate: 1/3,
+            trigger: 'front_win'
         }
     });
 

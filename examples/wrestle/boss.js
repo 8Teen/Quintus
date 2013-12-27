@@ -7,19 +7,85 @@ Quintus.bossSprites = function (Q) {
             this._super(p, {
                 x:Q.width/2 + 200,
                 y: Q.height/2 + 90,
+                z: 1,
                 w: 200,
                 h: 300,
                 sprite: "boss",
                 sheet: 'boss_hi',
-                scale: 1
+                level: Q.wrestle.pLevel.excellent,
+                scale: 1,
+                life: 100
             });
 
             this.add("animation");
 
             this.on('standStill',this,this.standStill);
             this.on('_attack_end',this,this._attack_end);
+
+            this.play('show');
         },
-        attack_weak: function(){
+        attack: function(level){
+            var rand = Math.random();
+
+            if(level == Q.wrestle.pLevel.lower){
+
+                //50%大招
+                if(rand > 0.5){
+                    this._attack_fierce();
+                }
+                else{
+                    this._attack_medium();
+                }
+
+            }
+            else if(level == Q.wrestle.pLevel.bad){
+                //30%大招
+                if(rand > 0.7){
+                    this._attack_fierce();
+                }
+                else{
+                    this._attack_medium();
+                }
+            }
+            else if(level == Q.wrestle.pLevel.medium){
+                //40%大招
+                if(rand > 0.6){
+                    this._attack_fierce();
+                }
+                else if(rand <= 0.6 && rand > 0.4){
+                    this._attack_medium();
+                }
+                else{
+                    this._attack_weak();
+                }
+            }
+            else if(level == Q.wrestle.pLevel.good){
+                //30%大招
+                if(rand > 0.7){
+                    this._attack_fierce();
+                }
+                else if(rand > 0.4 && rand <= 0.7){
+                    this._attack_medium();
+                }
+                else{
+                    this._attack_weak();
+                }
+            }
+            else if(level == Q.wrestle.pLevel.excellent){
+                //20%概率中级技能
+                if(rand > 0.8){
+                    this._attack_medium();
+                }
+                //30%大招
+                else if(rand > 0.5 && rand <= 0.8){
+                    this._attack_fierce();
+                }
+                else{
+                    this._attack_weak();
+                }
+            }
+        },
+        _attack_weak: function(){
             var _self = this;
 
             _self.p.sheet = "boss_move";
@@ -31,12 +97,12 @@ Quintus.bossSprites = function (Q) {
                 _self.p.sheet = "boss_attack_weak";
                 _self.p.x = Q.width/2  - 100;
                 _self.p.y = Q.height/2 + 30;
-                _self.play('attack_weak');
+                _self.play('_attack_weak');
 
-                Q.wrestle.front.suffer_weak();
+                Q.wrestle.player.suffer_weak(10);
             }});
         },
-        attack_medium: function(){
+        _attack_medium: function(){
             var _self = this;
 
             _self.p.sheet = "boss_move";
@@ -48,12 +114,12 @@ Quintus.bossSprites = function (Q) {
                 _self.p.sheet = "boss_attack_medium";
                 _self.p.x = Q.width/2  - 200;
                 _self.p.y = Q.height/2 + 100;
-                _self.play('attack_medium');
+                _self.play('_attack_medium');
 
-                Q.wrestle.front.suffer_weak();
+                Q.wrestle.player.suffer_weak(30);
             }});
         },
-        attack_fierce: function(){
+        _attack_fierce: function(){
             var _self = this;
 
             _self.p.sheet = "boss_move";
@@ -65,23 +131,40 @@ Quintus.bossSprites = function (Q) {
                 _self.p.sheet = "boss_attack_fierce";
                 _self.p.x = Q.width/2  - 200;
                 _self.p.y = Q.height/2 - 100;
-                _self.play('attack_fierce');
+                _self.play('_attack_fierce');
 
-                Q.wrestle.front.suffer_medium();
+                Q.wrestle.player.suffer_medium(40);
             }});
+        },
+        defend: function(){
+            var _self = this;
+
+            _self.p.sheet = "boss_defend";
+            _self.p.x = Q.width/2 + 220;
+            _self.p.y = Q.height/2 + 180;
+            _self.play('boss_defend');
         },
         _attack_end: function(){
             this.standStill();
 
             Q.wrestle.trigger('round.over');
         },
-        suffer_weak: function(){
+        suffer_weak: function(loss){
             var _self = this;
 
-            _self.p.sheet = "boss_suffer_weak";
-            _self.p.x = Q.width/2 + 120;
-            _self.p.y = Q.height/2 + 55;
-            _self.play('suffer_weak');
+            _self.p.life -= loss;
+
+            if(_self.p.life < 0){
+                _self.lose();
+
+                Q.wrestle.player.win();
+            }
+            else{
+                _self.p.sheet = "boss_suffer_weak";
+                _self.p.x = Q.width/2 + 120;
+                _self.p.y = Q.height/2 + 55;
+                _self.play('suffer_weak');
+            }
         },
         standStill: function(){
 
@@ -115,23 +198,29 @@ Quintus.bossSprites = function (Q) {
             rate: 1/3,
             loop: true
         },
-        attack_weak:{
+        _attack_weak:{
             frames: [0,1,2,3,4,5,6,7,8,9,10,11],
             rate: 1/3,
             loop:false,
             trigger:'_attack_end'
         },
-        attack_medium:{
+        _attack_medium:{
             frames: [0,1,2,3,4,5,6,7,8,9,10,11,12],
             rate: 1/3,
             loop:false,
             trigger:'_attack_end'
         },
-        attack_fierce:{
+        _attack_fierce:{
             frames: [0,1,2,3,4,5,6,7,8,9,10,11,12,13],
             rate: 1/3,
             loop:false,
             trigger:'_attack_end'
+        },
+        boss_defend:{
+            frames: [0,1,2,3,4,0,1,2,3,4,0,1,2,3,4],
+            rate: 1/3,
+            loop:false,
+            trigger:'standStill'
         },
         suffer_weak:{
             frames: [0,1,2,3,4,5],
@@ -142,13 +231,13 @@ Quintus.bossSprites = function (Q) {
         win:{
             frames: [0,1,2,3,4,5,6,7,8],
             rate: 2/3,
-            loop:true,
+            loop:false,
             trigger:'win'
         },
         lose:{
             frames: [0,1,2,3,4,5,6,7,8,9],
             rate: 1/2,
-            loop:true,
+            loop:false,
             trigger:'lose'
         },
         standStill: {

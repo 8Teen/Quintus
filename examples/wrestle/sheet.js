@@ -12,6 +12,8 @@ Quintus.Sheets = function (Q) {
         "front/front_attack_medium.png",
         "front/front_attack_fierce.png",
         "front/front_stand.png",
+        "front/front_lose.png",
+        "front/front_win.png",
 
         "boss/boss_hi.png",
         "boss/boss_move.png",
@@ -19,13 +21,17 @@ Quintus.Sheets = function (Q) {
         "boss/boss_attack_medium.png",
         "boss/boss_attack_fierce.png",
         "boss/boss_suffer_weak.png",
+        "boss/boss_defend.png",
         "boss/boss_win.png",
         "boss/boss_lose.png",
 
         "cd/cd.png",
         "io/io_hit.png",
         "io/io.png",
-        "bg/bg.jpg"
+        "io/direct.png",
+        "bg/bg.jpg",
+        "scaffold/blood_l.png",
+        "scaffold/Shank.png"
     ],
         function () {
 
@@ -127,6 +133,15 @@ Quintus.Sheets = function (Q) {
                     "cols": 14,
                     "tilew": 438,
                     "tileh": 495
+                });
+
+            Q.sheet("boss_defend", "boss/boss_defend.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 5,
+                    "tilew": 205,
+                    "tileh": 172
                 });
 
             Q.sheet("boss_win", "boss/boss_win.png",
@@ -231,9 +246,43 @@ Quintus.Sheets = function (Q) {
                     "tileh": 365
                 });
 
+            Q.sheet("front_lose", "front/front_lose.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "tilew": 291,
+                    "tileh": 296
+                });
+
+            Q.sheet("front_win", "front/front_win.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "tilew": 451,
+                    "tileh": 354
+                });
+
+            Q.sheet("Shank", "scaffold/Shank.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 1,
+                    "swidth":131,
+                    "sheight":130,
+                    "tilew": 280,
+                    "tileh": 280
+                });
+
+            Q.sheet("direct", "io/direct.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 8,
+                    "tilew": 119,
+                    "tileh": 119
+                });
+
             Q.stageScene("mainRoot");
 
         });
-
-
 };

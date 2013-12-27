@@ -3,22 +3,31 @@
  */
 Quintus.ioSprites = function (Q) {
 
-    var Eve = 'touchEnd';
+    var TouchEnd = 'touchEnd';
+    var Touch = 'touch';
+    var ScaleX = 1;
+    var ScaleXX = 0.7;
+    var W = 119;
+    var H = 119;
 
     //Vision.
     Q.Sprite.extend("A", {
         init: function (p) {
             this._super(p, {
                 sheet: 'io',
+                w: W,
+                h: H,
+                z: 2,
+                border: 4,
                 frame: 0,
-                scale: 0.4
+                scale: ScaleX
             });
 
-            this.on(Eve,this,'click');
+            this.on(TouchEnd,this,'TouchEnd');
 
         },
-        click: function(e){
-            this.trigger('A.CLICK');
+        TouchEnd: function(e){
+            this.trigger('A.TouchEnd');
         }
     });
 
@@ -26,14 +35,16 @@ Quintus.ioSprites = function (Q) {
         init: function (p) {
             this._super(p, {
                 sheet: 'io',
+                w: W,
+                h: H,
                 frame: 1,
-                scale: 0.4
+                scale: ScaleX
             });
 
-            this.on(Eve,this,'click');
+            this.on(TouchEnd,this,'TouchEnd');
         },
-        click: function(e){
-            this.trigger('B.CLICK');
+        TouchEnd: function(e){
+            this.trigger('B.TouchEnd');
         }
     });
 
@@ -41,14 +52,16 @@ Quintus.ioSprites = function (Q) {
         init: function (p) {
             this._super(p, {
                 sheet: 'io',
+                w: W,
+                h: H,
                 frame: 2,
-                scale: 0.4
+                scale: ScaleX
             });
 
-            this.on(Eve,this,'click');
+            this.on(TouchEnd,this,'TouchEnd');
         },
-        click: function(e){
-            this.trigger('C.CLICK');
+        TouchEnd: function(e){
+            this.trigger('C.TouchEnd');
         }
     });
 
@@ -56,74 +69,103 @@ Quintus.ioSprites = function (Q) {
         init: function (p) {
             this._super(p, {
                 sheet: 'io',
+                w: W,
+                h: H,
                 frame: 3,
-                scale: 0.4
+                scale: ScaleX
             });
 
-            this.on(Eve,this,'click');
+            this.on(TouchEnd,this,'TouchEnd');
         },
-        click: function(){
-            this.trigger('D.CLICK');
+        TouchEnd: function(){
+            this.trigger('D.TouchEnd');
         }
     });
 
     Q.Sprite.extend("UP", {
         init: function (p) {
             this._super(p, {
-                sheet: 'io',
+                sheet: 'direct',
+                w: W,
+                h: H,
                 frame: 0,
-                scale: 0.4
+                scale: ScaleXX
             });
 
-            this.on(Eve,this,'click');
+            this.on(TouchEnd,this,'TouchEnd');
+            this.on(Touch,this,'Touch');
         },
-        click: function(){
-            this.trigger('UP.CLICK');
+        Touch: function(){
+            this.trigger('UP.Touch');
+        },
+        TouchEnd: function(){
+            this.trigger('UP.TouchEnd');
         }
     });
 
     Q.Sprite.extend("DOWN", {
         init: function (p) {
             this._super(p, {
-                sheet: 'io',
+                sheet: 'direct',
+                w: W,
+                h: H,
                 frame: 1,
-                scale: 0.4
+                scale: ScaleXX
             });
 
-            this.on(Eve,this,'click');
+            this.on(TouchEnd,this,'TouchEnd');
+            this.on(Touch,this,'Touch');
         },
-        click: function(){
-            this.trigger('DOWN.CLICK');
+        Touch: function(){
+            this.trigger('DOWN.Touch');
+        },
+        TouchEnd: function(){
+            this.trigger('DOWN.TouchEnd');
         }
     });
 
+    
+    
+    
     Q.Sprite.extend("LEFT", {
         init: function (p) {
             this._super(p, {
-                sheet: 'io',
-                frame: 2,
-                scale: 0.4
+                sheet: 'direct',
+                w: W,
+                h: H,
+                frame: 3,
+                scale: ScaleXX
             });
 
-            this.on(Eve,this,'click');
+            this.on(TouchEnd,this,'TouchEnd');
+            this.on(Touch,this,'Touch');
         },
-        click: function(){
-            this.trigger('LEFT.CLICK');
+        Touch: function(){
+            this.trigger('LEFT.Touch');
+        },
+        TouchEnd: function(){
+            this.trigger('LEFT.TouchEnd');
         }
     });
 
     Q.Sprite.extend("RIGHT", {
         init: function (p) {
             this._super(p, {
-                sheet: 'io',
-                frame: 3,
-                scale: 0.4
+                sheet: 'direct',
+                w: W,
+                h: H,
+                frame: 2,
+                scale: ScaleXX
             });
 
-            this.on(Eve,this,'click');
+            this.on(TouchEnd,this,'TouchEnd');
+            this.on(Touch,this,'Touch');
         },
-        click: function(){
-            this.trigger('RIGHT.CLICK');
+        Touch: function(){
+            this.trigger('RIGHT.Touch');
+        },
+        TouchEnd: function(){
+            this.trigger('RIGHT.TouchEnd');
         }
     });
 
