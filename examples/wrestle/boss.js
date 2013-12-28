@@ -2,6 +2,12 @@
  * Created by jiangcheng.wxd on 13-12-21.
  */
 Quintus.bossSprites = function (Q) {
+
+    //攻击力.
+    var weak_ATK = 10;
+    var medium_ATK = 30;
+    var fierce_ATK = 40;
+
     Q.Sprite.extend("Boss", {
         init: function (p) {
             this._super(p, {
@@ -21,6 +27,12 @@ Quintus.bossSprites = function (Q) {
 
             this.on('standStill',this,this.standStill);
             this.on('_attack_end',this,this._attack_end);
+            this.on('win',function(){
+                alert('win');
+            });
+            this.on('lose',function(){
+                alert('lose');
+            });
 
             this.play('show');
         },
@@ -99,7 +111,7 @@ Quintus.bossSprites = function (Q) {
                 _self.p.y = Q.height/2 + 30;
                 _self.play('_attack_weak');
 
-                Q.wrestle.player.suffer_weak(10);
+                Q.wrestle.player.suffer_weak(weak_ATK);
             }});
         },
         _attack_medium: function(){
@@ -116,7 +128,7 @@ Quintus.bossSprites = function (Q) {
                 _self.p.y = Q.height/2 + 100;
                 _self.play('_attack_medium');
 
-                Q.wrestle.player.suffer_weak(30);
+                Q.wrestle.player.suffer_weak(medium_ATK);
             }});
         },
         _attack_fierce: function(){
@@ -133,7 +145,7 @@ Quintus.bossSprites = function (Q) {
                 _self.p.y = Q.height/2 - 100;
                 _self.play('_attack_fierce');
 
-                Q.wrestle.player.suffer_medium(40);
+                Q.wrestle.player.suffer_medium(fierce_ATK);
             }});
         },
         defend: function(){
@@ -154,7 +166,12 @@ Quintus.bossSprites = function (Q) {
 
             _self.p.life -= loss;
 
-            if(_self.p.life < 0){
+            Q.wrestle.b_blood.sheet().tileW = (_self.p.life/100) * Q.wrestle.b_blood.p.w;
+
+            if(_self.p.life <= 0){
+
+                Q.wrestle.b_blood.sheet().tileW = 0;
+
                 _self.lose();
 
                 Q.wrestle.player.win();

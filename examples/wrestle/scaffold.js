@@ -6,9 +6,16 @@ Quintus.scaffoldSprites = function (Q) {
         init: function (p) {
             this._super(p, {
                 z:1,
-                w: 300,
                 h: 15,
-                asset: "scaffold/blood_l.png",
+                scale: 1
+            });
+        }
+    });
+
+    Q.Sprite.extend("Avator", {
+        init: function (p) {
+            this._super(p, {
+                z:1,
                 scale: 1
             });
         }

@@ -8,7 +8,7 @@ window.addEventListener('load', function () {
         development: true
     })
     .include("Sprites, Anim, Scenes, 2D, Touch, UI , Input")
-    .include("frontEndSprites,bossSprites,scaffoldSprites,cdSprites,ioSprites")
+    .include("playerSprites,bossSprites,scaffoldSprites,cdSprites,ioSprites")
     .include("CONS")
     .include("Sheets");
 
@@ -299,21 +299,80 @@ window.addEventListener('load', function () {
     };
 
     function leftTop(stage){
-//        var leftTop = stage.insert(new Q.UI.Container({
-//            fill:"transparent",
-//            x: 90,
-//            border: 2,
-//            y: 90,
-//            w: 100,
-//            h: 100
-//        }));
+        var leftTop = stage.insert(new Q.UI.ImgContainer({
+            x: 250,
+            y: 90,
+            z: 1,
+            frame: 0,
+            sprite:'scaffold/logo.png',
+            sheet:'logo',
+            scale: 0.8
+        }));
 
-        var blood = new Q.Blood({x: 10, y: 100});
-        stage.insert(blood);
+        Q.wrestle.p_blood = new Q.Blood({
+            x: 45,
+            y: -14,
+            frame: 0,
+            sprite: 'scaffold/blood_l.png',
+            sheet:'blood_l'
+        });
+
+        var playerAva = new Q.Avator({
+            sprite:'scaffold/boss.png',
+            sheet:'boss_logo',
+            x: 200, y: -20
+        });
+
+        var playerNick = new Q.UI.Text({
+            label:'焦糊',
+            size: 20,
+            color: 'white',
+            x: -90,
+            y: -40
+        });
+
+//        stage.insert(playerAva,leftTop);
+        stage.insert(playerNick,leftTop);
+        stage.insert(Q.wrestle.p_blood,leftTop);
     };
 
     function rightTop(stage){
+        var rightTop = stage.insert(new Q.UI.ImgContainer({
+            x: Q.width - 250,
+            y: 90,
+            z: 1,
+            frame: 1,
+            sprite:'scaffold/logo.png',
+            sheet:'logo',
+            scale: 0.8
+        }));
 
+        Q.wrestle.b_blood = new Q.Blood({
+            x: -48,
+            y: -22,
+            angle: 180,
+            frame: 0,
+            sprite: 'scaffold/blood_r.png',
+            sheet:'blood_r'
+        });
+
+        var bossAva = new Q.Avator({
+            sprite:'scaffold/boss.png',
+            sheet:'boss_logo',
+            x: 200, y: -20
+        });
+
+        var bossNick = new Q.UI.Text({
+            label:'无线抗总教官',
+            size: 20,
+            color: 'white',
+            x: 70,
+            y: -50
+        });
+
+        stage.insert(bossAva,rightTop);
+        stage.insert(bossNick,rightTop);
+        stage.insert(Q.wrestle.b_blood,rightTop);
     };
 
     Q.scene("mainRoot", function (stage) {
@@ -335,15 +394,16 @@ window.addEventListener('load', function () {
 
 
         Q.wrestle.boss = new Q.Boss();
-        Q.wrestle.player = new Q.Front({
+        Q.wrestle.player = new Q.Player({
+            career: Q.wrestle.Career.InterAct,
+            sprite:'interact_show',
+            sheet:'interact_show',
             level: Q.wrestle.pLevel.excellent
         });
         Q.wrestle.cd = new Q.CD();
         stage.insert(Q.wrestle.boss);
         stage.insert(Q.wrestle.player);
         stage.insert(Q.wrestle.cd);
-
-
 
         generateKeys(stage);
 

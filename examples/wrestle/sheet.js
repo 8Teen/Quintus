@@ -15,6 +15,16 @@ Quintus.Sheets = function (Q) {
         "front/front_lose.png",
         "front/front_win.png",
 
+        "interact/interact_show.png",
+        "interact/interact_move.png",
+        "interact/interact_attack_weak.png",
+        "interact/interact_attack_medium.png",
+        "interact/interact_attack_fierce.png",
+        "interact/interact_suffer_weak.png",
+        "interact/interact_suffer_medium.png",
+        "interact/interact_win.png",
+        "interact/interact_lose.png",
+
         "boss/boss_hi.png",
         "boss/boss_move.png",
         "boss/boss_attack_weak.png",
@@ -31,7 +41,11 @@ Quintus.Sheets = function (Q) {
         "io/direct.png",
         "bg/bg.jpg",
         "scaffold/blood_l.png",
-        "scaffold/Shank.png"
+        "scaffold/Shank.png",
+        "scaffold/logo.png",
+        "scaffold/blood_l.png",
+        "scaffold/blood_r.png",
+        "scaffold/boss.png"
     ],
         function () {
 
@@ -262,6 +276,89 @@ Quintus.Sheets = function (Q) {
                     "tileh": 354
                 });
 
+
+            //交互.
+            Q.sheet("interact_show", "interact/interact_show.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 9,
+                    "tilew": 292,
+                    "tileh": 269
+                });
+
+            Q.sheet("interact_move", "interact/interact_move.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 12,
+                    "tilew": 285,
+                    "tileh": 216
+                });
+
+            Q.sheet("interact_attack_weak", "interact/interact_attack_weak.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 12,
+                    "tilew": 332,
+                    "tileh": 264
+                });
+
+            Q.sheet("interact_attack_medium", "interact/interact_attack_medium.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 12,
+                    "tilew": 428,
+                    "tileh": 299
+                });
+
+            Q.sheet("interact_attack_fierce", "interact/interact_attack_fierce.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 12,
+                    "tilew": 710,
+                    "tileh": 581
+                });
+
+            Q.sheet("interact_suffer_weak", "interact/interact_suffer_weak.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 10,
+                    "tilew": 283,
+                    "tileh": 292
+                });
+
+            Q.sheet("interact_suffer_medium", "interact/interact_suffer_medium.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 10,
+                    "tilew": 281,
+                    "tileh": 269
+                });
+
+            Q.sheet("interact_win", "interact/interact_win.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 9,
+                    "tilew": 482,
+                    "tileh": 368
+                });
+
+            Q.sheet("interact_lose", "interact/interact_lose.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 7,
+                    "tilew": 295,
+                    "tileh": 271
+                });
+
             Q.sheet("Shank", "scaffold/Shank.png",
                 {
                     "sx": 0,
@@ -271,6 +368,42 @@ Quintus.Sheets = function (Q) {
                     "sheight":130,
                     "tilew": 280,
                     "tileh": 280
+                });
+
+            Q.sheet("logo", "scaffold/logo.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 2,
+                    "tilew": 519,
+                    "tileh": 128
+                });
+
+            Q.sheet("blood_l", "scaffold/blood_l.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 1,
+                    "tilew": 385,
+                    "tileh": 15
+                });
+
+            Q.sheet("blood_r", "scaffold/blood_r.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 1,
+                    "tilew": 385,
+                    "tileh": 15
+                });
+
+            Q.sheet("boss_logo", "scaffold/boss.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 1,
+                    "tilew": 135,
+                    "tileh": 130
                 });
 
             Q.sheet("direct", "io/direct.png",
