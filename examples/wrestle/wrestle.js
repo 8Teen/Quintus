@@ -148,7 +148,32 @@ window.addEventListener('load', function () {
         RIGHT:8
     };
 
+    var isFirstInCheck = true;
+    var oldTime;
     function check(type,stage){
+
+        if(isFirstInCheck){
+            oldTime = Date.now();
+            isFirstInCheck = false;
+        }
+        else{
+            if(Date.now() - oldTime > 8000){
+
+                Q.wrestle.rightBottom.hide();
+                Q.wrestle.leftBottom.hide();
+
+                var timeover = new Q.Sprite({
+                    x: Q.width/2,
+                    y: Q.height/2,
+                    z: 2,
+                    asset:'scaffold/timeover.png'
+                });
+
+                Q.wrestle.stage.insert(timeover);
+
+                return;
+            }
+        }
 
         //一回合.
         if(Q.wrestle.roundRunning){
@@ -178,6 +203,7 @@ window.addEventListener('load', function () {
         }
         else{
             Q.wrestle.roundRunning = true;
+            isFirstInCheck = true;
             Q.wrestle.boss.attack(Q.wrestle.player.p.level);
             pad.hide();
 
@@ -187,14 +213,13 @@ window.addEventListener('load', function () {
 
         if(cursor >= answer.length){
             Q.wrestle.roundRunning = true;
+            isFirstInCheck = true;
             Q.wrestle.player.attack();
 
             Q.wrestle.rightBottom.hide();
             Q.wrestle.leftBottom.hide();
         }
     };
-
-
 
     //回合结束.
     Q.wrestle.on('round.over',function(){
@@ -211,14 +236,14 @@ window.addEventListener('load', function () {
             //fill:"transparent",
             x: 200,
             y: Q.height - 200,
-            z: 2,
+            z: 3,
             w: 280,
             h: 280,
             sheet:'Shank',
             sprite:'scaffold/Shank.png'
         }));
 
-        var up = new Q.UP({x: 0, y: -leftBottom.p.h/3});
+        var up = new Q.UP({x: 0,  y: -leftBottom.p.h/3});
         stage.insert(up,leftBottom);
         up.on('UP.Touch',up,function(){
             this.p.frame = 4;
@@ -268,30 +293,30 @@ window.addEventListener('load', function () {
             fill:"transparent",
             x: Q.width - 150,
             y: Q.height - 200,
-            z: 2,
+            z: 3,
             w: 280,
             h: 280
         }));
 
-        var a = new Q.A({x: -rightBottom.p.w/4, y: -rightBottom.p.h/4});
+        var a = new Q.A({x: -rightBottom.p.w/4, y: -rightBottom.p.h/4 ,z: 5});
         stage.insert(a,rightBottom);
         a.on('A.TouchEnd',rightBottom,function(){
             check(HitType.A,stage);
         });
 
-        var b = new Q.B({x: -rightBottom.p.w/4, y: rightBottom.p.h/4});
+        var b = new Q.B({x: -rightBottom.p.w/4, y: rightBottom.p.h/4,z: 5});
         stage.insert(b,rightBottom);
         b.on('B.TouchEnd',rightBottom,function(){
             check(HitType.B,stage);
         });
 
-        var c = new Q.C({x: rightBottom.p.w /4, y: -rightBottom.p.h/4});
+        var c = new Q.C({x: rightBottom.p.w /4, y: -rightBottom.p.h/4,z: 5});
         stage.insert(c,rightBottom);
         c.on('C.TouchEnd',rightBottom,function(){
             check(HitType.C,stage);
         });
 
-        var d = new Q.D({x: rightBottom.p.w/4, y: rightBottom.p.h/4});
+        var d = new Q.D({x: rightBottom.p.w/4, y: rightBottom.p.h/4,z: 5});
         stage.insert(d,rightBottom);
         d.on('D.TouchEnd',rightBottom,function(){
             check(HitType.D,stage);
@@ -317,21 +342,46 @@ window.addEventListener('load', function () {
             sheet:'blood_l'
         });
 
+//        var playerAva = new Q.Avator({
+//            asset:'scaffold/jiaohu.png',
+//            x: -170, y: -30
+//        });
+
+//        var playerAva = new Q.Avator({
+//            asset:'scaffold/simeigong.png',
+//            x: -170, y: -30
+//        });
+
         var playerAva = new Q.Avator({
-            sprite:'scaffold/boss.png',
-            sheet:'boss_logo',
-            x: 200, y: -20
+            asset:'scaffold/yongyan.png',
+            x: -170, y: -30
         });
 
+//        var playerNick = new Q.UI.Text({
+//            label:'焦糊',
+//            size: 20,
+//            color: 'white',
+//            x: -90,
+//            y: -40
+//        });
+
+//        var playerNick = new Q.UI.Text({
+//            label:'视觉',
+//            size: 20,
+//            color: 'white',
+//            x: -90,
+//            y: -40
+//        });
+
         var playerNick = new Q.UI.Text({
-            label:'焦糊',
+            label:'用研',
             size: 20,
             color: 'white',
             x: -90,
             y: -40
         });
 
-//        stage.insert(playerAva,leftTop);
+        stage.insert(playerAva,leftTop);
         stage.insert(playerNick,leftTop);
         stage.insert(Q.wrestle.p_blood,leftTop);
     };
@@ -357,9 +407,8 @@ window.addEventListener('load', function () {
         });
 
         var bossAva = new Q.Avator({
-            sprite:'scaffold/boss.png',
-            sheet:'boss_logo',
-            x: 200, y: -20
+            asset:'scaffold/boss.png',
+            x: 200, y: -25
         });
 
         var bossNick = new Q.UI.Text({
@@ -380,6 +429,8 @@ window.addEventListener('load', function () {
 
         Q.wrestle.stage = stage;
 
+
+
         var bg = new Q.Background();
         stage.insert(bg);
 
@@ -394,19 +445,42 @@ window.addEventListener('load', function () {
 
 
         Q.wrestle.boss = new Q.Boss();
+//        Q.wrestle.player = new Q.Player({
+//            career: Q.wrestle.Career.InterAct,
+//            name:'焦糊',
+//            avatar:'scaffold/jiaohu.png',
+//            sprite:'interact_show',
+//            sheet:'interact_show',
+//            level: Q.wrestle.pLevel.excellent
+//        });
+
+//        Q.wrestle.player = new Q.Player({
+//            career: Q.wrestle.Career.Vision,
+//            name:'视觉',
+//            avatar:'scaffold/simeigong.png',
+//            sprite:'vision_show',
+//            sheet:'vision_show',
+//            level: Q.wrestle.pLevel.excellent
+//        });
+
         Q.wrestle.player = new Q.Player({
-            career: Q.wrestle.Career.InterAct,
-            sprite:'interact_show',
-            sheet:'interact_show',
+            career: Q.wrestle.Career.User,
+            name:'用研',
+            avatar:'scaffold/yongyan.png',
+            sprite:'user_show',
+            sheet:'user_show',
             level: Q.wrestle.pLevel.excellent
         });
+
         Q.wrestle.cd = new Q.CD();
+
+
         stage.insert(Q.wrestle.boss);
         stage.insert(Q.wrestle.player);
         stage.insert(Q.wrestle.cd);
 
-        generateKeys(stage);
 
+        generateKeys(stage);
 
     }, {
         sort: true

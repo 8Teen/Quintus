@@ -25,6 +25,27 @@ Quintus.Sheets = function (Q) {
         "interact/interact_win.png",
         "interact/interact_lose.png",
 
+        "vision/vision_show.png",
+        "vision/vision_stand.png",
+        "vision/vision_move.png",
+        "vision/vision_attack_weak.png",
+        "vision/vision_attack_medium.png",
+        "vision/vision_attack_fierce.png",
+        "vision/vision_suffer_weak.png",
+        "vision/vision_suffer_medium.png",
+        "vision/vision_win.png",
+        "vision/vision_lose.png",
+
+        "user/user_show.png",
+        "user/user_move.png",
+        "user/user_attack_weak.png",
+        "user/user_attack_medium.png",
+        "user/user_attack_fierce.png",
+        "user/user_suffer_weak.png",
+        "user/user_suffer_medium.png",
+        "user/user_win.png",
+        "user/user_lose.png",
+
         "boss/boss_hi.png",
         "boss/boss_move.png",
         "boss/boss_attack_weak.png",
@@ -36,18 +57,32 @@ Quintus.Sheets = function (Q) {
         "boss/boss_lose.png",
 
         "cd/cd.png",
+
         "io/io_hit.png",
         "io/io.png",
         "io/direct.png",
+
         "bg/bg.jpg",
+
         "scaffold/blood_l.png",
         "scaffold/Shank.png",
         "scaffold/logo.png",
         "scaffold/blood_l.png",
         "scaffold/blood_r.png",
-        "scaffold/boss.png"
+
+        "scaffold/win.png",
+        "scaffold/lose.png",
+        "scaffold/timeover.png",
+
+
+        "scaffold/boss.png",
+        "scaffold/jiaohu.png",
+        "scaffold/simeigong.png",
+        "scaffold/manong.png",
+        "scaffold/yongyan.png"
     ],
         function () {
+
 
             //倒計時.
             Q.sheet("cd", "cd/cd.png",
@@ -359,6 +394,180 @@ Quintus.Sheets = function (Q) {
                     "tileh": 271
                 });
 
+            //视觉.
+            Q.sheet("vision_show", "vision/vision_show.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 14,
+                    "tilew": 175,
+                    "tileh": 285
+                });
+
+            Q.sheet("vision_stand", "vision/vision_stand.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 15,
+                    "tilew": 134,
+                    "tileh": 286
+                });
+
+            Q.sheet("vision_move", "vision/vision_move.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 10,
+                    "tilew": 214,
+                    "tileh": 286
+                });
+
+            Q.sheet("vision_attack_weak", "vision/vision_attack_weak.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 9,
+                    "tilew": 276,
+                    "tileh": 281
+                });
+
+            Q.sheet("vision_attack_medium", "vision/vision_attack_medium.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 7,
+                    "tilew": 453,
+                    "tileh": 313
+                });
+
+            Q.sheet("vision_attack_fierce", "vision/vision_attack_fierce.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 5,
+                    "tilew": 717,
+                    "tileh": 369
+                });
+
+            Q.sheet("vision_suffer_weak", "vision/vision_suffer_weak.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 9,
+                    "tilew": 155,
+                    "tileh": 285
+                });
+
+            Q.sheet("vision_suffer_medium", "vision/vision_suffer_medium.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 9,
+                    "tilew": 291,
+                    "tileh": 307
+                });
+
+
+            Q.sheet("vision_win", "vision/vision_win.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 9,
+                    "tilew": 280,
+                    "tileh": 286
+                });
+
+            Q.sheet("vision_lose", "vision/vision_lose.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 8,
+                    "tilew": 186,
+                    "tileh": 284
+                });
+
+
+            Q.sheet("user_show", "user/user_show.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 12,
+                    "tilew": 174,
+                    "tileh": 255
+                });
+
+            Q.sheet("user_move", "user/user_move.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 8,
+                    "tilew": 242,
+                    "tileh": 231
+                });
+
+            Q.sheet("user_attack_weak", "user/user_attack_weak.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 6,
+                    "tilew": 219,
+                    "tileh": 256
+                });
+
+            Q.sheet("user_attack_medium", "user/user_attack_medium.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 10,
+                    "tilew": 348,
+                    "tileh": 436
+                });
+
+            Q.sheet("user_attack_fierce", "user/user_attack_fierce.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 4,
+                    "tilew": 948,
+                    "tileh": 365
+                });
+
+            Q.sheet("user_suffer_weak", "user/user_suffer_weak.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 10,
+                    "tilew": 155,
+                    "tileh": 235
+                });
+
+            Q.sheet("user_suffer_medium", "user/user_suffer_medium.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 10,
+                    "tilew": 250,
+                    "tileh": 245
+                });
+
+            Q.sheet("user_win", "user/user_win.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 8,
+                    "tilew": 232,
+                    "tileh": 382
+                });
+
+            Q.sheet("user_lose", "user/user_lose.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 7,
+                    "tilew": 154,
+                    "tileh": 263
+                });
+
             Q.sheet("Shank", "scaffold/Shank.png",
                 {
                     "sx": 0,
@@ -395,15 +604,6 @@ Quintus.Sheets = function (Q) {
                     "cols": 1,
                     "tilew": 385,
                     "tileh": 15
-                });
-
-            Q.sheet("boss_logo", "scaffold/boss.png",
-                {
-                    "sx": 0,
-                    "sy": 0,
-                    "cols": 1,
-                    "tilew": 135,
-                    "tileh": 130
                 });
 
             Q.sheet("direct", "io/direct.png",

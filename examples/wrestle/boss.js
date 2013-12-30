@@ -28,10 +28,26 @@ Quintus.bossSprites = function (Q) {
             this.on('standStill',this,this.standStill);
             this.on('_attack_end',this,this._attack_end);
             this.on('win',function(){
-                alert('win');
+
+                var lose = new Q.Sprite({
+                    x: Q.width/2,
+                    y: Q.height/2,
+                    z: 2,
+                    asset:'scaffold/lose.png'
+                });
+
+                Q.wrestle.stage.insert(lose);
+
             });
             this.on('lose',function(){
-                alert('lose');
+                var win = new Q.Sprite({
+                    x: Q.width/2,
+                    y: Q.height/2,
+                    z: 2,
+                    asset:'scaffold/win.png'
+                });
+
+                Q.wrestle.stage.insert(win);
             });
 
             this.play('show');
