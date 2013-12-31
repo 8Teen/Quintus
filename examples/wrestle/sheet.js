@@ -66,6 +66,13 @@ Quintus.Sheets = function (Q) {
         'female_suffer_weak.mp3',
         'female_suffer_medium.mp3',
 
+        'male_show.mp3',
+        'male_attack_weak.mp3',
+        'male_attack_medium.mp3',
+        'male_attack_fierce.mp3',
+        'male_suffer_weak.mp3',
+        'male_suffer_medium.mp3',
+
         "cd/cd.png",
 
         "io/io_hit.png",

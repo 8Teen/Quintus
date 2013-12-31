@@ -127,6 +127,7 @@ Quintus.bossSprites = function (Q) {
                 _self.p.y = Q.height/2 + 30;
                 _self.play('_attack_weak');
 
+                Q.audio.play('male_attack_weak.mp3');
                 Q.wrestle.player.suffer_weak(weak_ATK);
             }});
         },
@@ -144,6 +145,7 @@ Quintus.bossSprites = function (Q) {
                 _self.p.y = Q.height/2 + 100;
                 _self.play('_attack_medium');
 
+                Q.audio.play('male_attack_medium.mp3');
                 Q.wrestle.player.suffer_weak(medium_ATK);
             }});
         },
@@ -161,6 +163,7 @@ Quintus.bossSprites = function (Q) {
                 _self.p.y = Q.height/2 - 100;
                 _self.play('_attack_fierce');
 
+                Q.audio.play('male_attack_fierce.mp3');
                 Q.wrestle.player.suffer_medium(fierce_ATK);
             }});
         },
@@ -197,6 +200,8 @@ Quintus.bossSprites = function (Q) {
                 _self.p.x = Q.width/2 + 120;
                 _self.p.y = Q.height/2 + 55;
                 _self.play('suffer_weak');
+
+                Q.audio.play('male_suffer_weak.mp3');
             }
         },
         standStill: function(){
@@ -205,6 +210,8 @@ Quintus.bossSprites = function (Q) {
             this.p.x = Q.width/2 + 200;
             this.p.y = Q.height/2 + 100;
             this.play('standStill');
+
+            //Q.audio.play('male_show.mp3');
         },
         win: function(){
             this.p.sheet = "boss_win";

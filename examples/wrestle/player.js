@@ -27,14 +27,18 @@ Quintus.playerSprites = function (Q) {
 
             this.on('front_show_stand',this._show_stand);
             this.on('front_attack_end',this._attack_end);
+            this.on('front_suffer_end',this._suffer_end);
 
-            this.on('interact_attack_end',this._attack_end);
             this.on('interact_show_stand',this._show_stand);
+            this.on('interact_attack_end',this._attack_end);
+            this.on('interact_suffer_end',this._suffer_end);
 
             this.on('vision_stand',this._show_stand);
             this.on('vision_attack_end',this._attack_end);
+            this.on('vision__suffer_end',this._suffer_end);
 
             this.on('user_attack_end',this._attack_end);
+            this.on('user_suffer_end',this._suffer_end);
 
 
             this.show();
@@ -109,7 +113,6 @@ Quintus.playerSprites = function (Q) {
                 _self.play('front_show_stand');
             }
 
-
             if(_self.p.career === Q.wrestle.Career.InterAct){
                 _self.show();
             }
@@ -157,6 +160,8 @@ Quintus.playerSprites = function (Q) {
                     _self.p.x = Q.width/2;
                     _self.p.y = Q.height/2 + 80;
                     _self.play('interact_attack_weak');
+
+                    Q.audio.play('female_attack_weak.mp3');
 
                     Q.wrestle.boss.suffer_weak(weak_ATK);
                 }});
@@ -226,6 +231,8 @@ Quintus.playerSprites = function (Q) {
                 _self.p.y = Q.height/2 + 40;
                 _self.play('interact_attack_medium');
 
+                Q.audio.play('female_attack_medium.mp3');
+
                 Q.wrestle.boss.suffer_weak(medium_ATK);
             }
 
@@ -267,6 +274,8 @@ Quintus.playerSprites = function (Q) {
                 _self.p.x = Q.width/2 - 300;
                 _self.p.y = Q.height/2 - 220;
                 _self.play('interact_attack_fierce');
+
+                Q.audio.play('female_attack_fierce.mp3');
 
                 Q.wrestle.boss.suffer_weak(fierce_ATK);
             }
@@ -322,6 +331,9 @@ Quintus.playerSprites = function (Q) {
 
 
                 if(_self.p.career === Q.wrestle.Career.InterAct){
+
+                    Q.audio.play('female_suffer_weak.mp3');
+
                     _self.p.sheet = "interact_suffer_weak";
                     _self.p.x = Q.width/2  - 220;
                     _self.p.y = Q.height/2 + 50;
@@ -371,6 +383,9 @@ Quintus.playerSprites = function (Q) {
                 }
 
                 if(_self.p.career === Q.wrestle.Career.InterAct){
+
+                    Q.audio.play('female_suffer_medium.mp3');
+
                     _self.p.sheet = "interact_suffer_medium";
                     _self.p.x = Q.width/2  - 220;
                     _self.p.y = Q.height/2 + 70;
@@ -396,6 +411,9 @@ Quintus.playerSprites = function (Q) {
                 }
 
             }
+        },
+        _suffer_end: function(){
+            this._show_stand();
         },
         lose: function(){
             var _self = this;
@@ -517,13 +535,13 @@ Quintus.playerSprites = function (Q) {
             frames: [0,1,2,3,4,5,6,7,8,9,6],
             loop: false,
             rate: 1/2,
-            trigger: 'front_show_stand'
+            trigger: 'front_suffer_end'
         },
         front_suffer_medium:{
             frames: [0,1,2,3,4,5,6,7,8,9,10],
             loop: false,
             rate: 1/2,
-            trigger: 'front_show_stand'
+            trigger: 'front_suffer_end'
         },
         front_attack_weak: {
             frames: [0,1,2,3,4,5,6,7,8,9,10,11],
@@ -588,13 +606,13 @@ Quintus.playerSprites = function (Q) {
             frames: [0,1,2,3,4,5,6,7,8,9],
             loop: false,
             rate: 1/4,
-            trigger:'interact_show_stand'
+            trigger:'interact_suffer_end'
         },
         interact_suffer_medium:{
             frames: [0,1,2,3,4,5,6,7,8,9],
             loop: false,
             rate: 1/4,
-            trigger:'interact_show_stand'
+            trigger:'interact_suffer_end'
         },
         interact_win:{
             frames: [0,1,2,3,4,5,6,7,8],
@@ -647,13 +665,13 @@ Quintus.playerSprites = function (Q) {
             frames: [0,1,2,3,4,5,6,7,8],
             loop: false,
             rate: 1/4,
-            trigger:'vision_attack_end'
+            trigger:'vision_suffer_end'
         },
         vision_suffer_medium:{
             frames: [0,1,2,3,4,5,6,7,8],
             loop: false,
             rate: 1/4,
-            trigger:'vision_attack_end'
+            trigger:'vision_suffer_end'
         },
         vision_win:{
             frames: [0,1,2,3,4,5,6,7,8],
@@ -700,13 +718,13 @@ Quintus.playerSprites = function (Q) {
             frames: [0,1,2,3,4,5,6,7,8,9],
             loop: false,
             rate: 1/4,
-            trigger:'user_attack_end'
+            trigger:'user_suffer_end'
         },
         user_suffer_medium:{
             frames: [0,1,2,3,4,5,6,7,8,9],
             loop: false,
             rate: 1/4,
-            trigger:'user_attack_end'
+            trigger:'user_suffer_end'
         },
         user_win:{
             frames: [0,1,2,3,4,5,6,7],
