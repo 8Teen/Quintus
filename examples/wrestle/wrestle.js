@@ -343,9 +343,14 @@ window.addEventListener('load', function () {
         });
 
         var playerAva = new Q.Avator({
-            asset:'scaffold/jiaohu.png',
+            asset:'scaffold/manong.png',
             x: -170, y: -30
         });
+
+//        var playerAva = new Q.Avator({
+//            asset:'scaffold/jiaohu.png',
+//            x: -170, y: -30
+//        });
 
 //        var playerAva = new Q.Avator({
 //            asset:'scaffold/simeigong.png',
@@ -358,12 +363,20 @@ window.addEventListener('load', function () {
 //        });
 
         var playerNick = new Q.UI.Text({
-            label:'焦糊',
+            label:'码农',
             size: 20,
             color: 'white',
             x: -90,
             y: -40
         });
+
+//        var playerNick = new Q.UI.Text({
+//            label:'焦糊',
+//            size: 20,
+//            color: 'white',
+//            x: -90,
+//            y: -40
+//        });
 
 //        var playerNick = new Q.UI.Text({
 //            label:'视觉',
@@ -445,14 +458,24 @@ window.addEventListener('load', function () {
 
 
         Q.wrestle.boss = new Q.Boss();
+
         Q.wrestle.player = new Q.Player({
-            career: Q.wrestle.Career.InterAct,
-            name:'焦糊',
-            avatar:'scaffold/jiaohu.png',
-            sprite:'interact_show',
-            sheet:'interact_show',
+            career: Q.wrestle.Career.Front,
+            name:'前端',
+            avatar:'scaffold/manong.png',
+            sprite:'front_show',
+            sheet:'front_show',
             level: Q.wrestle.pLevel.excellent
         });
+
+//        Q.wrestle.player = new Q.Player({
+//            career: Q.wrestle.Career.InterAct,
+//            name:'焦糊',
+//            avatar:'scaffold/jiaohu.png',
+//            sprite:'interact_show',
+//            sheet:'interact_show',
+//            level: Q.wrestle.pLevel.excellent
+//        });
 
 //        Q.wrestle.player = new Q.Player({
 //            career: Q.wrestle.Career.Vision,
