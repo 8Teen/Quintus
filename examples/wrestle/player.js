@@ -42,65 +42,62 @@ Quintus.playerSprites = function (Q) {
         attack: function(){
             var rand = Math.random();
 
-//            if(this.p.level == Q.wrestle.pLevel.lower){
-//
-//                //20%概率中级技能
-//                if(rand > 0.8){
-//                    this._attack_medium();
-//                }
-//                else{
-//                    this._attack_weak();
-//                }
-//
-//            }
-//            else if(this.p.level == Q.wrestle.pLevel.bad){
-//                //30%概率中级技能
-//                if(rand > 0.7){
-//                    this._attack_medium();
-//                }
-//                else{
-//                    this._attack_weak();
-//                }
-//            }
-//            else if(this.p.level == Q.wrestle.pLevel.medium){
-//                //40%概率中级技能
-//                if(rand > 0.6){
-//                    this._attack_medium();
-//                }
-//                else{
-//                    this._attack_weak();
-//                }
-//            }
-//            else if(this.p.level == Q.wrestle.pLevel.good){
-//                //40%概率中级技能
-//                if(rand > 0.5){
-//                    this._attack_medium();
-//                }
-//                //10%大招
-//                else if(rand > 0.4 && rand <= 0.5){
-//                    this._attack_fierce();
-//                }
-//                else{
-//                    this._attack_weak();
-//                }
-//            }
-//            else if(this.p.level == Q.wrestle.pLevel.excellent){
-//                //40%概率中级技能
-//                if(rand > 0.5){
-//                    this._attack_medium();
-//                }
-//                //30%大招
-//                else if(rand > 0.2 && rand <= 0.5){
-//                    this._attack_fierce();
-//                }
-//                else{
-//                    this._attack_weak();
-//                }
-//            }
+            if(this.p.level == Q.wrestle.pLevel.lower){
 
-            this._attack_medium();
+                //20%概率中级技能
+                if(rand > 0.8){
+                    this._attack_medium();
+                }
+                else{
+                    this._attack_weak();
+                }
 
-            //this.lose();
+            }
+            else if(this.p.level == Q.wrestle.pLevel.bad){
+                //30%概率中级技能
+                if(rand > 0.7){
+                    this._attack_medium();
+                }
+                else{
+                    this._attack_weak();
+                }
+            }
+            else if(this.p.level == Q.wrestle.pLevel.medium){
+                //40%概率中级技能
+                if(rand > 0.6){
+                    this._attack_medium();
+                }
+                else{
+                    this._attack_weak();
+                }
+            }
+            else if(this.p.level == Q.wrestle.pLevel.good){
+                //40%概率中级技能
+                if(rand > 0.5){
+                    this._attack_medium();
+                }
+                //10%大招
+                else if(rand > 0.4 && rand <= 0.5){
+                    this._attack_fierce();
+                }
+                else{
+                    this._attack_weak();
+                }
+            }
+            else if(this.p.level == Q.wrestle.pLevel.excellent){
+                //40%概率中级技能
+                if(rand > 0.5){
+                    this._attack_medium();
+                }
+                //30%大招
+                else if(rand > 0.2 && rand <= 0.5){
+                    this._attack_fierce();
+                }
+                else{
+                    this._attack_weak();
+                }
+            }
+
         },
         _show_stand: function(){
             var _self = this;
@@ -195,6 +192,8 @@ Quintus.playerSprites = function (Q) {
                     _self.p.y = Q.height/2 + 70;
                     _self.play('user_attack_weak');
 
+                    Q.audio.play('female_attack_weak.mp3');
+
                     Q.wrestle.boss.suffer_weak(weak_ATK);
                 }});
             }
@@ -215,6 +214,8 @@ Quintus.playerSprites = function (Q) {
                     _self.p.x = Q.width/2;
                     _self.p.y = Q.height/2 + 150;
                     _self.play('front_attack_medium');
+
+
 
                     Q.wrestle.boss.suffer_weak(medium_ATK);
                 }});
@@ -241,6 +242,8 @@ Quintus.playerSprites = function (Q) {
                 _self.p.x = Q.width/2 - 30;
                 _self.p.y = Q.height/2 - 40;
                 _self.play('user_attack_medium');
+
+                Q.audio.play('female_attack_medium.mp3');
 
                 Q.wrestle.boss.suffer_weak(medium_ATK);
             }
@@ -282,6 +285,8 @@ Quintus.playerSprites = function (Q) {
                 _self.p.x = Q.width/2 - 300;
                 _self.p.y = Q.height/2;
                 _self.play('user_attack_fierce');
+
+                Q.audio.play('female_attack_fierce.mp3');
 
                 Q.wrestle.boss.suffer_weak(fierce_ATK);
             }
@@ -331,6 +336,9 @@ Quintus.playerSprites = function (Q) {
                 }
 
                 if(_self.p.career === Q.wrestle.Career.User){
+
+                    Q.audio.play('female_suffer_weak.mp3');
+
                     _self.p.sheet = "user_suffer_weak";
                     _self.p.x = Q.width/2  - 220;
                     _self.p.y = Q.height/2 + 90;
@@ -377,10 +385,14 @@ Quintus.playerSprites = function (Q) {
                 }
 
                 if(_self.p.career === Q.wrestle.Career.User){
+
+                    Q.audio.play('female_suffer_medium.mp3');
+
                     _self.p.sheet = "user_suffer_medium";
                     _self.p.x = Q.width/2  - 300;
                     _self.p.y = Q.height/2 + 70;
                     _self.play('user_suffer_medium');
+
                 }
 
             }
@@ -478,6 +490,8 @@ Quintus.playerSprites = function (Q) {
                 _self.p.x = Q.width/2  - 200;
                 _self.p.y = Q.height/2 + 70;
                 _self.play('user_show');
+
+                Q.audio.play('female_show.mp3');
             }
         }
     });

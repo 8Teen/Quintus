@@ -3,6 +3,8 @@
  */
 Quintus.Sheets = function (Q) {
 
+    Q.enableSound();
+
     Q.load([
         "front/front_show.png",
         "front/front_move.png",
@@ -55,6 +57,14 @@ Quintus.Sheets = function (Q) {
         "boss/boss_defend.png",
         "boss/boss_win.png",
         "boss/boss_lose.png",
+
+        'bg.mp3',
+        'female_show.mp3',
+        'female_attack_weak.mp3',
+        'female_attack_medium.mp3',
+        'female_attack_fierce.mp3',
+        'female_suffer_weak.mp3',
+        'female_suffer_medium.mp3',
 
         "cd/cd.png",
 
@@ -618,4 +628,6 @@ Quintus.Sheets = function (Q) {
             Q.stageScene("mainRoot");
 
         });
+
+
 };

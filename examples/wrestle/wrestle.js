@@ -5,9 +5,10 @@
 window.addEventListener('load', function () {
     // Set up a Quintus Instance
     var Q = window.Q = Quintus({
-        development: true
+        development: true,
+        audioSupported: [ 'mp3' ]
     })
-    .include("Sprites, Anim, Scenes, 2D, Touch, UI , Input")
+    .include("Sprites, Anim, Scenes, 2D, Touch, UI , Input , Audio")
     .include("playerSprites,bossSprites,scaffoldSprites,cdSprites,ioSprites")
     .include("CONS")
     .include("Sheets");
@@ -22,7 +23,8 @@ window.addEventListener('load', function () {
 //        upsampleHeight: 640,
 //        upsampleWidth: 1000
     })
-    .touch(Q.SPRITE_ALL);
+    .touch(Q.SPRITE_ALL)
+    .enableSound();
 
     Q.debug = false;
 //    Q.debugFill = true;
@@ -427,9 +429,9 @@ window.addEventListener('load', function () {
     Q.scene("mainRoot", function (stage) {
         //stage.viewport(600, 320);
 
+        Q.audio.play('bg.mp3',{loop: true});
+
         Q.wrestle.stage = stage;
-
-
 
         var bg = new Q.Background();
         stage.insert(bg);
