@@ -468,6 +468,7 @@ window.addEventListener('load', function () {
             level: Q.wrestle.pLevel.excellent
         });
 
+
 //        Q.wrestle.player = new Q.Player({
 //            career: Q.wrestle.Career.InterAct,
 //            name:'焦糊',
