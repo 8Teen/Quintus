@@ -13,15 +13,13 @@ window.addEventListener('load', function () {
     .include("CONS")
     .include("Sheets");
 
-    //var h = window.innerHeight;
-
     Q.setup({
-        width:500,
-        height:320,
-//        width:1000,
-//        height:640
-        upsampleHeight: 640,
-        upsampleWidth: 1000
+//        width:500,
+//        height:320,
+        width:1000,
+        height:640
+//        upsampleHeight: 640,
+//        upsampleWidth: 1000
     })
     .touch(Q.SPRITE_ALL)
     .enableSound();
@@ -29,14 +27,12 @@ window.addEventListener('load', function () {
     Q.debug = false;
 //    Q.debugFill = true;
 
-    Q.setImageSmoothing = function(enabled) {
-        Q.ctx.mozImageSmoothingEnabled && (Q.ctx.mozImageSmoothingEnabled = enabled);
+    //canvas 绘图效率 http://jsperf.com/imagesmoothingenabled
+    (function(enabled) {
         Q.ctx.webkitImageSmoothingEnabled && (Q.ctx.webkitImageSmoothingEnabled = enabled);
-        Q.ctx.msImageSmoothingEnabled && (Q.ctx.msImageSmoothingEnabled = enabled);
         Q.ctx.imageSmoothingEnabled && (Q.ctx.imageSmoothingEnabled = enabled);
-    };
+    })(true);
 
-    Q.setImageSmoothing(true);
 
     //background.
     Q.Sprite.extend("Background", {
@@ -72,7 +68,7 @@ window.addEventListener('load', function () {
                 x: Q.width/2,
                 y: Q.height - 100,
                 z: 1,
-                w: 200,
+                w: 300,
                 h: 40
             }));
         }
@@ -86,48 +82,49 @@ window.addEventListener('load', function () {
 
 
         var rand;
-        var keysNum = 5;
-        var symNum = keysNum - 1;
+        var keysNum = 4;
+        var pairNum = Math.floor(keysNum/2);
+        var symNum = 8;
         for(var i = 0; i < keysNum; i++){
             rand = getRandomInt(1,symNum);
 
             if(rand == HitType.A){
-                AArr.push(stage.insert(new Q.A({x: pad.p.w * (i-2)/symNum, y: 0, scale:0.3}),pad));
+                AArr.push(stage.insert(new Q.HIT({x: pad.p.w * (i-pairNum)/symNum, y: 0,  frame:4}),pad));
                 answer.push(1);
             }
 
             if(rand == HitType.B){
-                AArr.push(stage.insert(new Q.B({x: pad.p.w * (i-2)/symNum, y: 0, scale:0.3}),pad));
+                AArr.push(stage.insert(new Q.HIT({x: pad.p.w * (i-pairNum)/symNum, y: 0,  frame:5}),pad));
                 answer.push(2);
             }
 
             if(rand == HitType.C){
-                AArr.push(stage.insert(new Q.C({x: pad.p.w * (i-2)/symNum, y: 0, scale:0.3}),pad));
+                AArr.push(stage.insert(new Q.HIT({x: pad.p.w * (i-pairNum)/symNum, y: 0, frame:6}),pad));
                 answer.push(3);
             }
 
             if(rand == HitType.D){
-                AArr.push(stage.insert(new Q.D({x: pad.p.w * (i-2)/symNum, y: 0, scale:0.3}),pad));
+                AArr.push(stage.insert(new Q.HIT({x: pad.p.w * (i-pairNum)/symNum, y: 0,  frame:7}),pad));
                 answer.push(4);
             }
 
             if(rand == HitType.UP){
-                AArr.push(stage.insert(new Q.A({x: pad.p.w * (i-2)/symNum, y: 0, scale:0.3}),pad));
+                AArr.push(stage.insert(new Q.HIT({x: pad.p.w * (i-pairNum)/symNum, y: 0, frame:0}),pad));
                 answer.push(5);
             }
 
             if(rand == HitType.DOWN){
-                AArr.push(stage.insert(new Q.B({x: pad.p.w * (i-2)/symNum, y: 0, scale:0.3}),pad));
+                AArr.push(stage.insert(new Q.HIT({x: pad.p.w * (i-pairNum)/symNum, y: 0,  frame:1}),pad));
                 answer.push(6);
             }
 
             if(rand == HitType.LEFT){
-                AArr.push(stage.insert(new Q.C({x: pad.p.w * (i-2)/symNum, y: 0, scale:0.3}),pad));
+                AArr.push(stage.insert(new Q.HIT({x: pad.p.w * (i-pairNum)/symNum, y: 0,  frame:2}),pad));
                 answer.push(7);
             }
 
             if(rand == HitType.RIGHT){
-                AArr.push(stage.insert(new Q.D({x: pad.p.w * (i-2)/symNum, y: 0, scale:0.3}),pad));
+                AArr.push(stage.insert(new Q.HIT({x: pad.p.w * (i-pairNum)/symNum, y: 0,  frame:3}),pad));
                 answer.push(8);
             }
         }
@@ -148,7 +145,6 @@ window.addEventListener('load', function () {
         LEFT:7,
         RIGHT:8
     };
-
     var isFirstInCheck = true;
     var oldTime;
     function check(type,stage){
@@ -202,6 +198,22 @@ window.addEventListener('load', function () {
             AArr[cursor].p.sheet = 'io_hit';
             cursor++;
         }
+        else if(type == HitType.UP && HitType.UP == answer[cursor]){
+            AArr[cursor].p.sheet = 'io_hit';
+            cursor++;
+        }
+        else if(type == HitType.DOWN && HitType.DOWN == answer[cursor]){
+            AArr[cursor].p.sheet = 'io_hit';
+            cursor++;
+        }
+        else if(type == HitType.LEFT && HitType.LEFT == answer[cursor]){
+            AArr[cursor].p.sheet = 'io_hit';
+            cursor++;
+        }
+        else if(type == HitType.RIGHT && HitType.RIGHT == answer[cursor]){
+            AArr[cursor].p.sheet = 'io_hit';
+            cursor++;
+        }
         else{
             Q.wrestle.roundRunning = true;
             isFirstInCheck = true;
@@ -240,46 +252,30 @@ window.addEventListener('load', function () {
             w: 280,
             h: 280,
             sheet:'Shank',
-            sprite:'scaffold/Shank.png'
+            sprite:'io/Shank.png'
         }));
 
-        var up = new Q.UP({x: 0,  y: -leftBottom.p.h/3});
+        var up = new Q.UP({x: 0,  y: -leftBottom.p.h/3 , frame: 0});
         stage.insert(up,leftBottom);
-        up.on('UP.Touch',up,function(){
-            this.p.frame = 4;
-        });
         up.on('UP.TouchEnd',up,function(){
-            this.p.frame = 0;
             check(HitType.UP,stage);
         });
 
-        var down = new Q.DOWN({x: 0, y: leftBottom.p.h/3});
+        var down = new Q.DOWN({x: 0, y: leftBottom.p.h/3, frame: 1});
         stage.insert(down,leftBottom);
-        down.on('DOWN.Touch',down,function(){
-            this.p.frame = 5;
-        });
         down.on('DOWN.TouchEnd',down,function(){
-            this.p.frame = 1;
             check(HitType.DOWN,stage);
         });
 
-        var left = new Q.LEFT({x: -leftBottom.p.w /3, y: 0});
+        var left = new Q.LEFT({x: -leftBottom.p.w /3, y: 0, frame: 3});
         stage.insert(left,leftBottom);
-        left.on('LEFT.Touch',left,function(){
-            this.p.frame = 7;
-        });
         left.on('LEFT.TouchEnd',left,function(){
-            this.p.frame = 3;
             check(HitType.LEFT,stage);
         });
 
-        var right = new Q.RIGHT({x: leftBottom.p.w/3, y: 0});
+        var right = new Q.RIGHT({x: leftBottom.p.w/3, y: 0, frame: 2});
         stage.insert(right,leftBottom);
-        right.on('RIGHT.Touch',right,function(){
-            this.p.frame = 6;
-        });
         right.on('RIGHT.TouchEnd',right,function(){
-            this.p.frame = 2;
             check(HitType.RIGHT,stage);
         });
 
@@ -298,25 +294,25 @@ window.addEventListener('load', function () {
             h: 280
         }));
 
-        var a = new Q.A({x: -rightBottom.p.w/4, y: -rightBottom.p.h/4 ,z: 5});
+        var a = new Q.A({x: -rightBottom.p.w/4, y: -rightBottom.p.h/4 , frame: 0});
         stage.insert(a,rightBottom);
         a.on('A.TouchEnd',rightBottom,function(){
             check(HitType.A,stage);
         });
 
-        var b = new Q.B({x: -rightBottom.p.w/4, y: rightBottom.p.h/4,z: 5});
+        var b = new Q.B({x: rightBottom.p.w /4, y: -rightBottom.p.h/4, frame: 1});
         stage.insert(b,rightBottom);
         b.on('B.TouchEnd',rightBottom,function(){
             check(HitType.B,stage);
         });
 
-        var c = new Q.C({x: rightBottom.p.w /4, y: -rightBottom.p.h/4,z: 5});
+        var c = new Q.C({x: -rightBottom.p.w/4, y: rightBottom.p.h/4, frame: 2});
         stage.insert(c,rightBottom);
         c.on('C.TouchEnd',rightBottom,function(){
             check(HitType.C,stage);
         });
 
-        var d = new Q.D({x: rightBottom.p.w/4, y: rightBottom.p.h/4,z: 5});
+        var d = new Q.D({x: rightBottom.p.w/4, y: rightBottom.p.h/4, frame: 3});
         stage.insert(d,rightBottom);
         d.on('D.TouchEnd',rightBottom,function(){
             check(HitType.D,stage);
@@ -325,8 +321,8 @@ window.addEventListener('load', function () {
 
     function leftTop(stage){
         var leftTop = stage.insert(new Q.UI.ImgContainer({
-            x: 250,
-            y: 90,
+            x: 256,
+            y: 114,
             z: 1,
             frame: 0,
             sprite:'scaffold/logo.png',
@@ -402,7 +398,7 @@ window.addEventListener('load', function () {
     function rightTop(stage){
         var rightTop = stage.insert(new Q.UI.ImgContainer({
             x: Q.width - 250,
-            y: 90,
+            y: 120,
             z: 1,
             frame: 1,
             sprite:'scaffold/logo.png',
@@ -411,8 +407,8 @@ window.addEventListener('load', function () {
         }));
 
         Q.wrestle.b_blood = new Q.Blood({
-            x: -48,
-            y: -22,
+            x: -52,
+            y: -25,
             angle: 180,
             frame: 0,
             sprite: 'scaffold/blood_r.png',
@@ -438,15 +434,13 @@ window.addEventListener('load', function () {
     };
 
     Q.scene("mainRoot", function (stage) {
-        //stage.viewport(600, 320);
 
-        Q.audio.play('bg.mp3',{loop: true, volume: 0.5});
+//        Q.audio.play('bg.mp3',{loop: true, volume: 0.5});
 
         Q.wrestle.stage = stage;
 
         var bg = new Q.Background();
         stage.insert(bg);
-
 
         leftTop(stage);
 

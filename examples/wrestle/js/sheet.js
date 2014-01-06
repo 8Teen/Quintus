@@ -75,14 +75,15 @@ Quintus.Sheets = function (Q) {
 
         "cd/cd.png",
 
+        "io/Shank.png",
         "io/io_hit.png",
         "io/io.png",
         "io/direct.png",
+        "io/abcd.png",
 
         "bg/bg.jpg",
 
         "scaffold/blood_l.png",
-        "scaffold/Shank.png",
         "scaffold/logo.png",
         "scaffold/blood_l.png",
         "scaffold/blood_r.png",
@@ -118,23 +119,49 @@ Quintus.Sheets = function (Q) {
                 {
                     "sx": 0,
                     "sy": 0,
-                    "w": 476,
-                    "h": 119,
-                    "cols": 4,
-                    "tilew": 119,
-                    "tileh": 119
+                    "cols": 8,
+                    "tilew": 56,
+                    "tileh": 56
                 });
 
             Q.sheet("io_hit", "io/io_hit.png",
                 {
                     "sx": 0,
                     "sy": 0,
-                    "w": 476,
-                    "h": 119,
+                    "cols": 8,
+                    "tilew": 56,
+                    "tileh": 56
+                });
+
+            Q.sheet("abcd", "io/abcd.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
                     "cols": 4,
                     "tilew": 119,
                     "tileh": 119
                 });
+
+            Q.sheet("Shank", "io/Shank.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 1,
+                    "swidth":131,
+                    "sheight":130,
+                    "tilew": 280,
+                    "tileh": 280
+                });
+
+            Q.sheet("direct", "io/direct.png",
+                {
+                    "sx": 0,
+                    "sy": 0,
+                    "cols": 8,
+                    "tilew": 119,
+                    "tileh": 119
+                });
+
 
             //boss
             Q.sheet("boss_hi", "boss/boss_hi.png",
@@ -585,16 +612,6 @@ Quintus.Sheets = function (Q) {
                     "tileh": 263
                 });
 
-            Q.sheet("Shank", "scaffold/Shank.png",
-                {
-                    "sx": 0,
-                    "sy": 0,
-                    "cols": 1,
-                    "swidth":131,
-                    "sheight":130,
-                    "tilew": 280,
-                    "tileh": 280
-                });
 
             Q.sheet("logo", "scaffold/logo.png",
                 {
@@ -621,15 +638,6 @@ Quintus.Sheets = function (Q) {
                     "cols": 1,
                     "tilew": 385,
                     "tileh": 15
-                });
-
-            Q.sheet("direct", "io/direct.png",
-                {
-                    "sx": 0,
-                    "sy": 0,
-                    "cols": 8,
-                    "tilew": 119,
-                    "tileh": 119
                 });
 
             Q.stageScene("mainRoot");

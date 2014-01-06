@@ -26,6 +26,8 @@ Quintus.CONS = function (Q) {
         User:'User'
     };
 
+    Q.wrestle.Cicle = {};
+
     Q.wrestle.pLevel = {
         lower:5,            //攻击力,
         bad:10,             //攻击力,10/50
