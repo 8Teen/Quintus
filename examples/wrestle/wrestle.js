@@ -16,12 +16,12 @@ window.addEventListener('load', function () {
     //var h = window.innerHeight;
 
     Q.setup({
-//        width:500,
-//        height:320,
-        width:1000,
-        height:640
-//        upsampleHeight: 640,
-//        upsampleWidth: 1000
+        width:500,
+        height:320,
+//        width:1000,
+//        height:640
+        upsampleHeight: 640,
+        upsampleWidth: 1000
     })
     .touch(Q.SPRITE_ALL)
     .enableSound();
@@ -440,7 +440,7 @@ window.addEventListener('load', function () {
     Q.scene("mainRoot", function (stage) {
         //stage.viewport(600, 320);
 
-        //Q.audio.play('bg.mp3',{loop: true});
+        Q.audio.play('bg.mp3',{loop: true, volume: 0.5});
 
         Q.wrestle.stage = stage;
 
