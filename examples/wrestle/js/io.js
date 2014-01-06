@@ -30,8 +30,8 @@ Quintus.ioSprites = function (Q) {
         showPrint: function(){
             var _self = this;
 
-            Q.wrestle.Cicle = new Q.Circle({
-                opacity: 0.2,
+            var s = new Q.Circle({
+                opacity: 0.5,
                 x: _self.p.x,
                 y: _self.p.y,
                 z: 3,
@@ -40,8 +40,8 @@ Quintus.ioSprites = function (Q) {
                 h: 70,
                 fill: '#FF000'
             });
-            Q.wrestle.stage.insert(Q.wrestle.Cicle,Q.wrestle.rightBottom);
-            Q.wrestle.Cicle.enlarge();
+            Q.wrestle.stage.insert(s,Q.wrestle.rightBottom);
+            s.enlarge();
         }
     });
 
@@ -96,6 +96,7 @@ Quintus.ioSprites = function (Q) {
             this._super(p, {
                 sheet: 'direct',
                 frame: 0,
+                z: 2,
                 w: W,
                 h: H,
                 scale: ScaleXX
@@ -107,8 +108,8 @@ Quintus.ioSprites = function (Q) {
         showPrint: function(){
             var _self = this;
 
-            Q.wrestle.Cicle = new Q.Circle({
-                opacity: 0.3,
+            var s = new Q.Circle({
+                opacity: 0.5,
                 x: _self.p.x,
                 y: _self.p.y,
                 z: 3,
@@ -117,8 +118,8 @@ Quintus.ioSprites = function (Q) {
                 h: 50,
                 fill: '#FF000'
             });
-            Q.wrestle.stage.insert(Q.wrestle.Cicle,Q.wrestle.leftBottom);
-            Q.wrestle.Cicle.enlarge();
+            Q.wrestle.stage.insert(s,Q.wrestle.leftBottom);
+            s.enlarge();
         }
     });
 

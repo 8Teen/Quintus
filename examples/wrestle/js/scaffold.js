@@ -33,7 +33,7 @@ Quintus.scaffoldSprites = function (Q) {
         enlarge: function () {
             var _self = this;
 
-            _self.animate({scale:2, opacity: 0},1, Q.Easing.Linear , { callback: function(){
+            _self.animate({scale:3, opacity: 0},1, Q.Easing.Linear , { callback: function(){
                 _self.destroy();
             }});
         },

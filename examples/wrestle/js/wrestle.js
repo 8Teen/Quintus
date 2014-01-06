@@ -82,7 +82,7 @@ window.addEventListener('load', function () {
 
 
         var rand;
-        var keysNum = 4;
+        var keysNum = 5;
         var pairNum = Math.floor(keysNum/2);
         var symNum = 8;
         for(var i = 0; i < keysNum; i++){
@@ -287,7 +287,7 @@ window.addEventListener('load', function () {
         //右侧控制区.
         rightBottom = Q.wrestle.rightBottom = stage.insert(new Q.UI.Container({
             fill:"transparent",
-            x: Q.width - 150,
+            x: Q.width - 200,
             y: Q.height - 200,
             z: 3,
             w: 280,

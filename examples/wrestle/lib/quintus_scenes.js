@@ -645,6 +645,8 @@ Quintus.Scenes = function (Q) {
                     for (var ix = gridX1; ix <= gridX2; ix++) {
                         if ((gridBlock = gridRow[ix])) {
                             for (var id in gridBlock) {
+                                if(this.index[id] == void 0) continue;  //add by jiangC. sprites maybe destroyed.
+
                                 this.index[id].mark = time;
                                 if (this.index[id].container) {
                                     this.index[id].container.mark = time;
