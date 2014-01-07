@@ -35,7 +35,7 @@ Quintus.playerSprites = function (Q) {
 
             this.on('vision_stand',this._show_stand);
             this.on('vision_attack_end',this._attack_end);
-            this.on('vision__suffer_end',this._suffer_end);
+            this.on('vision_suffer_end', this._suffer_end);
 
             this.on('user_attack_end',this._attack_end);
             this.on('user_suffer_end',this._suffer_end);
@@ -326,12 +326,14 @@ Quintus.playerSprites = function (Q) {
 
 
                 if(_self.p.career === Q.wrestle.Career.Front){
+
+                    Q.audio.play('male_suffer_weak.mp3');
+
                     _self.p.sheet = "front_suffer_weak";
                     _self.p.x = Q.width/2  - 200;
                     _self.p.y = Q.height/2 + 150;
                     _self.play('front_suffer_weak');
                 }
-
 
                 if(_self.p.career === Q.wrestle.Career.InterAct){
 
@@ -344,6 +346,9 @@ Quintus.playerSprites = function (Q) {
                 }
 
                 if(_self.p.career === Q.wrestle.Career.Vision){
+
+                    Q.audio.play('male_suffer_weak.mp3');
+
                     _self.p.sheet = "vision_suffer_weak";
                     _self.p.x = Q.width/2  - 220;
                     _self.p.y = Q.height/2 + 90;
@@ -379,6 +384,9 @@ Quintus.playerSprites = function (Q) {
             else{
 
                 if(_self.p.career === Q.wrestle.Career.Front){
+
+                    Q.audio.play('male_suffer_weak.mp3');
+
                     _self.p.sheet = "front_suffer_medium";
                     _self.p.x = Q.width/2  - 300;
                     _self.p.y = Q.height/2 + 150;
@@ -396,6 +404,9 @@ Quintus.playerSprites = function (Q) {
                 }
 
                 if(_self.p.career === Q.wrestle.Career.Vision){
+
+                    Q.audio.play('male_suffer_weak.mp3');
+
                     _self.p.sheet = "vision_suffer_medium";
                     _self.p.x = Q.width/2  - 340;
                     _self.p.y = Q.height/2 + 60;

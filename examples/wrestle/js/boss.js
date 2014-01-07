@@ -44,6 +44,7 @@ Quintus.bossSprites = function (Q) {
 
             });
             this.on('lose',function(){
+
                 var win = new Q.Sprite({
                     x: Q.width/2,
                     y: Q.height/2,
@@ -225,12 +226,17 @@ Quintus.bossSprites = function (Q) {
             //Q.audio.play('male_show.mp3');
         },
         win: function(){
+            Q.audio.play('male_win.mp3');
+
             this.p.sheet = "boss_win";
             this.p.x = Q.width/2 + 200;
             this.p.y = Q.height/2 + 80;
             this.play('win');
         },
         lose: function(){
+
+            Q.audio.play('male_lose.mp3');
+
             this.p.sheet = "boss_lose";
             this.p.x = Q.width/2 + 200;
             this.p.y = Q.height/2 + 100;

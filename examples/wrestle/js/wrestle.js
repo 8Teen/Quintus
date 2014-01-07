@@ -283,7 +283,7 @@ window.addEventListener('load', function () {
 
         //右侧控制区.
         rightBottom = Q.wrestle.rightBottom = stage.insert(new Q.UI.Container({
-            fill:"transparent",
+            radius: 40,
             x: Q.width - 200,
             y: Q.height - 200,
             z: 3,
@@ -358,7 +358,7 @@ window.addEventListener('load', function () {
         if(role === Q.wrestle.Career.InterAct){
             playerAva = new Q.Avator({
                 asset:'scaffold/jiaohu.png',
-                x: -170, y: -30
+                x: -180, y: -30
             });
 
             playerNick = new Q.UI.Text({
@@ -373,7 +373,7 @@ window.addEventListener('load', function () {
         if(role === Q.wrestle.Career.Vision){
             playerAva = new Q.Avator({
                 asset:'scaffold/simeigong.png',
-                x: -170, y: -30
+                x: -180, y: -30
             });
 
             playerNick = new Q.UI.Text({
@@ -388,7 +388,7 @@ window.addEventListener('load', function () {
         if(role === Q.wrestle.Career.User){
             playerAva = new Q.Avator({
                 asset:'scaffold/yongyan.png',
-                x: -170, y: -30
+                x: -180, y: -30
             });
 
             playerNick = new Q.UI.Text({
@@ -408,7 +408,7 @@ window.addEventListener('load', function () {
     function rightTop(stage){
         var rightTop = stage.insert(new Q.UI.ImgContainer({
             x: Q.width - 230,
-            y: 130,
+            y: 120,
             z: 1,
             frame: 1,
             sprite:'scaffold/logo.png',
@@ -417,8 +417,8 @@ window.addEventListener('load', function () {
         }));
 
         Q.wrestle.b_blood = new Q.Blood({
-            x: -52,
-            y: -25,
+            x: -45,
+            y: -14,
             angle: 180,
             frame: 0,
             sprite: 'scaffold/blood_r.png',
@@ -428,7 +428,7 @@ window.addEventListener('load', function () {
         var bossAva = new Q.Avator({
             asset:'scaffold/boss.png',
             scale: 0.9,
-            x: 190, y: -30
+            x: 210, y: -20
         });
 
         var bossNick = new Q.UI.Text({
@@ -459,8 +459,8 @@ window.addEventListener('load', function () {
         }));
         stage.insert(topMiddle);
 
-        var decade = new Q.CD({x: -35, y: 50, frame: 6, scale:0.9});
-        var unit = new Q.CD({x: 35, y: 50, frame: 0, scale:0.9});
+        var decade = new Q.CD({x: -30, y: 40, frame: 6, scale: 0.8});
+        var unit = new Q.CD({x: 30, y: 40, frame: 0, scale: 0.8});
 
         stage.insert(decade,topMiddle);
         stage.insert(unit,topMiddle);
@@ -497,7 +497,7 @@ window.addEventListener('load', function () {
 
         reset();
 
-//        Q.audio.play('bg.mp3',{loop: true, volume: 0.5});
+        Q.audio.play('bg.mp3', {loop: true, volume: 0.5});
 
         Q.wrestle.stage = stage;
 
