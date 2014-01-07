@@ -62,8 +62,9 @@ window.addEventListener('load', function () {
             AArr[i].destroy();
         }
         AArr = [];
+        pad && pad.destroy();
 
-        if(pad == void 0){
+        if(!stage.has(pad)){
             pad = stage.insert(new Q.UI.ImgContainer({
                 x: Q.width/2,
                 y: Q.height - 100,
@@ -128,10 +129,6 @@ window.addEventListener('load', function () {
                 answer.push(8);
             }
         }
-
-        if(pad.p.hidden){
-            pad.show();
-        }
     };
 
 
@@ -149,28 +146,28 @@ window.addEventListener('load', function () {
     var oldTime;
     function check(type,stage){
 
-        if(isFirstInCheck){
-            oldTime = Date.now();
-            isFirstInCheck = false;
-        }
-        else{
-            if(Date.now() - oldTime > 8000){
-
-                Q.wrestle.rightBottom.hide();
-                Q.wrestle.leftBottom.hide();
-
-                var timeover = new Q.Sprite({
-                    x: Q.width/2,
-                    y: Q.height/2,
-                    z: 2,
-                    asset:'scaffold/timeover.png'
-                });
-
-                Q.wrestle.stage.insert(timeover);
-
-                return;
-            }
-        }
+//        if(isFirstInCheck){
+//            oldTime = Date.now();
+//            isFirstInCheck = false;
+//        }
+//        else{
+//            if(Date.now() - oldTime > 8000){
+//
+//                Q.wrestle.rightBottom.hide();
+//                Q.wrestle.leftBottom.hide();
+//
+//                var timeover = new Q.Sprite({
+//                    x: Q.width/2,
+//                    y: Q.height/2,
+//                    z: 2,
+//                    asset:'scaffold/timeover.png'
+//                });
+//
+//                Q.wrestle.stage.insert(timeover);
+//
+//                return;
+//            }
+//        }
 
         //一回合.
         if(Q.wrestle.roundRunning){
@@ -319,10 +316,11 @@ window.addEventListener('load', function () {
         });
     };
 
+    var role = Q.wrestle.Career.Front;
     function leftTop(stage){
         var leftTop = stage.insert(new Q.UI.ImgContainer({
-            x: 256,
-            y: 114,
+            x: 230,
+            y: 120,
             z: 1,
             frame: 0,
             sprite:'scaffold/logo.png',
@@ -338,57 +336,69 @@ window.addEventListener('load', function () {
             sheet:'blood_l'
         });
 
-        var playerAva = new Q.Avator({
-            asset:'scaffold/manong.png',
-            x: -170, y: -30
-        });
+        var playerAva;
+        var playerNick;
 
-//        var playerAva = new Q.Avator({
-//            asset:'scaffold/jiaohu.png',
-//            x: -170, y: -30
-//        });
+        if(role === Q.wrestle.Career.Front){
+            playerAva = new Q.Avator({
+                asset:'scaffold/manong.png',
+                scale:0.8,
+                x: -180, y: -30
+            });
 
-//        var playerAva = new Q.Avator({
-//            asset:'scaffold/simeigong.png',
-//            x: -170, y: -30
-//        });
+            playerNick = new Q.UI.Text({
+                label:'码农',
+                size: 20,
+                color: 'white',
+                x: -90,
+                y: -40
+            });
+        }
 
-//        var playerAva = new Q.Avator({
-//            asset:'scaffold/yongyan.png',
-//            x: -170, y: -30
-//        });
+        if(role === Q.wrestle.Career.InterAct){
+            playerAva = new Q.Avator({
+                asset:'scaffold/jiaohu.png',
+                x: -170, y: -30
+            });
 
-        var playerNick = new Q.UI.Text({
-            label:'码农',
-            size: 20,
-            color: 'white',
-            x: -90,
-            y: -40
-        });
+            playerNick = new Q.UI.Text({
+                label:'焦糊',
+                size: 20,
+                color: 'white',
+                x: -90,
+                y: -40
+            });
+        }
 
-//        var playerNick = new Q.UI.Text({
-//            label:'焦糊',
-//            size: 20,
-//            color: 'white',
-//            x: -90,
-//            y: -40
-//        });
+        if(role === Q.wrestle.Career.Vision){
+            playerAva = new Q.Avator({
+                asset:'scaffold/simeigong.png',
+                x: -170, y: -30
+            });
 
-//        var playerNick = new Q.UI.Text({
-//            label:'视觉',
-//            size: 20,
-//            color: 'white',
-//            x: -90,
-//            y: -40
-//        });
+            playerNick = new Q.UI.Text({
+                label:'视觉',
+                size: 20,
+                color: 'white',
+                x: -90,
+                y: -40
+            });
+        }
 
-//        var playerNick = new Q.UI.Text({
-//            label:'用研',
-//            size: 20,
-//            color: 'white',
-//            x: -90,
-//            y: -40
-//        });
+        if(role === Q.wrestle.Career.User){
+            playerAva = new Q.Avator({
+                asset:'scaffold/yongyan.png',
+                x: -170, y: -30
+            });
+
+            playerNick = new Q.UI.Text({
+                label:'用研',
+                size: 20,
+                color: 'white',
+                x: -90,
+                y: -40
+            });
+        }
 
         stage.insert(playerAva,leftTop);
         stage.insert(playerNick,leftTop);
@@ -397,8 +407,8 @@ window.addEventListener('load', function () {
 
     function rightTop(stage){
         var rightTop = stage.insert(new Q.UI.ImgContainer({
-            x: Q.width - 250,
-            y: 120,
+            x: Q.width - 230,
+            y: 130,
             z: 1,
             frame: 1,
             sprite:'scaffold/logo.png',
@@ -417,7 +427,8 @@ window.addEventListener('load', function () {
 
         var bossAva = new Q.Avator({
             asset:'scaffold/boss.png',
-            x: 200, y: -25
+            scale: 0.9,
+            x: 190, y: -30
         });
 
         var bossNick = new Q.UI.Text({
@@ -433,7 +444,58 @@ window.addEventListener('load', function () {
         stage.insert(Q.wrestle.b_blood,rightTop);
     };
 
+    function countDown(stage){
+        Q.wrestle.cd = new Q.CD();
+        stage.insert(Q.wrestle.cd);
+        Q.wrestle.cd.play('show');
+
+        var topMiddle = stage.insert(new Q.UI.ImgContainer({
+            x: Q.width/2,
+            y: 50,
+            w: 282,
+            z: 1,
+            asset:"scaffold/ct.png",
+            scale: 1
+        }));
+        stage.insert(topMiddle);
+
+        var decade = new Q.CD({x: -35, y: 50, frame: 6, scale:0.9});
+        var unit = new Q.CD({x: 35, y: 50, frame: 0, scale:0.9});
+
+        stage.insert(decade,topMiddle);
+        stage.insert(unit,topMiddle);
+
+        (function (){
+            var span = 60;
+            var tTicker = setInterval(function(){
+                span--;
+
+                var s = Math.floor(span/10);
+                var f = span%10;
+
+                decade.p.frame = s;
+                unit.p.frame = f;
+
+                if(s == 0 && f ==0){
+                    clearInterval(tTicker);
+                    decade.destroy();
+                    unit.destroy();
+                }
+            },1000);
+        })();
+
+    };
+
+    function reset(){
+        isFirstInCheck = true;
+        Q.wrestle.roundRunning = false;
+        Q.wrestle.boss.reset && Q.wrestle.boss.reset();
+        Q.wrestle.player.reset && Q.wrestle.player.reset();
+    };
+
     Q.scene("mainRoot", function (stage) {
+
+        reset();
 
 //        Q.audio.play('bg.mp3',{loop: true, volume: 0.5});
 
@@ -450,58 +512,133 @@ window.addEventListener('load', function () {
 
         leftBottom(stage);
 
+        countDown(stage);
+
 
         Q.wrestle.boss = new Q.Boss();
 
-        Q.wrestle.player = new Q.Player({
-            career: Q.wrestle.Career.Front,
-            name:'前端',
-            avatar:'scaffold/manong.png',
-            sprite:'front_show',
-            sheet:'front_show',
-            level: Q.wrestle.pLevel.excellent
-        });
+        if(role === Q.wrestle.Career.Front){
+            Q.wrestle.player = new Q.Player({
+                career: Q.wrestle.Career.Front,
+                name:'前端',
+                avatar:'scaffold/manong.png',
+                sprite:'front_show',
+                sheet:'front_show',
+                level: Q.wrestle.pLevel.excellent
+            });
+        }
 
+        if(role === Q.wrestle.Career.InterAct){
+            Q.wrestle.player = new Q.Player({
+                career: Q.wrestle.Career.InterAct,
+                name:'焦糊',
+                avatar:'scaffold/jiaohu.png',
+                sprite:'interact_show',
+                sheet:'interact_show',
+                level: Q.wrestle.pLevel.excellent
+            });
+        }
 
-//        Q.wrestle.player = new Q.Player({
-//            career: Q.wrestle.Career.InterAct,
-//            name:'焦糊',
-//            avatar:'scaffold/jiaohu.png',
-//            sprite:'interact_show',
-//            sheet:'interact_show',
-//            level: Q.wrestle.pLevel.excellent
-//        });
+        if(role === Q.wrestle.Career.Vision){
+            Q.wrestle.player = new Q.Player({
+                career: Q.wrestle.Career.Vision,
+                name:'视觉',
+                avatar:'scaffold/simeigong.png',
+                sprite:'vision_show',
+                sheet:'vision_show',
+                level: Q.wrestle.pLevel.excellent
+            });
+        }
 
-//        Q.wrestle.player = new Q.Player({
-//            career: Q.wrestle.Career.Vision,
-//            name:'视觉',
-//            avatar:'scaffold/simeigong.png',
-//            sprite:'vision_show',
-//            sheet:'vision_show',
-//            level: Q.wrestle.pLevel.excellent
-//        });
-
-//        Q.wrestle.player = new Q.Player({
-//            career: Q.wrestle.Career.User,
-//            name:'用研',
-//            avatar:'scaffold/yongyan.png',
-//            sprite:'user_show',
-//            sheet:'user_show',
-//            level: Q.wrestle.pLevel.excellent
-//        });
-
-        Q.wrestle.cd = new Q.CD();
-
+        if(role === Q.wrestle.Career.User){
+            Q.wrestle.player = new Q.Player({
+                career: Q.wrestle.Career.User,
+                name:'用研',
+                avatar:'scaffold/yongyan.png',
+                sprite:'user_show',
+                sheet:'user_show',
+                level: Q.wrestle.pLevel.excellent
+            });
+        }
 
         stage.insert(Q.wrestle.boss);
         stage.insert(Q.wrestle.player);
-        stage.insert(Q.wrestle.cd);
-
 
         generateKeys(stage);
 
     }, {
         sort: true
+    });
+
+    Q.scene("loading", function (stage) {
+        stage.insert(new Q.UI.Text({
+            label: "Loading...",
+            x: Q.width / 2,
+            y: Q.height / 2
+        }));
+    });
+
+    Q.scene("chooseRole",function(stage){
+
+        var bg = new Q.Background();
+        stage.insert(bg);
+
+        var ct = stage.insert(new Q.UI.Container({
+            x: Q.width/2,
+            y: Q.height/2,
+            fill: '#FFF',
+            opacity: 0.3,
+            radius: 80,
+            z: 1,
+            w: 500,
+            h: 500
+        }));
+
+        var manong = new Q.Avator({
+            asset:'scaffold/manong.png',
+            scale:1,
+            x: -ct.p.w/4, y: ct.p.h/4
+        });
+        manong.on('touch',function(){
+            role = Q.wrestle.Career.Front;
+            Q.stageScene("mainRoot");
+        });
+
+
+        var jiaohu = new Q.Avator({
+            asset:'scaffold/jiaohu.png',
+            scale:1,
+            x: ct.p.w/4, y: ct.p.h/4
+        });
+        jiaohu.on('touch',function(){
+            role = Q.wrestle.Career.InterAct;
+            Q.stageScene("mainRoot");
+        });
+
+        var simeigong = new Q.Avator({
+            asset:'scaffold/simeigong.png',
+            scale:1,
+            x: -ct.p.w/4, y: -ct.p.h/4
+        });
+        simeigong.on('touch',function(){
+            role = Q.wrestle.Career.Vision;
+            Q.stageScene("mainRoot");
+        });
+
+        var yongyan = new Q.Avator({
+            asset:'scaffold/yongyan.png',
+            scale:1,
+            x: ct.p.w/4, y: -ct.p.h/4
+        });
+        yongyan.on('touch',function(){
+            role = Q.wrestle.Career.User;
+            Q.stageScene("mainRoot");
+        });
+
+        stage.insert(manong,ct);
+        stage.insert(jiaohu,ct);
+        stage.insert(simeigong,ct);
+        stage.insert(yongyan,ct);
     });
 
 });

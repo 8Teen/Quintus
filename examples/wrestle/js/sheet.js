@@ -5,6 +5,8 @@ Quintus.Sheets = function (Q) {
 
     Q.enableSound();
 
+    Q.stageScene("loading");
+
     Q.load([
         "front/front_show.png",
         "front/front_move.png",
@@ -87,11 +89,11 @@ Quintus.Sheets = function (Q) {
         "scaffold/logo.png",
         "scaffold/blood_l.png",
         "scaffold/blood_r.png",
+        "scaffold/ct.png",
 
         "scaffold/win.png",
         "scaffold/lose.png",
         "scaffold/timeover.png",
-
 
         "scaffold/boss.png",
         "scaffold/jiaohu.png",
@@ -107,11 +109,9 @@ Quintus.Sheets = function (Q) {
                 {
                     "sx": 0,
                     "sy": 0,
-                    "w": 1025,
-                    "h": 198,
-                    "cols": 5,
-                    "tilew": 205,
-                    "tileh": 198
+                    "cols": 10,
+                    "tilew": 112,
+                    "tileh": 112
                 });
 
             //IO
@@ -640,7 +640,7 @@ Quintus.Sheets = function (Q) {
                     "tileh": 15
                 });
 
-            Q.stageScene("mainRoot");
+            Q.stageScene("chooseRole");
 
         });
 

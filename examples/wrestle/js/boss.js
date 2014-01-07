@@ -38,6 +38,10 @@ Quintus.bossSprites = function (Q) {
 
                 Q.wrestle.stage.insert(lose);
 
+                setTimeout(function(){
+                    Q.stageScene("chooseRole");
+                },1000);
+
             });
             this.on('lose',function(){
                 var win = new Q.Sprite({
@@ -48,6 +52,10 @@ Quintus.bossSprites = function (Q) {
                 });
 
                 Q.wrestle.stage.insert(win);
+
+                setTimeout(function(){
+                    Q.stageScene("chooseRole");
+                },1000);
             });
 
             this.play('show');
@@ -203,6 +211,9 @@ Quintus.bossSprites = function (Q) {
 
                 Q.audio.play('male_suffer_weak.mp3');
             }
+        },
+        reset: function(){
+            Q.wrestle.b_blood.sheet().tileW = 385;
         },
         standStill: function(){
 

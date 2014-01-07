@@ -43,6 +43,9 @@ Quintus.playerSprites = function (Q) {
 
             this.show();
         },
+        reset: function(){
+            Q.wrestle.p_blood.sheet().tileW = 385;
+        },
         attack: function(){
             var rand = Math.random();
 

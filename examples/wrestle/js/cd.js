@@ -16,9 +16,8 @@ Quintus.cdSprites = function (Q) {
             });
 
             this.add("animation");
-            this.add("destroy",this.deallocate());
+            this.on("destroy",this.deallocate);
 
-            this.play('show');
         },
         deallocate: function(){
             this.destroy();
@@ -27,7 +26,7 @@ Quintus.cdSprites = function (Q) {
 
     Q.animations('cd', {
         show: {
-            frames: [0,1,2,3,4,5],
+            frames: [5,4,3,2,1],
             rate: 1,
             loop: false,
             trigger:"destroy"
