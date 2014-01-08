@@ -11,9 +11,9 @@ Quintus.ioSprites = function (Q) {
     var W = 119;
     var H = 119;
 
-    Q.Sprite.extend("Letter",{
-        init: function(p){
-            this._super(p,{
+    Q.Sprite.extend("Letter", {
+        init: function (p) {
+            this._super(p, {
                 sheet: 'abcd',
                 w: W,
                 h: H,
@@ -22,12 +22,13 @@ Quintus.ioSprites = function (Q) {
                 scale: ScaleX
             });
 
-            this.on(Touch,this,'Touch');
+            this.on(Touch, this, 'Touch');
         },
-        Touch: function(){
+        Touch: function () {
+            Q.wrestle.Hit.realHit = this.p.type;
             this.showPrint();
         },
-        showPrint: function(){
+        showPrint: function () {
             var _self = this;
 
             var s = new Q.Circle({
@@ -40,7 +41,7 @@ Quintus.ioSprites = function (Q) {
                 h: 70,
                 fill: '#FF000'
             });
-            Q.wrestle.stage.insert(s,Q.wrestle.rightBottom);
+            Q.wrestle.stage.insert(s, Q.wrestle.rightBottom);
             s.enlarge();
         }
     });
@@ -49,10 +50,10 @@ Quintus.ioSprites = function (Q) {
         init: function (p) {
             this._super(p, {});
 
-            this.on(TouchEnd,this,'TouchEnd');
+            this.on(TouchEnd, this, 'TouchEnd');
 
         },
-        TouchEnd: function(e){
+        TouchEnd: function (e) {
             this.trigger('A.TouchEnd');
         }
     });
@@ -61,9 +62,9 @@ Quintus.ioSprites = function (Q) {
         init: function (p) {
             this._super(p, {});
 
-            this.on(TouchEnd,this,'TouchEnd');
+            this.on(TouchEnd, this, 'TouchEnd');
         },
-        TouchEnd: function(e){
+        TouchEnd: function (e) {
             this.trigger('B.TouchEnd');
         }
     });
@@ -72,9 +73,9 @@ Quintus.ioSprites = function (Q) {
         init: function (p) {
             this._super(p, {});
 
-            this.on(TouchEnd,this,'TouchEnd');
+            this.on(TouchEnd, this, 'TouchEnd');
         },
-        TouchEnd: function(e){
+        TouchEnd: function (e) {
             this.trigger('C.TouchEnd');
         }
     });
@@ -83,16 +84,16 @@ Quintus.ioSprites = function (Q) {
         init: function (p) {
             this._super(p, {});
 
-            this.on(TouchEnd,this,'TouchEnd');
+            this.on(TouchEnd, this, 'TouchEnd');
         },
-        TouchEnd: function(){
+        TouchEnd: function () {
             this.trigger('D.TouchEnd');
         }
     });
 
 
-    Q.Sprite.extend("Direct",{
-        init: function(p){
+    Q.Sprite.extend("Direct", {
+        init: function (p) {
             this._super(p, {
                 sheet: 'direct',
                 frame: 0,
@@ -104,8 +105,14 @@ Quintus.ioSprites = function (Q) {
 
             this.add("animation");
             this.add("tween");
+
+            this.on(Touch, this, 'Touch');
         },
-        showPrint: function(){
+        Touch: function () {
+            Q.wrestle.Hit.realHit = this.p.type;
+            this.showPrint();
+        },
+        showPrint: function () {
             var _self = this;
 
             var s = new Q.Circle({
@@ -118,7 +125,7 @@ Quintus.ioSprites = function (Q) {
                 h: 50,
                 fill: '#FF000'
             });
-            Q.wrestle.stage.insert(s,Q.wrestle.leftBottom);
+            Q.wrestle.stage.insert(s, Q.wrestle.leftBottom);
             s.enlarge();
         }
     });
@@ -128,14 +135,9 @@ Quintus.ioSprites = function (Q) {
             this._super(p, {
             });
 
-            this.on(TouchEnd,this,'TouchEnd');
-            this.on(Touch,this,'Touch');
+            this.on(TouchEnd, this, 'TouchEnd');
         },
-        Touch: function(){
-            this.p.frame = 4;
-            this.showPrint();
-        },
-        TouchEnd: function(){
+        TouchEnd: function () {
             this.p.frame = 0;
             this.trigger('UP.TouchEnd');
         }
@@ -146,34 +148,23 @@ Quintus.ioSprites = function (Q) {
             this._super(p, {
             });
 
-            this.on(TouchEnd,this,'TouchEnd');
-            this.on(Touch,this,'Touch');
+            this.on(TouchEnd, this, 'TouchEnd');
         },
-        Touch: function(){
-            this.p.frame = 5;
-            this.showPrint();
-        },
-        TouchEnd: function(){
+        TouchEnd: function () {
             this.p.frame = 1;
             this.trigger('DOWN.TouchEnd');
         }
     });
 
 
-    
     Q.Direct.extend("LEFT", {
         init: function (p) {
             this._super(p, {
             });
 
-            this.on(TouchEnd,this,'TouchEnd');
-            this.on(Touch,this,'Touch');
+            this.on(TouchEnd, this, 'TouchEnd');
         },
-        Touch: function(){
-            this.p.frame = 7;
-            this.showPrint();
-        },
-        TouchEnd: function(){
+        TouchEnd: function () {
             this.p.frame = 3;
             this.trigger('LEFT.TouchEnd');
         }
@@ -184,14 +175,9 @@ Quintus.ioSprites = function (Q) {
             this._super(p, {
             });
 
-            this.on(TouchEnd,this,'TouchEnd');
-            this.on(Touch,this,'Touch');
+            this.on(TouchEnd, this, 'TouchEnd');
         },
-        Touch: function(){
-            this.p.frame = 6;
-            this.showPrint();
-        },
-        TouchEnd: function(){
+        TouchEnd: function () {
             this.p.frame = 2;
             this.trigger('RIGHT.TouchEnd');
         }
@@ -206,6 +192,23 @@ Quintus.ioSprites = function (Q) {
                 frame: 1,
                 scale: ScaleHit
             });
+
+            this.add('animation');
+            this.add('tween');
+        },
+        enlarge: function (callback) {
+            var _self = this;
+
+            _self.p.sheet = 'io_hit';
+            Q.wrestle.Hit.showHit = _self.p.type;
+
+            _self.animate({scale: 2, opacity: 0}, 1.3, Q.Easing.Linear, { callback: function () {
+                _self.p.scale = ScaleHit;
+                _self.p.opacity = 1;
+                _self.p.sheet = 'io';
+
+                callback && callback();
+            }});
         }
     });
 

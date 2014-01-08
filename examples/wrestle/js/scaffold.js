@@ -2,6 +2,22 @@
  * Created by jiangcheng.wxd on 13-12-27.
  */
 Quintus.scaffoldSprites = function (Q) {
+
+
+    //background.
+    Q.Sprite.extend("Background", {
+        init: function (p) {
+            this._super(p, {
+                x: Q.width / 2,
+                y: Q.height / 2,
+                h: 200,
+                scale: 1,
+                asset: 'bg/bg.jpg',
+                type: Q.SPRITE_NONE
+            });
+        }
+    });
+
     Q.Sprite.extend("Blood", {
         init: function (p) {
             this._super(p, {

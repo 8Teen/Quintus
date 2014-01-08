@@ -26,14 +26,33 @@ Quintus.CONS = function (Q) {
         User:'User'
     };
 
+    Q.wrestle.gameOverCb;
+
     Q.wrestle.Cicle = {};
 
     Q.wrestle.pLevel = {
-        lower:5,            //攻击力,
-        bad:10,             //攻击力,10/50
+        lower: 5,
+        bad: 10,
         medium: 15,
         good:20,
         excellent:30,
         Invincible: 50
     }
+
+    Q.wrestle.hitType = {
+        A: 1,
+        B: 2,
+        C: 3,
+        D: 4,
+        UP: 5,
+        DOWN: 6,
+        LEFT: 7,
+        RIGHT: 8,
+        Nil: -1
+    };
+
+    Q.wrestle.Hit = {
+        showHit: Q.wrestle.hitType.Nil,
+        realHit: Q.wrestle.hitType.Nil
+    };
 };

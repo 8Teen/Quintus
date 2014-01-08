@@ -30,7 +30,29 @@
     <script src="js/sheet.js"></script>
     <script src="js/scaffold.js"></script>
     <script src='js/wrestle.js'></script>
+
+
 </head>
 <body>
 </body>
+<script>
+    var level = {
+        lower: 5,
+        bad: 10,
+        medium: 15,
+        good: 20,
+        excellent: 30,
+        Invincible: 50
+    };
+
+    window.addEventListener('load', function () {
+        Q.Boot({
+            Career: 'interAct',
+            Level: level.bad
+        }, function (result) {
+            alert(result.data);
+        });
+    });
+
+</script>
 </html>

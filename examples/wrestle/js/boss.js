@@ -39,9 +39,9 @@ Quintus.bossSprites = function (Q) {
                 Q.wrestle.stage.insert(lose);
 
                 setTimeout(function(){
-                    Q.stageScene("chooseRole");
+//                    Q.stageScene("chooseRole");
+                    Q.wrestle.gameOverCb({data: 'lose'});
                 },1000);
-
             });
             this.on('lose',function(){
 
@@ -55,8 +55,11 @@ Quintus.bossSprites = function (Q) {
                 Q.wrestle.stage.insert(win);
 
                 setTimeout(function(){
-                    Q.stageScene("chooseRole");
+//                    Q.stageScene("chooseRole");
+                    Q.wrestle.gameOverCb({data: 'win'});
                 },1000);
+
+
             });
 
             this.play('show');

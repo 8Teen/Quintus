@@ -16,10 +16,15 @@ Quintus.cdSprites = function (Q) {
             });
 
             this.add("animation");
-            this.on("destroy",this.deallocate);
+            this.on("showOver", this.showOver);
 
         },
-        deallocate: function(){
+        action: function (cb) {
+            this.play('show');
+            this.showOverCb = cb;
+        },
+        showOver: function () {
+            this.showOverCb();
             this.destroy();
         }
     });
@@ -29,7 +34,7 @@ Quintus.cdSprites = function (Q) {
             frames: [5,4,3,2,1],
             rate: 1,
             loop: false,
-            trigger:"destroy"
+            trigger: "showOver"
         }
     });
 
