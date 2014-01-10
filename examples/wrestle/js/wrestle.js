@@ -8,10 +8,10 @@
         development: true,
         audioSupported: [ 'mp3' ]
     })
-    .include("Sprites, Anim, Scenes, 2D, Touch, UI , Input , Audio")
-    .include("playerSprites,bossSprites,scaffoldSprites,cdSprites,ioSprites")
-    .include("CONS")
-    .include("Sheets");
+        .include("Sprites, Anim, Scenes, 2D, Touch, UI , Input , Audio")
+        .include("playerSprites,bossSprites,scaffoldSprites,cdSprites,ioSprites")
+        .include("CONS")
+        .include("Sheets");
 
 
     var AArr = [];
@@ -27,12 +27,12 @@
     function Init() {
 
         Q.setup({
-//        width:500,
-//        height:320,
-            width: 1000,
-            height: 640
-//        upsampleHeight: 640,
-//        upsampleWidth: 1000
+            width: 500,
+            height: 320,
+//            width: 1000,
+//            height: 640
+            upsampleHeight: 640,
+            upsampleWidth: 1000
         })
             .touch(Q.SPRITE_ALL)
             .enableSound();
@@ -64,16 +64,16 @@
         cursor = 0;
         answer = [];
 
-        for(var i = 0,len = AArr.length; i < len;i++){
+        for (var i = 0, len = AArr.length; i < len; i++) {
             AArr[i].destroy();
             delete AArr[i];
         }
         AArr = [];
         pad && pad.destroy();
 
-        if(!stage.has(pad)){
+        if (!stage.has(pad)) {
             pad = stage.insert(new Q.UI.ImgContainer({
-                x: Q.width/2,
+                x: Q.width / 2,
                 y: Q.height - 100,
                 z: 1,
                 w: 300,
@@ -90,47 +90,47 @@
 
         var rand;
         var keysNum = 3;
-        var pairNum = Math.floor(keysNum/2);
+        var pairNum = Math.floor(keysNum / 2);
         var symNum = 8;
-        for(var i = 0; i < keysNum; i++){
-            rand = getRandomInt(1,symNum);
+        for (var i = 0; i < keysNum; i++) {
+            rand = getRandomInt(1, symNum);
 
-            if(rand == HitType.A){
+            if (rand == HitType.A) {
                 AArr.push(stage.insert(new Q.HIT({x: pad.p.w * (i - pairNum) / symNum, y: 0, frame: 4, type: rand}), pad));
                 answer.push(1);
             }
 
-            if(rand == HitType.B){
+            if (rand == HitType.B) {
                 AArr.push(stage.insert(new Q.HIT({x: pad.p.w * (i - pairNum) / symNum, y: 0, frame: 5, type: rand}), pad));
                 answer.push(2);
             }
 
-            if(rand == HitType.C){
+            if (rand == HitType.C) {
                 AArr.push(stage.insert(new Q.HIT({x: pad.p.w * (i - pairNum) / symNum, y: 0, frame: 6, type: rand}), pad));
                 answer.push(3);
             }
 
-            if(rand == HitType.D){
+            if (rand == HitType.D) {
                 AArr.push(stage.insert(new Q.HIT({x: pad.p.w * (i - pairNum) / symNum, y: 0, frame: 7, type: rand}), pad));
                 answer.push(4);
             }
 
-            if(rand == HitType.UP){
+            if (rand == HitType.UP) {
                 AArr.push(stage.insert(new Q.HIT({x: pad.p.w * (i - pairNum) / symNum, y: 0, frame: 0, type: rand}), pad));
                 answer.push(5);
             }
 
-            if(rand == HitType.DOWN){
+            if (rand == HitType.DOWN) {
                 AArr.push(stage.insert(new Q.HIT({x: pad.p.w * (i - pairNum) / symNum, y: 0, frame: 1, type: rand}), pad));
                 answer.push(6);
             }
 
-            if(rand == HitType.LEFT){
+            if (rand == HitType.LEFT) {
                 AArr.push(stage.insert(new Q.HIT({x: pad.p.w * (i - pairNum) / symNum, y: 0, frame: 2, type: rand}), pad));
                 answer.push(7);
             }
 
-            if(rand == HitType.RIGHT){
+            if (rand == HitType.RIGHT) {
                 AArr.push(stage.insert(new Q.HIT({x: pad.p.w * (i - pairNum) / symNum, y: 0, frame: 3, type: rand}), pad));
                 answer.push(8);
             }
@@ -175,7 +175,7 @@
     function check(type) {
 
         //一回合.
-        if(Q.wrestle.roundRunning){
+        if (Q.wrestle.roundRunning) {
             return;
         }
 
@@ -211,32 +211,32 @@
             z: 3,
             w: 280,
             h: 280,
-            sheet:'Shank',
-            sprite:'io/Shank.png'
+            sheet: 'Shank',
+            sprite: 'io/Shank.png'
         }));
 
         var up = new Q.UP({x: 0, y: -leftBottom.p.h / 3, frame: 0, type: HitType.UP});
-        stage.insert(up,leftBottom);
-        up.on('UP.TouchEnd',up,function(){
-            check(HitType.UP,stage);
+        stage.insert(up, leftBottom);
+        up.on('UP.TouchEnd', up, function () {
+            check(HitType.UP, stage);
         });
 
         var down = new Q.DOWN({x: 0, y: leftBottom.p.h / 3, frame: 1, type: HitType.DOWN});
-        stage.insert(down,leftBottom);
-        down.on('DOWN.TouchEnd',down,function(){
-            check(HitType.DOWN,stage);
+        stage.insert(down, leftBottom);
+        down.on('DOWN.TouchEnd', down, function () {
+            check(HitType.DOWN, stage);
         });
 
         var left = new Q.LEFT({x: -leftBottom.p.w / 3, y: 0, frame: 3, type: HitType.LEFT});
-        stage.insert(left,leftBottom);
-        left.on('LEFT.TouchEnd',left,function(){
-            check(HitType.LEFT,stage);
+        stage.insert(left, leftBottom);
+        left.on('LEFT.TouchEnd', left, function () {
+            check(HitType.LEFT, stage);
         });
 
         var right = new Q.RIGHT({x: leftBottom.p.w / 3, y: 0, frame: 2, type: HitType.RIGHT});
-        stage.insert(right,leftBottom);
-        right.on('RIGHT.TouchEnd',right,function(){
-            check(HitType.RIGHT,stage);
+        stage.insert(right, leftBottom);
+        right.on('RIGHT.TouchEnd', right, function () {
+            check(HitType.RIGHT, stage);
         });
 
     };
@@ -256,27 +256,27 @@
         }));
 
         var a = new Q.A({x: -rightBottom.p.w / 4, y: -rightBottom.p.h / 4, frame: 0, type: HitType.A});
-        stage.insert(a,rightBottom);
-        a.on('A.TouchEnd',rightBottom,function(){
-            check(HitType.A,stage);
+        stage.insert(a, rightBottom);
+        a.on('A.TouchEnd', rightBottom, function () {
+            check(HitType.A, stage);
         });
 
         var b = new Q.B({x: rightBottom.p.w / 4, y: -rightBottom.p.h / 4, frame: 1, type: HitType.B});
-        stage.insert(b,rightBottom);
-        b.on('B.TouchEnd',rightBottom,function(){
-            check(HitType.B,stage);
+        stage.insert(b, rightBottom);
+        b.on('B.TouchEnd', rightBottom, function () {
+            check(HitType.B, stage);
         });
 
         var c = new Q.C({x: -rightBottom.p.w / 4, y: rightBottom.p.h / 4, frame: 2, type: HitType.C});
-        stage.insert(c,rightBottom);
-        c.on('C.TouchEnd',rightBottom,function(){
-            check(HitType.C,stage);
+        stage.insert(c, rightBottom);
+        c.on('C.TouchEnd', rightBottom, function () {
+            check(HitType.C, stage);
         });
 
         var d = new Q.D({x: rightBottom.p.w / 4, y: rightBottom.p.h / 4, frame: 3, type: HitType.D});
-        stage.insert(d,rightBottom);
-        d.on('D.TouchEnd',rightBottom,function(){
-            check(HitType.D,stage);
+        stage.insert(d, rightBottom);
+        d.on('D.TouchEnd', rightBottom, function () {
+            check(HitType.D, stage);
         });
     };
 
@@ -288,8 +288,8 @@
             y: 120,
             z: 1,
             frame: 0,
-            sprite:'scaffold/logo.png',
-            sheet:'logo',
+            sprite: 'scaffold/logo.png',
+            sheet: 'logo',
             scale: 0.8
         }));
 
@@ -298,21 +298,21 @@
             y: -14,
             frame: 0,
             sprite: 'scaffold/blood_l.png',
-            sheet:'blood_l'
+            sheet: 'blood_l'
         });
 
         var playerAva;
         var playerNick;
 
-        if(role === Q.wrestle.Career.Front){
+        if (role === Q.wrestle.Career.Front) {
             playerAva = new Q.Avator({
-                asset:'scaffold/manong.png',
-                scale:0.8,
+                asset: 'scaffold/manong.png',
+                scale: 0.8,
                 x: -180, y: -30
             });
 
             playerNick = new Q.UI.Text({
-                label:'码农',
+                label: '码农',
                 size: 20,
                 color: 'white',
                 x: -90,
@@ -320,14 +320,14 @@
             });
         }
 
-        if(role === Q.wrestle.Career.InterAct){
+        if (role === Q.wrestle.Career.InterAct) {
             playerAva = new Q.Avator({
-                asset:'scaffold/jiaohu.png',
+                asset: 'scaffold/jiaohu.png',
                 x: -180, y: -30
             });
 
             playerNick = new Q.UI.Text({
-                label:'焦糊',
+                label: '焦糊',
                 size: 20,
                 color: 'white',
                 x: -90,
@@ -335,14 +335,14 @@
             });
         }
 
-        if(role === Q.wrestle.Career.Vision){
+        if (role === Q.wrestle.Career.Vision) {
             playerAva = new Q.Avator({
-                asset:'scaffold/simeigong.png',
+                asset: 'scaffold/simeigong.png',
                 x: -180, y: -30
             });
 
             playerNick = new Q.UI.Text({
-                label:'视觉',
+                label: '视觉',
                 size: 20,
                 color: 'white',
                 x: -90,
@@ -350,14 +350,14 @@
             });
         }
 
-        if(role === Q.wrestle.Career.User){
+        if (role === Q.wrestle.Career.User) {
             playerAva = new Q.Avator({
-                asset:'scaffold/yongyan.png',
+                asset: 'scaffold/yongyan.png',
                 x: -180, y: -30
             });
 
             playerNick = new Q.UI.Text({
-                label:'用研',
+                label: '用研',
                 size: 20,
                 color: 'white',
                 x: -90,
@@ -365,9 +365,9 @@
             });
         }
 
-        stage.insert(playerAva,leftTop);
-        stage.insert(playerNick,leftTop);
-        stage.insert(Q.wrestle.p_blood,leftTop);
+        stage.insert(playerAva, leftTop);
+        stage.insert(playerNick, leftTop);
+        stage.insert(Q.wrestle.p_blood, leftTop);
     };
 
     function rightTop() {
@@ -377,8 +377,8 @@
             y: 120,
             z: 1,
             frame: 1,
-            sprite:'scaffold/logo.png',
-            sheet:'logo',
+            sprite: 'scaffold/logo.png',
+            sheet: 'logo',
             scale: 0.8
         }));
 
@@ -388,26 +388,26 @@
             angle: 180,
             frame: 0,
             sprite: 'scaffold/blood_r.png',
-            sheet:'blood_r'
+            sheet: 'blood_r'
         });
 
         var bossAva = new Q.Avator({
-            asset:'scaffold/boss.png',
+            asset: 'scaffold/boss.png',
             scale: 0.9,
             x: 210, y: -20
         });
 
         var bossNick = new Q.UI.Text({
-            label:'无线抗总教官',
+            label: '无线抗总教官',
             size: 20,
             color: 'white',
             x: 70,
             y: -50
         });
 
-        stage.insert(bossAva,rightTop);
-        stage.insert(bossNick,rightTop);
-        stage.insert(Q.wrestle.b_blood,rightTop);
+        stage.insert(bossAva, rightTop);
+        stage.insert(bossNick, rightTop);
+        stage.insert(Q.wrestle.b_blood, rightTop);
     };
 
     function countDown() {
@@ -420,11 +420,11 @@
         });
 
         var topMiddle = stage.insert(new Q.UI.ImgContainer({
-            x: Q.width/2,
+            x: Q.width / 2,
             y: 50,
             w: 282,
             z: 1,
-            asset:"scaffold/ct.png",
+            asset: "scaffold/ct.png",
             scale: 1
         }));
         stage.insert(topMiddle);
@@ -432,31 +432,31 @@
         var decade = new Q.CD({x: -30, y: 40, frame: 9, scale: 0.8});
         var unit = new Q.CD({x: 30, y: 40, frame: 9, scale: 0.8});
 
-        stage.insert(decade,topMiddle);
-        stage.insert(unit,topMiddle);
+        stage.insert(decade, topMiddle);
+        stage.insert(unit, topMiddle);
 
-        (function (){
+        (function () {
             var span = 99;
-            var tTicker = setInterval(function(){
+            var tTicker = setInterval(function () {
                 span--;
 
-                var s = Math.floor(span/10);
-                var f = span%10;
+                var s = Math.floor(span / 10);
+                var f = span % 10;
 
                 decade.p.frame = s;
                 unit.p.frame = f;
 
-                if(s == 0 && f ==0){
+                if (s == 0 && f == 0) {
                     clearInterval(tTicker);
                     decade.destroy();
                     unit.destroy();
                 }
-            },1000);
+            }, 1000);
         })();
 
     };
 
-    function reset(){
+    function reset() {
         Q.wrestle.roundRunning = false;
         Q.wrestle.boss.reset && Q.wrestle.boss.reset();
         Q.wrestle.player.reset && Q.wrestle.player.reset();
@@ -486,46 +486,46 @@
 
         Q.wrestle.boss = new Q.Boss();
 
-        if(role === Q.wrestle.Career.Front){
+        if (role === Q.wrestle.Career.Front) {
             Q.wrestle.player = new Q.Player({
                 career: Q.wrestle.Career.Front,
-                name:'前端',
-                avatar:'scaffold/manong.png',
-                sprite:'front_show',
-                sheet:'front_show',
+                name: '前端',
+                avatar: 'scaffold/manong.png',
+                sprite: 'front_show',
+                sheet: 'front_show',
                 level: rank
             });
         }
 
-        if(role === Q.wrestle.Career.InterAct){
+        if (role === Q.wrestle.Career.InterAct) {
             Q.wrestle.player = new Q.Player({
                 career: Q.wrestle.Career.InterAct,
-                name:'焦糊',
-                avatar:'scaffold/jiaohu.png',
-                sprite:'interact_show',
-                sheet:'interact_show',
+                name: '焦糊',
+                avatar: 'scaffold/jiaohu.png',
+                sprite: 'interact_show',
+                sheet: 'interact_show',
                 level: rank
             });
         }
 
-        if(role === Q.wrestle.Career.Vision){
+        if (role === Q.wrestle.Career.Vision) {
             Q.wrestle.player = new Q.Player({
                 career: Q.wrestle.Career.Vision,
-                name:'视觉',
-                avatar:'scaffold/simeigong.png',
-                sprite:'vision_show',
-                sheet:'vision_show',
+                name: '视觉',
+                avatar: 'scaffold/simeigong.png',
+                sprite: 'vision_show',
+                sheet: 'vision_show',
                 level: rank
             });
         }
 
-        if(role === Q.wrestle.Career.User){
+        if (role === Q.wrestle.Career.User) {
             Q.wrestle.player = new Q.Player({
                 career: Q.wrestle.Career.User,
-                name:'用研',
-                avatar:'scaffold/yongyan.png',
-                sprite:'user_show',
-                sheet:'user_show',
+                name: '用研',
+                avatar: 'scaffold/yongyan.png',
+                sprite: 'user_show',
+                sheet: 'user_show',
                 level: rank
             });
         }
@@ -545,14 +545,14 @@
         }));
     });
 
-    Q.scene("chooseRole",function(stage){
+    Q.scene("chooseRole", function (stage) {
 
         var bg = new Q.Background();
         stage.insert(bg);
 
         var ct = stage.insert(new Q.UI.Container({
-            x: Q.width/2,
-            y: Q.height/2,
+            x: Q.width / 2,
+            y: Q.height / 2,
             fill: '#FFF',
             opacity: 0.3,
             radius: 80,
@@ -562,50 +562,50 @@
         }));
 
         var manong = new Q.Avator({
-            asset:'scaffold/manong.png',
-            scale:1,
-            x: -ct.p.w/4, y: ct.p.h/4
+            asset: 'scaffold/manong.png',
+            scale: 1,
+            x: -ct.p.w / 4, y: ct.p.h / 4
         });
-        manong.on('touch',function(){
+        manong.on('touch', function () {
             role = Q.wrestle.Career.Front;
             Q.stageScene("mainRoot");
         });
 
 
         var jiaohu = new Q.Avator({
-            asset:'scaffold/jiaohu.png',
-            scale:1,
-            x: ct.p.w/4, y: ct.p.h/4
+            asset: 'scaffold/jiaohu.png',
+            scale: 1,
+            x: ct.p.w / 4, y: ct.p.h / 4
         });
-        jiaohu.on('touch',function(){
+        jiaohu.on('touch', function () {
             role = Q.wrestle.Career.InterAct;
             Q.stageScene("mainRoot");
         });
 
         var simeigong = new Q.Avator({
-            asset:'scaffold/simeigong.png',
-            scale:1,
-            x: -ct.p.w/4, y: -ct.p.h/4
+            asset: 'scaffold/simeigong.png',
+            scale: 1,
+            x: -ct.p.w / 4, y: -ct.p.h / 4
         });
-        simeigong.on('touch',function(){
+        simeigong.on('touch', function () {
             role = Q.wrestle.Career.Vision;
             Q.stageScene("mainRoot");
         });
 
         var yongyan = new Q.Avator({
-            asset:'scaffold/yongyan.png',
-            scale:1,
-            x: ct.p.w/4, y: -ct.p.h/4
+            asset: 'scaffold/yongyan.png',
+            scale: 1,
+            x: ct.p.w / 4, y: -ct.p.h / 4
         });
-        yongyan.on('touch',function(){
+        yongyan.on('touch', function () {
             role = Q.wrestle.Career.User;
             Q.stageScene("mainRoot");
         });
 
-        stage.insert(manong,ct);
-        stage.insert(jiaohu,ct);
-        stage.insert(simeigong,ct);
-        stage.insert(yongyan,ct);
+        stage.insert(manong, ct);
+        stage.insert(jiaohu, ct);
+        stage.insert(simeigong, ct);
+        stage.insert(yongyan, ct);
     });
 
     function loadAssets() {
@@ -1255,6 +1255,9 @@
 
         Init();
         Q.enableSound();
+
+        Q.stageScene("loading");
+
         loadAssets();
 
         Q.wrestle.gameOverCb = callback;
